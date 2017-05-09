@@ -1,4 +1,4 @@
-package com.opinnapp.opinnapp.tabholder.home;
+package com.opinnapp.opinnapp.tabholder.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +12,10 @@ import com.opinnapp.opinnapp.R;
  * Created by vzaffalon on 08/05/17.
  */
 
-public class PopularFragment extends Fragment {
+public class RandomFragment extends Fragment {
     // newInstance constructor for creating fragment with arguments
-    public static PopularFragment newInstance() {
-        PopularFragment fragment = new PopularFragment();
+    public static RandomFragment newInstance() {
+        RandomFragment fragment = new RandomFragment();
         return fragment;
     }
 

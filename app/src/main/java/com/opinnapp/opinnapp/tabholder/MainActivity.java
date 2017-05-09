@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.tabholder.home.HomeFragmentPagerAdapter;
+import com.opinnapp.opinnapp.tabholder.Adapters.HomeFragmentPagerAdapter;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
