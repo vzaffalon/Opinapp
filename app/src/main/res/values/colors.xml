@@ -5,4 +5,10 @@
     <color name="colorAccent">#9999a4</color>
     <color name="colorBackground">#F3F6FD</color>
     <color name="white">#ffffff</color>
+
+    <color name="oa_background">#F0F3FA</color>
+    <color name="oa_main_color">#2CC4D2</color>
+    <color name="oa_light_gray_text">#CCCCCC</color>
+    <color name="oa_view_separator">#C8C7CC</color>
+    <color name="oa_black">#4D4D4D</color>
 </resources>
