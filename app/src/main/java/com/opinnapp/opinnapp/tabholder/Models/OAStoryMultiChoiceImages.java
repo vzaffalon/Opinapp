@@ -1,5 +1,6 @@
 package com.opinnapp.opinnapp.tabholder.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,4 +9,16 @@ import java.util.List;
 
 public class OAStoryMultiChoiceImages extends OAStory {
     private List<OAImageOption> options;
+
+    public OAStoryMultiChoiceImages () {
+        options = new ArrayList<>();
+        options.add(new OAImageOption());
+        options.add(new OAImageOption());
+        options.add(new OAImageOption());
+        options.add(new OAImageOption());
+    }
+
+    public List<OAImageOption> getOptions() {
+        return options;
+    }
 }

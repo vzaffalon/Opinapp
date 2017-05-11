@@ -28,7 +28,7 @@
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cell_story_text_only_user_image_view"
+            android:id="@+id/cell_story_iv_user_photo"
 
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -53,6 +53,8 @@
                 android:gravity="center_vertical"
                 >
                 <TextView
+                    android:id="@+id/cell_story_tv_user_name"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -62,6 +64,8 @@
                     />
 
                 <TextView
+                    android:id="@+id/cell_story_tv_user_url"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -75,6 +79,8 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/cell_story_tv_story_time"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -97,6 +103,8 @@
 
     <!-- description layout-->
     <TextView
+        android:id="@+id/cell_story_tv_description"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -118,6 +126,8 @@
         >
 
         <TextView
+            android:id="@+id/cell_story_tv_expiration_time"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -133,6 +143,8 @@
             />
 
         <TextView
+            android:id="@+id/cell_story_tv_tags"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -161,9 +173,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:baselineAligned="false"
         >
 
         <LinearLayout
+            android:id="@+id/cell_story_btn_like"
+
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
@@ -171,6 +186,8 @@
             >
 
             <ImageView
+                android:id="@+id/cell_story_iv_like"
+
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_like"
@@ -179,6 +196,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/cell_story_btn_dislike"
+
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
@@ -186,6 +205,8 @@
             >
 
             <ImageView
+                android:id="@+id/cell_story_iv_dislike"
+
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_like"
@@ -194,6 +215,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/cell_story_btn_comments"
+
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
@@ -201,6 +224,8 @@
             >
 
             <ImageView
+                android:id="@+id/cell_story_iv_comments"
+
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_like"
@@ -209,6 +234,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/cell_story_btn_bookmark"
+
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"
@@ -216,6 +243,8 @@
             >
 
             <ImageView
+                android:id="@+id/cell_story_iv_bookmark"
+
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_like"

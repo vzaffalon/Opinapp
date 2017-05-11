@@ -1,18 +1,33 @@
 package com.opinnapp.opinnapp.tabholder.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.tabholder.Adapters.OAStoriesAdapter;
+import com.opinnapp.opinnapp.tabholder.Models.OAStory;
+import com.opinnapp.opinnapp.tabholder.Models.OAStoryMultiChoiceImages;
+import com.opinnapp.opinnapp.tabholder.Models.OAStoryTextOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vzaffalon on 08/05/17.
  */
 
 public class RandomFragment extends Fragment {
+    private RecyclerView recyclerView;
+    private Context context;
+    private List<OAStory> stories;
+
+
     // newInstance constructor for creating fragment with arguments
     public static RandomFragment newInstance() {
         RandomFragment fragment = new RandomFragment();
@@ -27,9 +42,32 @@ public class RandomFragment extends Fragment {
 
     // Inflate the view for the fragment based on layout XML
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        context = view.getContext();
+        recyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recycler);
+
+        generateStories();
+        mountRecycler();
+
         return view;
+    }
+
+    private void mountRecycler() {
+        if (stories != null) {
+            recyclerView.setHasFixedSize(true);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(new OAStoriesAdapter(stories, context));
+        }
+    }
+
+    private void generateStories () {
+        stories = new ArrayList<>();
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryMultiChoiceImages());
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryMultiChoiceImages());
     }
 }
