@@ -1,4 +1,4 @@
-package com.opinnapp.opinnapp.tabholder.Fragments;
+package com.opinnapp.opinnapp.tabholder.home.tabs;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.tabholder.Adapters.OAStoriesAdapter;
-import com.opinnapp.opinnapp.tabholder.Models.OAStory;
-import com.opinnapp.opinnapp.tabholder.Models.OAStoryMultiChoiceImages;
-import com.opinnapp.opinnapp.tabholder.Models.OAStoryTextOnly;
+import com.opinnapp.opinnapp.adapters.OAStoriesAdapter;
+import com.opinnapp.opinnapp.models.OAStory;
+import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
+import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,7 @@ public class RandomFragment extends Fragment {
     private RecyclerView recyclerView;
     private Context context;
     private List<OAStory> stories;
+    private View view;
 
 
     // newInstance constructor for creating fragment with arguments
@@ -43,8 +44,7 @@ public class RandomFragment extends Fragment {
     // Inflate the view for the fragment based on layout XML
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        view = inflater.inflate(R.layout.fragment_popular, container, false);
         context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recycler);
 
@@ -70,4 +70,6 @@ public class RandomFragment extends Fragment {
         stories.add(new OAStoryTextOnly());
         stories.add(new OAStoryMultiChoiceImages());
     }
+
+
 }

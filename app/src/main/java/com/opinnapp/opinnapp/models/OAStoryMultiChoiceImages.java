@@ -1,4 +1,4 @@
-package com.opinnapp.opinnapp.tabholder.Models;
+package com.opinnapp.opinnapp.models;
 
 import java.util.ArrayList;
 import java.util.List;

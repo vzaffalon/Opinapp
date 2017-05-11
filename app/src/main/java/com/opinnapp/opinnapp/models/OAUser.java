@@ -1,4 +1,4 @@
-package com.opinnapp.opinnapp.tabholder.Models;
+package com.opinnapp.opinnapp.models;
 
 /**
  * Created by cayke on 09/05/17.

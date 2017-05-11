@@ -1,4 +1,4 @@
-package com.opinnapp.opinnapp.tabholder.Adapters;
+package com.opinnapp.opinnapp.adapters;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -11,9 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.tabholder.Models.OAStory;
-import com.opinnapp.opinnapp.tabholder.Models.OAStoryMultiChoiceImages;
-import com.opinnapp.opinnapp.tabholder.Models.OAStoryTextOnly;
+import com.opinnapp.opinnapp.models.OAStory;
+import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
+import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.rd.PageIndicatorView;
 
 import java.util.List;

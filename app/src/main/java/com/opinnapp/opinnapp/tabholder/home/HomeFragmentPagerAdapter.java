@@ -1,11 +1,11 @@
-package com.opinnapp.opinnapp.tabholder.Adapters;
+package com.opinnapp.opinnapp.tabholder.home;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.opinnapp.opinnapp.tabholder.Fragments.PopularFragment;
-import com.opinnapp.opinnapp.tabholder.Fragments.RandomFragment;
+import com.opinnapp.opinnapp.tabholder.home.tabs.PopularFragment;
+import com.opinnapp.opinnapp.tabholder.home.tabs.RandomFragment;
 
 /**
  * Created by vzaffalon on 08/05/17.

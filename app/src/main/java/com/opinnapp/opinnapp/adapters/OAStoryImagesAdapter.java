@@ -1,4 +1,4 @@
-package com.opinnapp.opinnapp.tabholder.Adapters;
+package com.opinnapp.opinnapp.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.tabholder.Models.OAImageOption;
+import com.opinnapp.opinnapp.models.OAImageOption;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="48sp"
+        android:textStyle="italic"
+        android:scaleType="fitXY"
+        android:textColor="@color/white"
+        android:text="Opinapp"/>
+
+    <Button
+        android:id="@+id/button_facebook_login"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:background="#415DAE"
+        android:textColor="@color/white"
+        android:text="Login com facebook"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/button_guest_login"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="24sp"
+        android:gravity="center_horizontal"
+        android:text="Entrar sem cadastro"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content" />
+
+
+
+
+
+</LinearLayout>

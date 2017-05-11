@@ -3,19 +3,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <tab
-        android:id="@+id/tab_home"
+        id="@+id/tab_home"
         android:icon="@drawable/ic_home"
         android:title="Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <tab
-        android:id="@+id/tab_explore"
+        id="@+id/tab_explore"
         android:icon="@drawable/ic_explore"
-        android:title="Explore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <tab
-        android:id="@+id/tab_add_question"
+        id="@+id/tab_add_question"
         android:icon="@drawable/ic_add"
         android:title="Add"
         inActiveColor="#5ed5df"
@@ -24,13 +23,13 @@
         android:layout_height="wrap_content"/>
 
     <tab
-        android:id="@+id/tab_questions"
+        id="@+id/tab_questions"
         android:icon="@drawable/ic_questions"
         android:title="Questions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <tab
-        android:id="@+id/tab_perfil"
+        id="@+id/tab_perfil"
         android:icon="@drawable/ic_perfil"
         android:title="Perfil"
         android:layout_width="wrap_content"
