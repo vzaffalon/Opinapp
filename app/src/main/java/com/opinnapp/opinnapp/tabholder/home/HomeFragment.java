@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpTabBar(){
-        HomeFragmentPagerAdapter adapter = new HomeFragmentPagerAdapter(getActivity().getSupportFragmentManager());
+        HomeFragmentPagerAdapter adapter = new HomeFragmentPagerAdapter(getChildFragmentManager());
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
         // Give the TabLayout the ViewPager

@@ -43,31 +43,26 @@ public class MainActivity extends AppCompatActivity {
                 if (tabId == R.id.tab_home) {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, HomeFragment.newInstance());
-                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_explore){
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, ExploreFragment.newInstance());
-                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_add_question){
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, NewPostFragment.newInstance());
-                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_questions){
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, MyQuestionsFragment.newInstance());
-                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_perfil){
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, PerfilFragment.newInstance());
-                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
             }
