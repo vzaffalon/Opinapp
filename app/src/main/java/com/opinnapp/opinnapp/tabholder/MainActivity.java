@@ -1,11 +1,20 @@
 package com.opinnapp.opinnapp.tabholder;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.login.LoginActivity;
 import com.opinnapp.opinnapp.tabholder.explore.ExploreFragment;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
 import com.opinnapp.opinnapp.tabholder.myquestions.MyQuestionsFragment;
@@ -20,8 +29,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         setUpToolBar();
         setUpBottomBar();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                // Red item was selected
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setFragmentContainer(){
@@ -40,28 +77,25 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 if (tabId == R.id.tab_home) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
                     transaction.replace(R.id.fragment_container, HomeFragment.newInstance());
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_explore){
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, ExploreFragment.newInstance());
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_add_question){
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, NewPostFragment.newInstance());
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_questions){
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, MyQuestionsFragment.newInstance());
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_perfil){
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, PerfilFragment.newInstance());
                     transaction.commit();
                 }
@@ -71,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpToolBar(){
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setTitle("Opinapp");
+        myToolbar.setTitle("Opinow!");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(myToolbar);
     }

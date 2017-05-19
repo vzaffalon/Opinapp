@@ -44,5 +44,12 @@ dependencies {
 
     //facebook login
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    //firebase sdk
+    compile 'com.google.firebase:firebase-core:9.6.1'
+
+    //firebase auth
+    compile 'com.google.firebase:firebase-auth:9.6.1'
 }
 apply plugin: 'realm-android'
+apply plugin: 'com.google.gms.google-services'

@@ -17,8 +17,8 @@
         id="@+id/tab_add_question"
         android:icon="@drawable/ic_add"
         android:title="Add"
-        inActiveColor="#5ed5df"
-        activeColor="#5ed5df"
+        inActiveColor="#F55E8E"
+        activeColor="#F55E8E"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#5ed5df</color>
-    <color name="colorPrimaryDark">#29C5D3</color>
+    <color name="colorPrimaryDark">#35A6CD</color>
     <color name="colorAccent">#9999a4</color>
     <color name="colorBackground">#F3F6FD</color>
     <color name="white">#ffffff</color>
+
+    <color name="tags_grey_number">#B7B7B7</color>
 
     <color name="oa_background">#F0F3FA</color>
     <color name="oa_main_color">#2CC4D2</color>
