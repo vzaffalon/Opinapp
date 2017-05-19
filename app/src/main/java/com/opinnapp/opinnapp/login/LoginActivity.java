@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
     private void setLoadingDialog(){
         pDialog = new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Autenticando Usuário");
+        pDialog.setTitleText("Fazendo Login");
         pDialog.setCancelable(false);
         pDialog.show();
     }
