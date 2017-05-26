@@ -69,6 +69,13 @@ public class RandomFragment extends Fragment {
         stories.add(new OAStoryMultiChoiceImages());
         stories.add(new OAStoryTextOnly());
         stories.add(new OAStoryMultiChoiceImages());
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryTextOnly());
+        stories.add(new OAStoryTextOnly());
     }
 
 
