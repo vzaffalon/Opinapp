@@ -8,17 +8,40 @@ import java.util.List;
  */
 
 public class OAStoryMultiChoiceImages extends OAStory {
-    private List<OAImageOption> options;
+    private List<String> imagesIds;
 
-    public OAStoryMultiChoiceImages () {
-        options = new ArrayList<>();
-        options.add(new OAImageOption());
-        options.add(new OAImageOption());
-        options.add(new OAImageOption());
-        options.add(new OAImageOption());
+    private List<OAImageOption> images;
+
+    @Override
+    public Object firebaseRepresentation() {
+        OAStoryMultiChoiceImages storyMultiChoiceImages = (OAStoryMultiChoiceImages) super.firebaseRepresentation();
+        storyMultiChoiceImages.imagesIds = this.imagesIds;
+        storyMultiChoiceImages.type = this.type;
+        return storyMultiChoiceImages;
     }
 
-    public List<OAImageOption> getOptions() {
-        return options;
+    @Override
+    public void setObjectsValuesWithFirebaseIds() {
+        super.setObjectsValuesWithFirebaseIds();
+
+        //todo images;
+    }
+
+    public OAStoryMultiChoiceImages () {
+        this.type = "OAStoryMultiChoiceImages";
+
+        images = new ArrayList<>();
+        images.add(new OAImageOption());
+        images.add(new OAImageOption());
+        images.add(new OAImageOption());
+        images.add(new OAImageOption());
+    }
+
+    public List<String> getImagesIds() {
+        return imagesIds;
+    }
+
+    public List<OAImageOption> getImages() {
+        return images;
     }
 }
