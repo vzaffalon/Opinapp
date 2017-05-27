@@ -14,10 +14,20 @@ public class OAStoryMultiChoiceImages extends OAStory {
 
     @Override
     public Object firebaseRepresentation() {
-        OAStoryMultiChoiceImages storyMultiChoiceImages = (OAStoryMultiChoiceImages) super.firebaseRepresentation();
-        storyMultiChoiceImages.imagesIds = this.imagesIds;
-        storyMultiChoiceImages.type = this.type;
-        return storyMultiChoiceImages;
+        OAStoryMultiChoiceImages firebaseInstance = new OAStoryMultiChoiceImages();
+        //superclass
+        firebaseInstance.id = this.id;
+        firebaseInstance.ownerID = this.ownerID;
+        firebaseInstance.created_at = this.creationDate.getTime();
+        firebaseInstance.expirate_at = this.expirationDate.getTime();
+        firebaseInstance.description = this.description;
+        firebaseInstance.tags = this.tags;
+        updateCommentsIds();
+        firebaseInstance.commentsIds = this.commentsIds;
+
+        //this class
+        firebaseInstance.imagesIds = this.imagesIds;
+        return firebaseInstance;
     }
 
     @Override

@@ -15,12 +15,23 @@ public class OAStoryTextOnly extends OAStory implements OAFirebaseModel{
 
     @Override
     public Object firebaseRepresentation() {
-        OAStoryTextOnly storyTextOnly = (OAStoryTextOnly) super.firebaseRepresentation();
-        storyTextOnly.usersIdThatLiked = this.usersIdThatLiked;
-        storyTextOnly.usersIdThatDisliked = this.usersIdThatDisliked;
-        storyTextOnly.type = this.type;
+        OAStoryTextOnly firebaseInstance = new OAStoryTextOnly();
 
-        return storyTextOnly;
+        //superclass
+        firebaseInstance.id = this.id;
+        firebaseInstance.ownerID = this.ownerID;
+        firebaseInstance.created_at = this.creationDate.getTime();
+        firebaseInstance.expirate_at = this.expirationDate.getTime();
+        firebaseInstance.description = this.description;
+        firebaseInstance.tags = this.tags;
+        updateCommentsIds();
+        firebaseInstance.commentsIds = this.commentsIds;
+
+        //this class
+        firebaseInstance.usersIdThatLiked = this.usersIdThatLiked;
+        firebaseInstance.usersIdThatDisliked = this.usersIdThatDisliked;
+
+        return firebaseInstance;
     }
 
     @Override

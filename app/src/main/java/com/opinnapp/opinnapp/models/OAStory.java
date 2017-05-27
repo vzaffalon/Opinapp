@@ -11,21 +11,21 @@ import java.util.List;
 //Classe que representa a "duvida" / "pergunta"
 public class OAStory implements OAFirebaseModel {
     //firebase attributes
-    public String type;
-    private String id;
-    private String ownerID;
-    private Long created_at;
-    private Long expirate_at;
-    private String description;
-    private List<String> tags;
-    private List<String> commentsIds;
+    protected String type;
+    protected String id;
+    protected String ownerID;
+    protected Long created_at;
+    protected Long expirate_at;
+    protected String description;
+    protected List<String> tags;
+    protected List<String> commentsIds;
 
     //needs relationship
-    private OAUser owner;
-    private List<OAComment> comments;
-    private boolean favorited;
-    private Date creationDate;
-    private Date expirationDate;
+    protected OAUser owner;
+    protected List<OAComment> comments;
+    protected boolean favorited;
+    protected Date creationDate;
+    protected Date expirationDate;
 
     @Override
     public Object firebaseRepresentation() {
@@ -36,19 +36,37 @@ public class OAStory implements OAFirebaseModel {
         firebaseInstance.expirate_at = this.expirationDate.getTime();
         firebaseInstance.description = this.description;
         firebaseInstance.tags = this.tags;
+
+        updateCommentsIds();
         firebaseInstance.commentsIds = this.commentsIds;
+
         return firebaseInstance;
     }
 
     @Override
     public void setObjectsValuesWithFirebaseIds() {
-        //todo pegar owner, comments, creationDate, expirationDate
+        //todo pegar owner, comments
+        creationDate = new Date(created_at);
+        expirationDate = new Date(expirate_at);
+    }
+
+    public void updateCommentsIds() {
+        if (commentsIds == null || (commentsIds.size() != comments.size())) {
+            commentsIds = new ArrayList<>();
+            for (OAComment comment: comments) {
+                commentsIds.add(comment.getId());
+            }
+        }
     }
 
     public OAStory() {}
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getOwnerID() {

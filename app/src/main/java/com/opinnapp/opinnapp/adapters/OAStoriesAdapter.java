@@ -110,7 +110,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
         }
 
         void bindStory(OAStoryMultiChoiceImages story) {
-            viewPager.setAdapter(new OAStoryImagesAdapter(story.getOptions(), context));
+            viewPager.setAdapter(new OAStoryImagesAdapter(story.getImages(), context));
             indicatorView.setViewPager(viewPager);
 
 
