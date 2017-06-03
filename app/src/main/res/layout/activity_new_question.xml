@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.liuguangqiang.swipeback.SwipeBackLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.liuguangqiang.swipeback.SwipeBackLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeBackLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -38,7 +38,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <EditText
             android:id="@+id/cell_question_input"
 
             android:layout_marginTop="20dp"
@@ -48,8 +48,10 @@
             android:gravity="center_horizontal"
 
             android:textSize="18sp"
-            android:textColor="@color/oa_light_gray_text"
-            android:text="Qual é a sua pergunta?"
+            android:textColor="@color/oa_black"
+            android:background="#00000000"
+            android:hint="Qual é a sua pergunta?"
+            android:textColorHint="@color/oa_light_gray_text"
 
             />
 
@@ -97,7 +99,60 @@
             android:id="@+id/time_option_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:np_width="64dp"
+                app:np_height="140dp"
+                app:np_dividerColor="@color/colorPrimary"
+                app:np_max="24"
+                app:np_min="0"
+                app:np_selectedTextColor="@color/colorPrimary"
+                app:np_textColor="@color/colorPrimary"
+                app:np_textSize="18sp"
+                app:np_value="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="horas"
+                android:textColor="@color/oa_black"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:np_width="64dp"
+                app:np_height="140dp"
+                app:np_dividerColor="@color/colorPrimary"
+                app:np_max="59"
+                app:np_min="0"
+                app:np_selectedTextColor="@color/colorPrimary"
+                app:np_textColor="@color/colorPrimary"
+                app:np_textSize="18sp"
+                app:np_value="30" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="min"
+                android:textColor="@color/oa_black"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
+
+
 
         </LinearLayout>
 
