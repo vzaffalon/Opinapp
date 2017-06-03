@@ -22,7 +22,6 @@ import com.opinnapp.opinnapp.login.LoginActivity;
 import com.opinnapp.opinnapp.tabholder.explore.ExploreFragment;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
 import com.opinnapp.opinnapp.tabholder.myquestions.MyQuestionsFragment;
-import com.opinnapp.opinnapp.tabholder.newquestion.NewPostFragment;
 import com.opinnapp.opinnapp.tabholder.newquestion.NewQuestionActivity;
 import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 import com.roughike.bottombar.BottomBar;

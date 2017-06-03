@@ -11,37 +11,41 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cell_perfil_picture"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="25dp"
-            android:src="@drawable/ic_user"
-            />
-
-        <TextView
-            android:id="@+id/cell_question_mode"
-
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
 
-            android:padding="7dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cell_perfil_picture"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/ic_user" />
 
-            android:text="Público"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            <TextView
+                android:id="@+id/cell_question_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_green_background"
+                android:padding="7dp"
+                android:text="Público"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-            android:background="@drawable/rounded_green_background"
-            />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/cell_question_input"
 
-            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
 
             android:textSize="18sp"
             android:textColor="@color/oa_light_gray_text"
@@ -54,47 +58,74 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
 
+            android:layout_marginTop="10dp"
             android:textSize="18sp"
             android:textColor="@color/oa_light_gray_text"
             android:text="Adicione até 4 alternativas"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
 
             />
+        
+        <LinearLayout
+            android:id="@+id/alternative_option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/cell_time_option"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
 
+            android:layout_marginTop="10dp"
             android:textSize="18sp"
             android:textColor="@color/oa_light_gray_text"
             android:text="Tempo para expirar sua pergunta"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
 
             />
+
+        <LinearLayout
+            android:id="@+id/time_option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/cell_tags_option"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
 
+
+            android:layout_marginTop="10dp"
             android:textSize="18sp"
             android:textColor="@color/oa_light_gray_text"
             android:text="Adicione assuntos a sua pergunta"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
 
             />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
         <TextView
             android:id="@+id/cell_confirm_button"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
 
             android:padding="7dp"
 
@@ -102,8 +133,21 @@
             android:textColor="@color/white"
             android:textSize="20sp"
 
+
             android:background="@drawable/rounded_button"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+
             />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/tag_option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
     </LinearLayout>
 
