@@ -51,6 +51,9 @@ dependencies {
 
     //firebase auth
     compile 'com.google.firebase:firebase-auth:9.6.1'
+
+    //swipe to close activity library
+    compile 'com.github.liuguangqiang.swipeback:library:1.0.2@aar'
 }
 apply plugin: 'realm-android'
 apply plugin: 'com.google.gms.google-services'

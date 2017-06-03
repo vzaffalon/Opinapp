@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.liuguangqiang.swipeback.SwipeBackLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeBackLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- SwipeBackLayout must contains only one direct child -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cell_perfil_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/ic_user"
+            />
+
+        <TextView
+            android:id="@+id/cell_question_mode"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+
+            android:padding="7dp"
+
+            android:text="Público"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+
+            android:background="@drawable/rounded_green_background"
+            />
+
+        <TextView
+            android:id="@+id/cell_question_input"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+
+            android:textSize="18sp"
+            android:textColor="@color/oa_light_gray_text"
+            android:text="Qual é a sua pergunta?"
+
+            />
+
+        <TextView
+            android:id="@+id/cell_alternatives_option"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+
+            android:textSize="18sp"
+            android:textColor="@color/oa_light_gray_text"
+            android:text="Adicione até 4 alternativas"
+
+            />
+
+        <TextView
+            android:id="@+id/cell_time_option"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+
+            android:textSize="18sp"
+            android:textColor="@color/oa_light_gray_text"
+            android:text="Tempo para expirar sua pergunta"
+
+            />
+
+        <TextView
+            android:id="@+id/cell_tags_option"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+
+            android:textSize="18sp"
+            android:textColor="@color/oa_light_gray_text"
+            android:text="Adicione assuntos a sua pergunta"
+
+            />
+
+        <TextView
+            android:id="@+id/cell_confirm_button"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+
+            android:padding="7dp"
+
+            android:text="Perguntar"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+
+            android:background="@drawable/rounded_button"
+            />
+
+    </LinearLayout>
+
+</com.liuguangqiang.swipeback.SwipeBackLayout>

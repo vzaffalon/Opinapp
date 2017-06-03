@@ -13,4 +13,6 @@
     <color name="oa_light_gray_text">#CCCCCC</color>
     <color name="oa_view_separator">#C8C7CC</color>
     <color name="oa_black">#4D4D4D</color>
+
+    <color name="pink_button">#FBADC6</color>
 </resources>

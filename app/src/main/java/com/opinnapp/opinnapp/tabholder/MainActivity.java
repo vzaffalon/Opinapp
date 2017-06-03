@@ -23,8 +23,10 @@ import com.opinnapp.opinnapp.tabholder.explore.ExploreFragment;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
 import com.opinnapp.opinnapp.tabholder.myquestions.MyQuestionsFragment;
 import com.opinnapp.opinnapp.tabholder.newquestion.NewPostFragment;
+import com.opinnapp.opinnapp.tabholder.newquestion.NewQuestionActivity;
 import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -95,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_add_question){
-                    transaction.replace(R.id.fragment_container, NewPostFragment.newInstance());
-                    transaction.commit();
+                    Intent intent = new Intent(getApplicationContext(), NewQuestionActivity.class);
+                    startActivity(intent);
                 }
                 if(tabId == R.id.tab_questions){
                     transaction.replace(R.id.fragment_container, MyQuestionsFragment.newInstance());
@@ -105,6 +107,16 @@ public class MainActivity extends AppCompatActivity {
                 if(tabId == R.id.tab_perfil){
                     transaction.replace(R.id.fragment_container, PerfilFragment.newInstance());
                     transaction.commit();
+                }
+            }
+        });
+
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                if(tabId == R.id.tab_add_question){
+                    Intent intent = new Intent(getApplicationContext(), NewQuestionActivity.class);
+                    startActivity(intent);
                 }
             }
         });
