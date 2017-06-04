@@ -32,10 +32,20 @@ public class NewQuestionActivity extends SwipeBackActivity {
         cell_confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),ConfirmQuestionActivity.class);
-                startActivity(intent);
+               if (verifyData()){
+                   changeActivityToConfirmQuestion();
+               }
             }
         });
+    }
+
+    private void changeActivityToConfirmQuestion(){
+        Intent intent = new Intent(getApplicationContext(),ConfirmQuestionActivity.class);
+        startActivity(intent);
+    }
+
+    private boolean verifyData(){
+        return true;
     }
 
     private void setUpCancelButton(){
