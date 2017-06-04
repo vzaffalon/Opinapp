@@ -51,7 +51,7 @@
                     android:layout_height="25dp"
                     android:src="@drawable/ic_letter_x"
                     android:layout_marginRight="25dp"
-                    android:background="#00000000"
+                    android:background="@color/white"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
@@ -60,49 +60,35 @@
         <EditText
             android:id="@+id/cell_question_input"
 
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:padding="15dp"
 
             android:textSize="20sp"
             android:textColor="@color/oa_black"
             android:background="#00000000"
             android:hint="Qual é a sua pergunta?"
             android:textColorHint="@color/oa_light_gray_text"
+            android:padding="20dp"
 
             />
 
-        <LinearLayout
+        <TextView
             android:id="@+id/cell_alternatives_option"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_list"
-                android:layout_gravity="center_vertical"/>
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginLeft="15dp"
-                android:textSize="18sp"
-                android:textColor="@color/oa_light_gray_text"
-                android:text="Adicione até 4 alternativas"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                />
-        </LinearLayout>
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/oa_light_gray_text"
+            android:text="Adicione até 4 alternativas"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            />
         
         <LinearLayout
             android:id="@+id/alternative_option_layout"
@@ -151,23 +137,10 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/cell_time_option"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_time"
-                android:layout_gravity="center_vertical"/>
         <TextView
+            android:id="@+id/cell_time_option"
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:textSize="18sp"
@@ -175,10 +148,9 @@
             android:text="Tempo para expirar sua pergunta"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:layout_marginLeft="15dp"
+            android:padding="10dp"
 
             />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/time_option_layout"
@@ -241,32 +213,19 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
+        <TextView
             android:id="@+id/cell_tags_option"
-            android:layout_width="match_parent"
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="10dp">
+            android:textSize="18sp"
+            android:textColor="@color/oa_light_gray_text"
+            android:text="Adicione assuntos a sua pergunta"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_tag"
-                android:layout_gravity="center_vertical"/>
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/oa_light_gray_text"
-                android:text="Adicione assuntos a sua pergunta"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                />
-        </LinearLayout>
+            />
 
 
         <LinearLayout
@@ -275,10 +234,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <EditText
-                android:layout_marginLeft="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/oa_black"

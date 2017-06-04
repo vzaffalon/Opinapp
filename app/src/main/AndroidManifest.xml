@@ -45,6 +45,10 @@
             android:theme="@style/Theme.Swipe.Back">
         </activity>
 
+        <activity android:name=".tabholder.newquestion.ConfirmQuestionActivity"
+            android:theme="@style/Theme.Swipe.Back">
+        </activity>
+
         <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -15,4 +15,5 @@
     <color name="oa_black">#4D4D4D</color>
 
     <color name="pink_button">#FBADC6</color>
+    <color name="transparent">#00000000</color>
 </resources>

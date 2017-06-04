@@ -1,7 +1,9 @@
 package com.opinnapp.opinnapp.tabholder.newquestion;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,12 +23,35 @@ public class NewQuestionActivity extends SwipeBackActivity {
         setContentView(R.layout.activity_new_question);
         setDragEdge(SwipeBackLayout.DragEdge.BOTTOM);
         showHideOptions();
+        setUpConfirmButton();
+        setUpCancelButton();
+    }
+
+    private void setUpConfirmButton(){
+        TextView cell_confirm_button  = (TextView) findViewById(R.id.cell_confirm_button);
+        cell_confirm_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ConfirmQuestionActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setUpCancelButton(){
+       ImageButton cancel_button = (ImageButton) findViewById(R.id.cell_cancel_button);
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void showHideOptions(){
-        TextView cell_alternatives_option = (TextView) findViewById(R.id.cell_alternatives_option);
-        TextView cell_time_option = (TextView) findViewById(R.id.cell_time_option);
-        TextView cell_tags_option = (TextView) findViewById(R.id.cell_tags_option);
+        LinearLayout cell_alternatives_option = (LinearLayout) findViewById(R.id.cell_alternatives_option);
+        LinearLayout cell_time_option = (LinearLayout) findViewById(R.id.cell_time_option);
+        LinearLayout cell_tags_option = (LinearLayout) findViewById(R.id.cell_tags_option);
         final LinearLayout alternative_option = (LinearLayout) findViewById(R.id.alternative_option_layout);
         final LinearLayout time_option = (LinearLayout) findViewById(R.id.time_option_layout);
         final LinearLayout tag_option = (LinearLayout) findViewById(R.id.tag_option_layout);
