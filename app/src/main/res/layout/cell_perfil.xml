@@ -13,8 +13,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cell_perfil_picture"
 
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginLeft="25dp"
             android:layout_gravity="center_vertical"
 
