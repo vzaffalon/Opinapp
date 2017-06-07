@@ -39,9 +39,10 @@
                     android:layout_gravity="center_vertical"
                     android:padding="7dp">
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_time"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_eye"
+                        android:background="@color/transparent"
                         android:layout_gravity="center_vertical" />
 
                     <TextView
@@ -187,6 +188,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/cell_time_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4 h 30 min"

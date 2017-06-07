@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 public class ConfirmTagsAdapter extends RecyclerView.Adapter<ConfirmTagsAdapter.ViewHolder> {
-    private List<String> tags;
+    private String[] tags;
     private Context context;
 
     // Provide a reference to the views for each data item
@@ -35,7 +35,7 @@ public class ConfirmTagsAdapter extends RecyclerView.Adapter<ConfirmTagsAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ConfirmTagsAdapter(List<String> mTags, Context mContext) {
+    public ConfirmTagsAdapter(String[] mTags, Context mContext) {
         tags = mTags;
         this.context = mContext;
     }
@@ -57,14 +57,14 @@ public class ConfirmTagsAdapter extends RecyclerView.Adapter<ConfirmTagsAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.tagName.setText(tags.get(position));
+        holder.tagName.setText(tags[position]);
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return tags.size();
+        return tags.length;
     }
 
 }

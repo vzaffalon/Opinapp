@@ -80,7 +80,7 @@ public class NewQuestionActivity extends SwipeBackActivity {
         String tagString = editText_tags.getText().toString();
         if(!tagString.isEmpty()) {
             if (tagString.contains("#")) {
-                tags = tagString.split("#");
+                tags = tagString.replaceFirst("^#", "").split("#");
             } else {
                 Toast.makeText(getApplicationContext(), "Tags devem ser escritas no formato #tag", Toast.LENGTH_SHORT).show();
             }
@@ -132,6 +132,8 @@ public class NewQuestionActivity extends SwipeBackActivity {
 
     private void changeActivityAndPassData(){
         Intent intent = new Intent(getApplicationContext(),ConfirmQuestionActivity.class);
+
+        intent.putExtra("question",question);
 
         if(!option1.isEmpty()) {
             intent.putExtra("option1", option1);
