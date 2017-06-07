@@ -2,7 +2,6 @@ package com.opinnapp.opinnapp.models;
 
 import com.google.firebase.database.DatabaseError;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,12 +19,10 @@ public class OAStory implements OAFirebaseModel {
     protected Long expirate_at;
     protected String description;
     protected List<String> tags;
-    protected List<String> commentsIds;
 
     //needs relationship
     protected OAUser owner;
     protected List<OAComment> comments;
-    protected boolean favorited;
     protected Date creationDate;
     protected Date expirationDate;
 
@@ -39,9 +36,6 @@ public class OAStory implements OAFirebaseModel {
         firebaseInstance.description = this.description;
         firebaseInstance.tags = this.tags;
 
-        updateCommentsIds();
-        firebaseInstance.commentsIds = this.commentsIds;
-
         return firebaseInstance;
     }
 
@@ -50,7 +44,7 @@ public class OAStory implements OAFirebaseModel {
         creationDate = new Date(created_at);
         expirationDate = new Date(expirate_at);
 
-        OAUser.getUserWithID(ownerID, new OAFirebaseCallback() {
+        OADatabase.getUserWithID(ownerID, new OAFirebaseCallback() {
             @Override
             public void onSuccess(Object object) {
                 owner = (OAUser) object;
@@ -63,7 +57,7 @@ public class OAStory implements OAFirebaseModel {
             }
         });
 
-        OAComment.getCommentsWithStoryID(this.id, new OAFirebaseCallback() {
+        OADatabase.getCommentsWithStoryID(this.id, new OAFirebaseCallback() {
             @Override
             public void onSuccess(Object object) {
                 comments = (List<OAComment>) object;
@@ -75,15 +69,6 @@ public class OAStory implements OAFirebaseModel {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-    }
-
-    public void updateCommentsIds() {
-        if (commentsIds == null || (commentsIds.size() != comments.size())) {
-            commentsIds = new ArrayList<>();
-            for (OAComment comment: comments) {
-                commentsIds.add(comment.getId());
-            }
-        }
     }
 
     public OAStory() {}
@@ -116,9 +101,6 @@ public class OAStory implements OAFirebaseModel {
         return tags;
     }
 
-    public List<String> getCommentsIds() {
-        return commentsIds;
-    }
 
     public OAUser getOwner() {
         return owner;
@@ -128,9 +110,6 @@ public class OAStory implements OAFirebaseModel {
         return comments;
     }
 
-    public boolean isFavorited() {
-        return favorited;
-    }
 
     public Date getCreationDate() {
         return creationDate;
@@ -144,17 +123,27 @@ public class OAStory implements OAFirebaseModel {
         return type;
     }
 
-    //todo apagar
-    public void setDefaultValue(String description) {
-        ownerID = "Ahsushau2389835udshs";
-        creationDate = new Date();
-        expirationDate = new Date();
-        expirationDate.setMonth(6);
+    public void setDescription(String description) {
         this.description = description;
-        tags = new ArrayList<>();
-        tags.add("moda");
-        tags.add("fashion");
-        tags.add("help");
     }
 
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+
+    public void setOwner(OAUser owner) {
+        this.owner = owner;
+        this.ownerID = owner.getId();
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+        this.created_at = creationDate.getTime();
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+        this.expirate_at = expirationDate.getTime();
+    }
 }

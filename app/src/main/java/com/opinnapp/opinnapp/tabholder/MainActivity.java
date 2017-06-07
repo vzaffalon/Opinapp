@@ -1,13 +1,11 @@
 package com.opinnapp.opinnapp.tabholder;
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +17,7 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.login.LoginActivity;
+import com.opinnapp.opinnapp.models.OATest;
 import com.opinnapp.opinnapp.tabholder.explore.ExploreFragment;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
 import com.opinnapp.opinnapp.tabholder.myquestions.MyQuestionsFragment;
@@ -39,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setUpToolBar();
         setUpBottomBar();
         handleIntent(getIntent());
+
+        //todo apagar
+        new OATest().initTests();
     }
 
     @Override

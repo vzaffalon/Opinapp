@@ -6,12 +6,9 @@ import java.util.List;
  * Created by cayke on 09/05/17.
  */
 
-public class OAStoryTextOnly extends OAStory implements OAFirebaseModel{
+public class OAStoryTextOnly extends OAStory {
     private List<String> usersIdThatLiked;
     private List<String> usersIdThatDisliked;
-
-    private List<OAUser> likes;
-    private List<OAUser> dislikes;
 
     @Override
     public Object firebaseRepresentation() {
@@ -24,8 +21,6 @@ public class OAStoryTextOnly extends OAStory implements OAFirebaseModel{
         firebaseInstance.expirate_at = this.expirationDate.getTime();
         firebaseInstance.description = this.description;
         firebaseInstance.tags = this.tags;
-        updateCommentsIds();
-        firebaseInstance.commentsIds = this.commentsIds;
 
         //this class
         firebaseInstance.usersIdThatLiked = this.usersIdThatLiked;
@@ -37,8 +32,6 @@ public class OAStoryTextOnly extends OAStory implements OAFirebaseModel{
     @Override
     public void setObjectsValuesWithFirebaseIds() {
         super.setObjectsValuesWithFirebaseIds();
-
-        //todo likes, dislikes
     }
 
     public OAStoryTextOnly() {
@@ -51,13 +44,5 @@ public class OAStoryTextOnly extends OAStory implements OAFirebaseModel{
 
     public List<String> getUsersIdThatDisliked() {
         return usersIdThatDisliked;
-    }
-
-    public List<OAUser> getLikes() {
-        return likes;
-    }
-
-    public List<OAUser> getDislikes() {
-        return dislikes;
     }
 }

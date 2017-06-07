@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.models.OADatabase;
 
 /**
  * Created by vzaffalon on 11/05/17.
@@ -31,9 +30,6 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
-
-        //todo apagar
-        OADatabase.teste();
 
         return view;
     }

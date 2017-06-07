@@ -22,11 +22,10 @@ public class OAStoryMultiChoiceImages extends OAStory {
         firebaseInstance.expirate_at = this.expirationDate.getTime();
         firebaseInstance.description = this.description;
         firebaseInstance.tags = this.tags;
-        updateCommentsIds();
-        firebaseInstance.commentsIds = this.commentsIds;
 
         //this class
         firebaseInstance.imagesIds = this.imagesIds;
+
         return firebaseInstance;
     }
 

@@ -21,4 +21,24 @@ public class OAImageOption implements OAFirebaseModel{
     public void setObjectsValuesWithFirebaseIds() {
 
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public String getStoryID() {
+        return storyID;
+    }
+
+    public List<String> getUsersIdThatLiked() {
+        return usersIdThatLiked;
+    }
 }
