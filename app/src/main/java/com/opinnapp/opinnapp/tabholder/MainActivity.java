@@ -20,7 +20,7 @@ import com.opinnapp.opinnapp.login.LoginActivity;
 import com.opinnapp.opinnapp.models.OATest;
 import com.opinnapp.opinnapp.tabholder.explore.ExploreFragment;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
-import com.opinnapp.opinnapp.tabholder.myquestions.MyQuestionsFragment;
+import com.opinnapp.opinnapp.tabholder.notifications.NotificationsFragment;
 import com.opinnapp.opinnapp.tabholder.newquestion.NewQuestionActivity;
 import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 import com.roughike.bottombar.BottomBar;
@@ -84,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
         setFragmentContainer();
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+
+        //SET ICONS SIZE
+        bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
+        bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+
+        bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
+        bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+
+        bottomBar.getTabWithId(R.id.tab_add_question).findViewById(R.id.bb_bottom_bar_icon).setScaleX(1.0f);
+        bottomBar.getTabWithId(R.id.tab_add_question).findViewById(R.id.bb_bottom_bar_icon).setScaleY(1.0f);
+
+        bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
+        bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+
+        bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
+        bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+
+        //SET TAB FUNCTIONALITIES
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
@@ -101,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), NewQuestionActivity.class);
                     startActivity(intent);
                 }
-                if(tabId == R.id.tab_questions){
-                    transaction.replace(R.id.fragment_container, MyQuestionsFragment.newInstance());
+                if(tabId == R.id.tab_notifications){
+                    transaction.replace(R.id.fragment_container, NotificationsFragment.newInstance());
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_perfil){

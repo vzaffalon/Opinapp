@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"/>
 
     <tab
-        id="@+id/tab_questions"
-        android:icon="@drawable/ic_questions"
+        id="@+id/tab_notifications"
+        android:icon="@drawable/ic_bell"
         android:title="Questions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
