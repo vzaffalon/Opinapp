@@ -26,11 +26,31 @@ public class OADatabase {
 
 
 
-       // createUser();
-       // loadUser();
-       // createStory();
-       // loadStories();
-        createComment();
+        // createUser();
+        // loadUser();
+        // createStory();
+        // loadStories();
+        // createComment();
+        //getComments();
+    }
+
+    private static void getComments() {
+        DatabaseReference storyRef = FirebaseDatabase.getInstance().getReference("comment");
+        storyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
+                    OAComment comment  = userSnap.getValue(OAComment.class);
+                    comment.setObjectsValuesWithFirebaseIds();
+                    System.out.println(comment.getText());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 
     private static void createComment() {
@@ -50,29 +70,29 @@ public class OADatabase {
         storyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    String type = (String) dataSnapshot.child("type").getValue();
-                    OAStory story = null;
+                String type = (String) dataSnapshot.child("type").getValue();
+                OAStory story = null;
 
-                    if (type != null && type.equals("OAStoryMultiChoiceImages")) {
-                        story = dataSnapshot.getValue(OAStoryMultiChoiceImages.class);
-                        System.out.println(story.getDescription());
-                    }
-                    else if (type != null && type.equals("OAStoryTextOnly")) {
-                        story = dataSnapshot.getValue(OAStoryTextOnly.class);
-                        System.out.println(story.getDescription());
-                    }
-                    else {
-                        story = dataSnapshot.getValue(OAStory.class);
-                        System.out.println(story.getDescription());
-                    }
+                if (type != null && type.equals("OAStoryMultiChoiceImages")) {
+                    story = dataSnapshot.getValue(OAStoryMultiChoiceImages.class);
+                    System.out.println(story.getDescription());
+                }
+                else if (type != null && type.equals("OAStoryTextOnly")) {
+                    story = dataSnapshot.getValue(OAStoryTextOnly.class);
+                    System.out.println(story.getDescription());
+                }
+                else {
+                    story = dataSnapshot.getValue(OAStory.class);
+                    System.out.println(story.getDescription());
+                }
 
-                    story.setObjectsValuesWithFirebaseIds();
+                story.setObjectsValuesWithFirebaseIds();
 
-                    if (story.comments == null)
-                        story.comments = new ArrayList<OAComment>();
+                if (story.comments == null)
+                    story.comments = new ArrayList<OAComment>();
 
-                    story.comments.add(comment);
-                    storyRef.setValue(story.firebaseRepresentation());
+                story.comments.add(comment);
+                storyRef.setValue(story.firebaseRepresentation());
             }
 
             @Override

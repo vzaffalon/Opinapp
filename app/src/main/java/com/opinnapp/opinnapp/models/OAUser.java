@@ -1,5 +1,11 @@
 package com.opinnapp.opinnapp.models;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 /**
  * Created by cayke on 09/05/17.
  */
@@ -38,6 +44,23 @@ public class OAUser implements OAFirebaseModel{
         return imagePath;
     }
 
+    public static void getUserWithID(String id, final OAFirebaseCallback callback) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("user/" + id);
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                OAUser user = dataSnapshot.getValue(OAUser.class);
+                callback.onSuccess(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
+    }
+
     //todo apagar
     public void setDefaultValues () {
         name = "Cayke";
@@ -59,6 +82,4 @@ public class OAUser implements OAFirebaseModel{
         id = "as2534";
         imagePath = "https://aws.unb.com/indiano.jpg";
     }
-
-
 }

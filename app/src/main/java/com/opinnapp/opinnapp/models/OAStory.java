@@ -1,5 +1,7 @@
 package com.opinnapp.opinnapp.models;
 
+import com.google.firebase.database.DatabaseError;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,9 +47,34 @@ public class OAStory implements OAFirebaseModel {
 
     @Override
     public void setObjectsValuesWithFirebaseIds() {
-        //todo pegar owner, comments
         creationDate = new Date(created_at);
         expirationDate = new Date(expirate_at);
+
+        OAUser.getUserWithID(ownerID, new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                owner = (OAUser) object;
+                System.out.println("User set with success");
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        OAComment.getCommentsWithStoryID(this.id, new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                comments = (List<OAComment>) object;
+                System.out.println("Comments set with success");
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 
     public void updateCommentsIds() {
