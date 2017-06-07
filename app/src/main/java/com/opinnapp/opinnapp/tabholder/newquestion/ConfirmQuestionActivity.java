@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OAStub;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
 
 import java.util.ArrayList;
@@ -115,6 +116,7 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     }
 
     private void saveStoryObjectOnFirebase(){
-
+        //OAStub oaStub = new OAStub();
+        //oaStub.createStory()
     }
 }
