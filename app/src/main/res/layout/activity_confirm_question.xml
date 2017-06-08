@@ -108,8 +108,8 @@
                 <RelativeLayout
                     android:id="@+id/uploaded_image_1"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:background="#F3F6FD">
                     <ImageView
                         android:layout_width="20dp"
@@ -117,13 +117,19 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_blue_add"
                         android:background="#F3F6FD"/>
+                    <ImageView
+                        android:id="@+id/image_1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@color/transparent"
+                        android:layout_centerInParent="true"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/uploaded_image_2"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:background="#F3F6FD">
                     <ImageView
                         android:layout_width="20dp"
@@ -131,13 +137,19 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_blue_add"
                         android:background="#F3F6FD"/>
+                    <ImageView
+                        android:id="@+id/image_2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@color/transparent"
+                        android:layout_centerInParent="true"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/uploaded_image_3"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:background="#F3F6FD">
                     <ImageView
                         android:layout_width="20dp"
@@ -145,13 +157,19 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_blue_add"
                         android:background="#F3F6FD"/>
+                    <ImageView
+                        android:id="@+id/image_3"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@color/transparent"
+                        android:layout_centerInParent="true"/>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/uploaded_image_4"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:background="#F3F6FD">
                     <ImageView
                         android:layout_width="20dp"
@@ -159,6 +177,12 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_blue_add"
                         android:background="#F3F6FD"/>
+                    <ImageView
+                        android:id="@+id/image_4"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@color/transparent"
+                        android:layout_centerInParent="true"/>
                 </RelativeLayout>
             </LinearLayout>
 

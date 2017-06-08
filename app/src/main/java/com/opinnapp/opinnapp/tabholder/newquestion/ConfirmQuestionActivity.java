@@ -1,12 +1,17 @@
 package com.opinnapp.opinnapp.tabholder.newquestion;
 
 import android.content.Intent;
-import android.media.Image;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,10 +19,14 @@ import android.widget.Toast;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
+import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
+import com.nguyenhoanglam.imagepicker.model.Image;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OAStub;
 import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +43,8 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     private TextView cell_question_input;
     private TextView cell_time_text;
 
+    private int REQUEST_CODE_PICKER = 1;
+
     //verify if the question has options or timer or tags
     private boolean optionsMode = false;
     private boolean timeMode = false;
@@ -47,6 +58,11 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     private String[] tags;
     private int hour;
     private int minute;
+
+    RelativeLayout uploaded_image_1;
+    RelativeLayout uploaded_image_2;
+    RelativeLayout uploaded_image_3;
+    RelativeLayout uploaded_image_4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,15 +162,16 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     }
 
     private void setUpUploadButtons(){
-        RelativeLayout uploaded_image_1 = (RelativeLayout) findViewById(R.id.uploaded_image_1);
-        RelativeLayout uploaded_image_2 = (RelativeLayout) findViewById(R.id.uploaded_image_2);
-        RelativeLayout uploaded_image_3 = (RelativeLayout) findViewById(R.id.uploaded_image_3);
-        RelativeLayout uploaded_image_4 = (RelativeLayout) findViewById(R.id.uploaded_image_4);
+        uploaded_image_1 = (RelativeLayout) findViewById(R.id.uploaded_image_1);
+        uploaded_image_2 = (RelativeLayout) findViewById(R.id.uploaded_image_2);
+        uploaded_image_3 = (RelativeLayout) findViewById(R.id.uploaded_image_3);
+        uploaded_image_4 = (RelativeLayout) findViewById(R.id.uploaded_image_4);
 
         if(option1 != null) {
             uploaded_image_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 1;
                     getPictureFromGallery();
                 }
             });
@@ -166,6 +183,7 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             uploaded_image_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 2;
                     getPictureFromGallery();
                 }
             });
@@ -177,6 +195,7 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             uploaded_image_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 3;
                     getPictureFromGallery();
                 }
             });
@@ -188,6 +207,7 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             uploaded_image_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 4;
                     getPictureFromGallery();
                 }
             });
@@ -198,8 +218,53 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     }
 
     private void getPictureFromGallery(){
+        Intent intent = new Intent(this, ImagePickerActivity.class);
 
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_FOLDER_MODE, true);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_MODE, ImagePickerActivity.MODE_SINGLE);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_LIMIT, 1);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_SHOW_CAMERA, true);
+        //intent.putExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES, images);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_FOLDER_TITLE, "Album");
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_TITLE, "Clique na imagem para selecionar");
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_DIRECTORY, "Camera");
+
+        startActivityForResult(intent, REQUEST_CODE_PICKER);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICKER && resultCode == RESULT_OK && data != null) {
+            ArrayList<Image> images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
+
+            switch (REQUEST_CODE_PICKER){
+                case 1:
+                    Image image = images.get(0);
+                    ImageView image_1 = (ImageView) findViewById(R.id.image_1);
+                    image_1.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    break;
+                case 2:
+                    image = images.get(0);
+                    ImageView image_2 = (ImageView) findViewById(R.id.image_2);
+                    image_2.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    break;
+                case 3:
+                    image = images.get(0);
+                    ImageView image_3 = (ImageView) findViewById(R.id.image_3);
+                    image_3.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    break;
+                case 4:
+                    image = images.get(0);
+                    ImageView image_4 = (ImageView) findViewById(R.id.image_4);
+                    image_4.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    break;
+
+            }
+        }
+    }
+
+
+
 
     private void uploadImagesToFirebase(){
 

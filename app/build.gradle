@@ -57,6 +57,9 @@ dependencies {
 
     //custom number picker
     compile 'com.shawnlin:number-picker:2.4.3'
+
+    //image picker from cellphone
+    compile 'com.github.nguyenhoanglam:ImagePicker:1.1.3'
 }
 apply plugin: 'realm-android'
 apply plugin: 'com.google.gms.google-services'
