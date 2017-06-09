@@ -1,6 +1,7 @@
 package com.opinnapp.opinnapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
+import com.opinnapp.opinnapp.tabholder.comments.CommentsActivity;
 import com.rd.PageIndicatorView;
 
 import java.util.List;
@@ -89,7 +91,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             context = itemView.getContext();
             ivUserPhoto = (CircleImageView) itemView.findViewById(R.id.cell_story_iv_user_photo);
             tvUserName = (TextView) itemView.findViewById(R.id.cell_story_tv_user_name);
-            tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
+            //tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
@@ -107,6 +109,13 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             indicatorView = (PageIndicatorView) itemView.findViewById(R.id.cell_story_page_indicator);
 
             //todo onclicklisteners nos buttons
+            ivComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CommentsActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         void bindStory(OAStoryMultiChoiceImages story) {
@@ -131,7 +140,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             context = itemView.getContext();
             ivUserPhoto = (CircleImageView) itemView.findViewById(R.id.cell_story_iv_user_photo);
             tvUserName = (TextView) itemView.findViewById(R.id.cell_story_tv_user_name);
-            tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
+            //tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
@@ -146,6 +155,13 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivBookmark = (ImageView) itemView.findViewById(R.id.cell_story_iv_bookmark);
 
             //todo onclicklisteners nos buttons
+            ivComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CommentsActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         void bindStory(OAStoryTextOnly story) {

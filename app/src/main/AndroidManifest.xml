@@ -48,6 +48,10 @@
             android:theme="@style/Theme.Swipe.Back">
         </activity>
 
+        <activity android:name=".tabholder.comments.CommentsActivity"
+            android:theme="@style/Theme.Swipe.Back">
+        </activity>
+
         <activity android:name=".tabholder.newquestion.ConfirmQuestionActivity"
             android:theme="@style/Theme.Swipe.Back">
         </activity>
