@@ -74,7 +74,7 @@ public class PopularFragment extends Fragment {
                     public void run() {
                         mountRecycler();
                     }
-                }, 3000);
+                }, 1000);
             }
 
             @Override
