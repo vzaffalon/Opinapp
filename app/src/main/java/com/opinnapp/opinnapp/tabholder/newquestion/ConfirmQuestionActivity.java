@@ -218,7 +218,12 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     //TODO: SALVAR OS TIPOS COM IMAGEM
     private void saveStoryObjectOnFirebase(){
         if(!optionsMode){
-            List<String> tagsArray = Arrays.asList(tags);
+            List<String> tagsArray;
+            if(tags !=  null) {
+                tagsArray = Arrays.asList(tags);
+            }else{
+                tagsArray = new ArrayList<>();
+            }
             OAUser oaUser = new OAUser();
             //TODO: CHANGE THIS FIXED ID
             oaUser.setId("-Km-CASNbmQUzrBy1U0k");
