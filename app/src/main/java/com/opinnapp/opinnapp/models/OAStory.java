@@ -101,6 +101,18 @@ public class OAStory implements OAFirebaseModel {
         return tags;
     }
 
+    public String getTagsString() {
+        String string = null;
+        if (tags != null) {
+            for (String tag : tags) {
+                if (string == null)
+                    string = "#" + tag;
+                else
+                    string = string + " #" + tag;
+            }
+        }
+        return string;
+    }
 
     public OAUser getOwner() {
         return owner;

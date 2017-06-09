@@ -2,20 +2,23 @@ package com.opinnapp.opinnapp.tabholder.home.tabs;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseError;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.adapters.OALoadingStoryAdapter;
 import com.opinnapp.opinnapp.adapters.OAStoriesAdapter;
+import com.opinnapp.opinnapp.models.OADatabase;
+import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAStory;
-import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
-import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +30,7 @@ public class PopularFragment extends Fragment {
     private Context context;
     private List<OAStory> stories;
     private View view;
+    private boolean isLoading = false;
 
 
     // newInstance constructor for creating fragment with arguments
@@ -39,6 +43,8 @@ public class PopularFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getStories();
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -48,10 +54,36 @@ public class PopularFragment extends Fragment {
         context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recycler);
 
-        generateStories();
         mountRecycler();
 
         return view;
+    }
+
+    private void getStories() {
+        isLoading = true;
+
+        OADatabase.getAllStories(new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                isLoading = false;
+                stories = (List<OAStory>) object;
+
+                //gambiarra pra setar os users e comments
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        mountRecycler();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+                isLoading = false;
+                mountRecycler();
+                Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void mountRecycler() {
@@ -61,21 +93,14 @@ public class PopularFragment extends Fragment {
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(new OAStoriesAdapter(stories, context));
         }
+        else if (isLoading) {
+            recyclerView.setHasFixedSize(true);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(new OALoadingStoryAdapter());
+        }
+        else {
+            //mostrar recycler vazia
+        }
     }
-
-    private void generateStories () {
-        stories = new ArrayList<>();
-        stories.add(new OAStoryMultiChoiceImages());
-        stories.add(new OAStoryTextOnly());
-        stories.add(new OAStoryTextOnly());
-        stories.add(new OAStoryMultiChoiceImages());
-        stories.add(new OAStoryTextOnly());
-        stories.add(new OAStoryMultiChoiceImages());
-        stories.add(new OAStoryTextOnly());
-        stories.add(new OAStoryTextOnly());
-        stories.add(new OAStoryTextOnly());
-        stories.add(new OAStoryTextOnly());
-        stories.add(new OAStoryTextOnly());
-    }
-
 }

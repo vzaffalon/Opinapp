@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.opinnapp.opinnapp"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -45,9 +45,13 @@ dependencies {
     //facebook login
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
+    //shimmer loading view
+    compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
     //firebase sdk
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-database:9.6.1'
+    compile 'com.google.firebase:firebase-storage:9.6.1'
 
     //firebase auth
     compile 'com.google.firebase:firebase-auth:9.6.1'

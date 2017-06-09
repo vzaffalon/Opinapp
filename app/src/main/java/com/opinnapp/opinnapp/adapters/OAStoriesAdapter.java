@@ -15,7 +15,9 @@ import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.rd.PageIndicatorView;
+import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -150,6 +152,18 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
         void bindStory(OAStoryTextOnly story) {
             //todo dar bind nas coisas
+            if (story.getOwner() != null) {
+                Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
+                tvUserName.setText(story.getOwner().getName());
+                tvUserUrl.setText("@" + story.getOwner().getUrl());
+            }
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+            tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
+            tvDescription.setText(story.getDescription());
+            tvExpirationTime.setText(dateFormat.format(story.getExpirationDate()));
+            if (story.getTagsString() != null)
+                tvTags.setText(story.getTagsString());
         }
     }
 }

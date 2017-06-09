@@ -1,12 +1,21 @@
 package com.opinnapp.opinnapp.models;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,6 +156,32 @@ public class OADatabase {
             }
         });
     }
+    //endregion
+
+    //region Images
+    public static void uploadImage(File image) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://opinapp-c6381.appspot.com");
+        StorageReference imagesRef = storageRef.child("images/test.jpg");
+
+        Uri uri = Uri.fromFile(image);
+        UploadTask uploadTask = imagesRef.putFile(uri);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                System.out.print("erro");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            }
+        });
+    }
+
+
     //endregion
 
 }
