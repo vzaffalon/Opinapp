@@ -63,7 +63,7 @@
                     android:text="Kenan Thm"
                     />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/cell_story_tv_user_url"
 
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:textColor="@color/oa_light_gray_text"
                     android:text="\@kenanThm"
 
-                    />
+                    />-->
 
             </LinearLayout>
 
@@ -133,13 +133,25 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
 
-            android:padding="7dp"
+            android:padding="3dp"
 
-            android:text="05:34"
-            android:textColor="@color/white"
+            android:text="05 min"
+            android:textStyle="bold"
+            android:textColor="#3FABCF"
             android:textSize="16sp"
 
-            android:background="@drawable/rounded_green_background"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/cell_story_tv_expiration_time"
+            android:textStyle="bold"
+            android:text="para expirar"
+            android:textColor="#525252"
+            android:textSize="16sp"
+
             />
 
         <TextView
@@ -190,7 +202,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_thumbs_up"
 
                 />
         </LinearLayout>
@@ -209,7 +221,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_thumbs_down"
 
                 />
         </LinearLayout>
@@ -228,7 +240,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_comment"
 
                 />
         </LinearLayout>
@@ -247,7 +259,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_bookmark"
 
                 />
         </LinearLayout>
