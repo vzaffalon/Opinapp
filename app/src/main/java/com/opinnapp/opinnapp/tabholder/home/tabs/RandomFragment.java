@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.adapters.OAStoriesAdapter;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
@@ -59,7 +58,7 @@ public class RandomFragment extends Fragment {
             recyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(new OAStoriesAdapter(stories, context));
+            //recyclerView.setAdapter(new OAStoriesAdapter(stories, context));
         }
     }
 

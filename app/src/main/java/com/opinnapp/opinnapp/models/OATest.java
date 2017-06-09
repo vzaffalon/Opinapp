@@ -1,7 +1,12 @@
 package com.opinnapp.opinnapp.models;
 
-import com.google.firebase.database.DatabaseError;
+import android.net.Uri;
 
+import com.google.firebase.database.DatabaseError;
+import com.opinnapp.opinnapp.BuildConfig;
+import com.opinnapp.opinnapp.R;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +20,13 @@ public class OATest {
 
     public void initTests() {
         if (shouldDoTests) {
-            getStories();
+            uploadImage();
         }
+    }
+
+    private void uploadImage() {
+        Uri fileUri = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.shoes1);
+        OAStub.uploadImage(new File(fileUri.getPath()));
     }
 
     private void createUser() {

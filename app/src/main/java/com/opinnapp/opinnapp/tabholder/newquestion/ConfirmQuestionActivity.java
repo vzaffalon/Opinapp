@@ -1,12 +1,8 @@
 package com.opinnapp.opinnapp.tabholder.newquestion;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,18 +15,13 @@ import android.widget.Toast;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
-import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
-import com.nguyenhoanglam.imagepicker.model.Image;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
-import com.opinnapp.opinnapp.models.OAStub;
 import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -226,7 +217,7 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             }
             OAUser oaUser = new OAUser();
             //TODO: CHANGE THIS FIXED ID
-            oaUser.setId("-Km-CASNbmQUzrBy1U0k");
+            oaUser.setId("-KmC_itqAwB7qfIT8Tep");
             createStory(question,tagsArray,oaUser,getExpirationDate(),null);
             Toast.makeText(getApplicationContext(),"Pergunta Salva",Toast.LENGTH_SHORT).show();
         }else{
