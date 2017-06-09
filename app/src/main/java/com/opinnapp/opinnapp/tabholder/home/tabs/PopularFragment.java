@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 
 public class PopularFragment extends Fragment {
+    private SwipeRefreshLayout swipeContainer;
     private RecyclerView recyclerView;
     private Context context;
     private List<OAStory> stories;
@@ -53,6 +55,14 @@ public class PopularFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_popular, container, false);
         context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recycler);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getStories();
+            }
+        });
 
         mountRecycler();
 
@@ -66,6 +76,8 @@ public class PopularFragment extends Fragment {
             @Override
             public void onSuccess(Object object) {
                 isLoading = false;
+                swipeContainer.setRefreshing(false);
+
                 stories = (List<OAStory>) object;
 
                 //gambiarra pra setar os users e comments
@@ -80,6 +92,8 @@ public class PopularFragment extends Fragment {
             @Override
             public void onFailure(DatabaseError databaseError) {
                 isLoading = false;
+                swipeContainer.setRefreshing(false);
+
                 mountRecycler();
                 Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }

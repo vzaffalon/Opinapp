@@ -93,7 +93,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             context = itemView.getContext();
             ivUserPhoto = (CircleImageView) itemView.findViewById(R.id.cell_story_iv_user_photo);
             tvUserName = (TextView) itemView.findViewById(R.id.cell_story_tv_user_name);
-            //tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
+            tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
@@ -142,7 +142,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             context = itemView.getContext();
             ivUserPhoto = (CircleImageView) itemView.findViewById(R.id.cell_story_iv_user_photo);
             tvUserName = (TextView) itemView.findViewById(R.id.cell_story_tv_user_name);
-            //tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
+            tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
@@ -176,8 +176,13 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
             tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
+
+            //todo arrumar gambiarra
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+            tvExpirationTime.setText(dateFormat2.format(story.getExpirationDate()));
+
             tvDescription.setText(story.getDescription());
-            tvExpirationTime.setText(dateFormat.format(story.getExpirationDate()));
+
             if (story.getTagsString() != null)
                 tvTags.setText(story.getTagsString());
         }
