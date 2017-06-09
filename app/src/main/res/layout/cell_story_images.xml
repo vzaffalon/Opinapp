@@ -63,7 +63,7 @@
                     android:text="Kenan Thm"
                     />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/cell_story_tv_user_url"
 
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:textColor="@color/oa_light_gray_text"
                     android:text="\@kenanThm"
 
-                    />
+                    />-->
 
             </LinearLayout>
 
@@ -116,6 +116,37 @@
         android:textColor="@color/oa_black"
         />
 
+
+    <!-- images layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        >
+        <android.support.v4.view.ViewPager
+            android:id="@+id/cell_story_view_pager"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+        </android.support.v4.view.ViewPager>
+
+
+        <com.rd.PageIndicatorView
+            xmlns:attrs="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cell_story_page_indicator"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            attrs:piv_selectedColor="@color/oa_main_color"
+            attrs:piv_unselectedColor="@color/oa_light_gray_text"
+            />
+    </RelativeLayout>
+
     <!-- timer and tags layout-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -133,13 +164,25 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
 
-            android:padding="7dp"
+            android:padding="3dp"
 
-            android:text="05:34"
-            android:textColor="@color/white"
+            android:text="05 min"
+            android:textStyle="bold"
+            android:textColor="#3FABCF"
             android:textSize="16sp"
 
-            android:background="@drawable/rounded_green_background"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/cell_story_tv_expiration_time"
+            android:textStyle="bold"
+            android:text="para expirar"
+            android:textColor="#525252"
+            android:textSize="16sp"
+
             />
 
         <TextView
@@ -157,34 +200,6 @@
 
 
 
-    </RelativeLayout>
-
-    <!-- images layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        >
-        <android.support.v4.view.ViewPager
-            android:id="@+id/cell_story_view_pager"
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-        </android.support.v4.view.ViewPager>
-
-
-        <com.rd.PageIndicatorView
-            xmlns:attrs="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/cell_story_page_indicator"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            attrs:piv_selectedColor="@color/oa_main_color"
-            attrs:piv_unselectedColor="@color/oa_light_gray_text"
-            />
     </RelativeLayout>
 
     <!-- Separator -->
@@ -218,7 +233,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_thumbs_up"
 
                 />
         </LinearLayout>
@@ -237,7 +252,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_thumbs_down"
 
                 />
         </LinearLayout>
@@ -256,7 +271,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_comment"
 
                 />
         </LinearLayout>
@@ -275,7 +290,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_like"
+                android:src="@drawable/ic_bookmark"
 
                 />
         </LinearLayout>
