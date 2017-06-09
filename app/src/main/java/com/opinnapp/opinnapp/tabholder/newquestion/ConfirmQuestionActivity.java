@@ -22,6 +22,10 @@ import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
 import com.nguyenhoanglam.imagepicker.model.Image;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OADatabase;
+import com.opinnapp.opinnapp.models.OAStory;
+import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
+import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.opinnapp.opinnapp.models.OAStub;
 import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
@@ -168,103 +172,33 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
         uploaded_image_4 = (RelativeLayout) findViewById(R.id.uploaded_image_4);
 
         if(option1 != null) {
-            uploaded_image_1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    REQUEST_CODE_PICKER = 1;
-                    getPictureFromGallery();
-                }
-            });
+            ImageView image_1 = (ImageView) findViewById(R.id.image_1);
+            image_1.setImageDrawable(Drawable.createFromPath(option1));
         }else{
             uploaded_image_1.setVisibility(View.GONE);
         }
 
         if(option2 != null) {
-            uploaded_image_2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    REQUEST_CODE_PICKER = 2;
-                    getPictureFromGallery();
-                }
-            });
+            ImageView image_2 = (ImageView) findViewById(R.id.image_2);
+            image_2.setImageDrawable(Drawable.createFromPath(option2));
         }else{
             uploaded_image_2.setVisibility(View.GONE);
         }
 
         if(option3 != null) {
-            uploaded_image_3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    REQUEST_CODE_PICKER = 3;
-                    getPictureFromGallery();
-                }
-            });
+            ImageView image_3 = (ImageView) findViewById(R.id.image_3);
+            image_3.setImageDrawable(Drawable.createFromPath(option3));
         }else{
             uploaded_image_3.setVisibility(View.GONE);
         }
 
         if(option4 != null) {
-            uploaded_image_4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    REQUEST_CODE_PICKER = 4;
-                    getPictureFromGallery();
-                }
-            });
+            ImageView image_4 = (ImageView) findViewById(R.id.image_4);
+            image_4.setImageDrawable(Drawable.createFromPath(option4));
         }else{
             uploaded_image_4.setVisibility(View.GONE);
         }
-
     }
-
-    private void getPictureFromGallery(){
-        Intent intent = new Intent(this, ImagePickerActivity.class);
-
-        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_FOLDER_MODE, true);
-        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_MODE, ImagePickerActivity.MODE_SINGLE);
-        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_LIMIT, 1);
-        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_SHOW_CAMERA, true);
-        //intent.putExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES, images);
-        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_FOLDER_TITLE, "Album");
-        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_TITLE, "Clique na imagem para selecionar");
-        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_DIRECTORY, "Camera");
-
-        startActivityForResult(intent, REQUEST_CODE_PICKER);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_PICKER && resultCode == RESULT_OK && data != null) {
-            ArrayList<Image> images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
-
-            switch (REQUEST_CODE_PICKER){
-                case 1:
-                    Image image = images.get(0);
-                    ImageView image_1 = (ImageView) findViewById(R.id.image_1);
-                    image_1.setImageDrawable(Drawable.createFromPath(image.getPath()));
-                    break;
-                case 2:
-                    image = images.get(0);
-                    ImageView image_2 = (ImageView) findViewById(R.id.image_2);
-                    image_2.setImageDrawable(Drawable.createFromPath(image.getPath()));
-                    break;
-                case 3:
-                    image = images.get(0);
-                    ImageView image_3 = (ImageView) findViewById(R.id.image_3);
-                    image_3.setImageDrawable(Drawable.createFromPath(image.getPath()));
-                    break;
-                case 4:
-                    image = images.get(0);
-                    ImageView image_4 = (ImageView) findViewById(R.id.image_4);
-                    image_4.setImageDrawable(Drawable.createFromPath(image.getPath()));
-                    break;
-
-            }
-        }
-    }
-
-
-
 
     private void uploadImagesToFirebase(){
 
@@ -288,11 +222,41 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             OAUser oaUser = new OAUser();
             //TODO: CHANGE THIS FIXED ID
             oaUser.setId("-Km-CASNbmQUzrBy1U0k");
-            OAStub oaStub = new OAStub();
-            oaStub.createStory(question,tagsArray,oaUser,getExpirationDate(),null);
+            createStory(question,tagsArray,oaUser,getExpirationDate(),null);
             Toast.makeText(getApplicationContext(),"Pergunta Salva",Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(getApplicationContext(),"Pergunta não salva",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private OAStory createStory(String description, List<String>tags, OAUser owner, Date expirationDate, List<android.media.Image> images){
+        if (images != null) {
+            OAStoryMultiChoiceImages storyMultiChoiceImages = new OAStoryMultiChoiceImages();
+            storyMultiChoiceImages.setDescription(description);
+            storyMultiChoiceImages.setTags(tags);
+            storyMultiChoiceImages.setOwner(owner);
+            storyMultiChoiceImages.setExpirationDate(expirationDate);
+            storyMultiChoiceImages.setCreationDate(new Date());
+
+            //todo como vai enviar as imagens?
+            //storyMultiChoiceImages.setImages(images);
+            if (OADatabase.createStory(storyMultiChoiceImages))
+                return storyMultiChoiceImages;
+            else
+                return null;
+        }
+        else {
+            OAStoryTextOnly storyTextOnly = new OAStoryTextOnly();
+            storyTextOnly.setDescription(description);
+            storyTextOnly.setTags(tags);
+            storyTextOnly.setOwner(owner);
+            storyTextOnly.setExpirationDate(expirationDate);
+            storyTextOnly.setCreationDate(new Date());
+
+            if (OADatabase.createStory(storyTextOnly))
+                return storyTextOnly;
+            else
+                return null;
         }
     }
 }

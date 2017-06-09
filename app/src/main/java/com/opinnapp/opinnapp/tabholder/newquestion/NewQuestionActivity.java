@@ -1,16 +1,21 @@
 package com.opinnapp.opinnapp.tabholder.newquestion;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
+import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
+import com.nguyenhoanglam.imagepicker.model.Image;
 import com.opinnapp.opinnapp.R;
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -39,6 +44,14 @@ public class NewQuestionActivity extends SwipeBackActivity {
     private int hour;
     private int minute;
 
+    private RelativeLayout uploaded_image_1;
+    private RelativeLayout uploaded_image_2;
+    private RelativeLayout uploaded_image_3;
+    private RelativeLayout uploaded_image_4;
+
+    //image picker intent code
+    private int REQUEST_CODE_PICKER = 1;
+
     //verify if the question has options or timer or tags
     private boolean optionsMode = false;
     private boolean timeMode = false;
@@ -54,6 +67,7 @@ public class NewQuestionActivity extends SwipeBackActivity {
         setUpNumberPickers();
         setUpConfirmButton();
         setUpCancelButton();
+        setUpUploadButtons();
     }
 
     private void setUpNumberPickers(){
@@ -63,19 +77,15 @@ public class NewQuestionActivity extends SwipeBackActivity {
 
     private void setUpEditTexts(){
         cell_question_input = (EditText) findViewById(R.id.cell_question_input);
-        editText_option_1 = (EditText) findViewById(R.id.editText_option_1);
+        /*editText_option_1 = (EditText) findViewById(R.id.editText_option_1);
         editText_option_2 = (EditText) findViewById(R.id.editText_option_2);
         editText_option_3 = (EditText) findViewById(R.id.editText_option_3);
-        editText_option_4 = (EditText) findViewById(R.id.editText_option_4);
+        editText_option_4 = (EditText) findViewById(R.id.editText_option_4);*/
         editText_tags = (EditText) findViewById(R.id.editText_tags);
     }
 
     private void getStoryData(){
         question = cell_question_input.getText().toString();
-        option1 = editText_option_1.getText().toString();
-        option2 = editText_option_2.getText().toString();
-        option3 = editText_option_3.getText().toString();
-        option4 = editText_option_4.getText().toString();
 
         String tagString = editText_tags.getText().toString();
         if(!tagString.isEmpty()) {
@@ -113,8 +123,8 @@ public class NewQuestionActivity extends SwipeBackActivity {
         }
 
         if(optionsMode){
-            if(option1.isEmpty() && option2.isEmpty() && option3.isEmpty() && option4.isEmpty()){
-                Toast.makeText(getApplicationContext(),"Escreva alguma alternativa",Toast.LENGTH_SHORT).show();
+            if(option1 == null && option2 == null && option3 == null && option4 == null){
+                Toast.makeText(getApplicationContext(),"Selecione alguma imagem",Toast.LENGTH_SHORT).show();
                 correctData = false;
             }
         }
@@ -134,18 +144,25 @@ public class NewQuestionActivity extends SwipeBackActivity {
         Intent intent = new Intent(getApplicationContext(),ConfirmQuestionActivity.class);
 
         intent.putExtra("question",question);
-
-        if(!option1.isEmpty()) {
-            intent.putExtra("option1", option1);
+        if(option1 != null) {
+            if (!option1.isEmpty()) {
+                intent.putExtra("option1", option1);
+            }
         }
-        if(!option2.isEmpty()){
-            intent.putExtra("option2", option2);
+        if(option2 != null) {
+            if (!option2.isEmpty()) {
+                intent.putExtra("option2", option2);
+            }
         }
-        if(!option3.isEmpty()){
-            intent.putExtra("option3", option3);
+        if(option3 != null) {
+            if (!option3.isEmpty()) {
+                intent.putExtra("option3", option3);
+            }
         }
-        if(!option4.isEmpty()){
-            intent.putExtra("option4", option4);
+        if(option4 != null) {
+            if (!option4.isEmpty()) {
+                intent.putExtra("option4", option4);
+            }
         }
 
         if(timeMode){
@@ -196,10 +213,10 @@ public class NewQuestionActivity extends SwipeBackActivity {
                     optionsMode = true;
                 }else{
                     optionsMode = false;
-                    editText_option_1.getText().clear();
+                    /*editText_option_1.getText().clear();
                     editText_option_2.getText().clear();
                     editText_option_3.getText().clear();
-                    editText_option_4.getText().clear();
+                    editText_option_4.getText().clear();*/
                     alternative_option.setVisibility(View.GONE);
                 }
             }
@@ -231,6 +248,97 @@ public class NewQuestionActivity extends SwipeBackActivity {
                 }
             }
         });
+    }
+
+    private void setUpUploadButtons(){
+        uploaded_image_1 = (RelativeLayout) findViewById(R.id.uploaded_image_1);
+        uploaded_image_2 = (RelativeLayout) findViewById(R.id.uploaded_image_2);
+        uploaded_image_3 = (RelativeLayout) findViewById(R.id.uploaded_image_3);
+        uploaded_image_4 = (RelativeLayout) findViewById(R.id.uploaded_image_4);
+
+
+            uploaded_image_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 1;
+                    getPictureFromGallery();
+                }
+            });
+
+            uploaded_image_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 2;
+                    getPictureFromGallery();
+                }
+            });
+
+            uploaded_image_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 3;
+                    getPictureFromGallery();
+                }
+            });
+
+            uploaded_image_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    REQUEST_CODE_PICKER = 4;
+                    getPictureFromGallery();
+                }
+            });
+
+    }
+
+    private void getPictureFromGallery(){
+        Intent intent = new Intent(this, ImagePickerActivity.class);
+
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_FOLDER_MODE, true);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_MODE, ImagePickerActivity.MODE_SINGLE);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_LIMIT, 1);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_SHOW_CAMERA, true);
+        //intent.putExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES, images);
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_FOLDER_TITLE, "Album");
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_TITLE, "Clique na imagem para selecionar");
+        intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_DIRECTORY, "Camera");
+
+        startActivityForResult(intent, REQUEST_CODE_PICKER);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICKER && resultCode == RESULT_OK && data != null) {
+            ArrayList<Image> images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
+
+            switch (REQUEST_CODE_PICKER){
+                case 1:
+                    Image image = images.get(0);
+                    ImageView image_1 = (ImageView) findViewById(R.id.image_1);
+                    image_1.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    option1 = image.getPath();
+                    break;
+                case 2:
+                    image = images.get(0);
+                    ImageView image_2 = (ImageView) findViewById(R.id.image_2);
+                    image_2.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    option2 = image.getPath();
+                    break;
+                case 3:
+                    image = images.get(0);
+                    ImageView image_3 = (ImageView) findViewById(R.id.image_3);
+                    image_3.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    option3 = image.getPath();
+                    break;
+                case 4:
+                    image = images.get(0);
+                    ImageView image_4 = (ImageView) findViewById(R.id.image_4);
+                    image_4.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    option4 = image.getPath();
+                    break;
+
+            }
+        }
     }
 
 }

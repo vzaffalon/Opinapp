@@ -123,6 +123,99 @@
             android:id="@+id/alternative_option_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp">
+
+
+            <RelativeLayout
+                android:id="@+id/uploaded_image_1"
+                android:layout_marginLeft="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="#F3F6FD">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_blue_add"
+                    android:background="#F3F6FD"/>
+                <ImageView
+                    android:id="@+id/image_1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@color/transparent"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/uploaded_image_2"
+                android:layout_marginLeft="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="#F3F6FD">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_blue_add"
+                    android:background="#F3F6FD"/>
+                <ImageView
+                    android:id="@+id/image_2"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@color/transparent"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/uploaded_image_3"
+                android:layout_marginLeft="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="#F3F6FD">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_blue_add"
+                    android:background="#F3F6FD"/>
+                <ImageView
+                    android:id="@+id/image_3"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@color/transparent"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/uploaded_image_4"
+                android:layout_marginLeft="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="#F3F6FD">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_blue_add"
+                    android:background="#F3F6FD"/>
+                <ImageView
+                    android:id="@+id/image_4"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@color/transparent"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <!--<LinearLayout
+            android:id="@+id/alternative_option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:orientation="vertical">
@@ -213,7 +306,7 @@
             </LinearLayout>
 
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/cell_time_option"
