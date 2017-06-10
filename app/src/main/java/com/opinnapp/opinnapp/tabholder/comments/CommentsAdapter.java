@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OAComment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
-    private List<Comment> comments;
+    private List<OAComment> comments;
     private Context context;
     private final OnItemClickListener clickListener;
 
@@ -39,7 +40,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             iv_perfilPicture = (CircleImageView) itemView.findViewById(R.id.cell_profile_picture);
         }
 
-        public void bind(final Comment item, final OnItemClickListener listener) {
+        public void bind(final OAComment item, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(item);
@@ -49,7 +50,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CommentsAdapter(List<Comment> mComments, Context mContext, OnItemClickListener listener) {
+    public CommentsAdapter(List<OAComment> mComments, Context mContext, OnItemClickListener listener) {
         comments = mComments;
         this.context = mContext;
         this.clickListener = listener;
@@ -73,9 +74,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.bind(comments.get(position),clickListener);
-        holder.tv_notification.setText(comments.get(position).getComment());
-        holder.tv_time.setText(comments.get(position).getTime());
-        Picasso.with(context).load(comments.get(position).getUserImage()).into(holder.iv_perfilPicture);
+        holder.tv_notification.setText(comments.get(position).getText());
+        //holder.tv_time.setText(comments.get(position).getTime());
+        Picasso.with(context).load(comments.get(position).getOwner().getImagePath()).into(holder.iv_perfilPicture);
 
     }
 
@@ -86,7 +87,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Comment item);
+        void onItemClick(OAComment item);
     }
 
 }

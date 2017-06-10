@@ -16,6 +16,8 @@ import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.opinnapp.opinnapp.tabholder.comments.CommentsActivity;
+import com.opinnapp.opinnapp.tabholder.explore.tabs.Perfil;
+import com.opinnapp.opinnapp.tabholder.explore.tabs.PerfilAdapter;
 import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 
@@ -64,11 +66,31 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof OAImageAdapter)
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof OAImageAdapter) {
             ((OAImageAdapter) holder).bindStory((OAStoryMultiChoiceImages) stories.get(position));
-        else
+            ((OAImageAdapter) holder).ivComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CommentsActivity.class);
+                    intent.putExtra("storyId",stories.get(position).getId());
+                    intent.putExtra("userId",stories.get(position).getOwnerID());
+                    context.startActivity(intent);
+                }
+            });
+        }
+        else{
             ((OATextAdapter) holder).bindStory((OAStoryTextOnly) stories.get(position));
+            ((OATextAdapter) holder).ivComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CommentsActivity.class);
+                    intent.putExtra("storyId",stories.get(position).getId());
+                    intent.putExtra("userId",stories.get(position).getOwnerID());
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
@@ -110,14 +132,6 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             viewPager = (ViewPager) itemView.findViewById(R.id.cell_story_view_pager);
             indicatorView = (PageIndicatorView) itemView.findViewById(R.id.cell_story_page_indicator);
 
-            //todo onclicklisteners nos buttons
-            ivComments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, CommentsActivity.class);
-                    context.startActivity(intent);
-                }
-            });
         }
 
         void bindStory(OAStoryMultiChoiceImages story) {
@@ -157,13 +171,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivBookmark = (ImageView) itemView.findViewById(R.id.cell_story_iv_bookmark);
 
             //todo onclicklisteners nos buttons
-            ivComments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, CommentsActivity.class);
-                    context.startActivity(intent);
-                }
-            });
+
         }
 
         void bindStory(OAStoryTextOnly story) {

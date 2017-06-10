@@ -14,7 +14,8 @@ public class OAComment implements OAFirebaseModel {
 
     private OAUser owner;
 
-    public OAComment(){}
+    public OAComment(){
+    }
 
     public OAComment(String text, String storyID, OAUser owner) {
         this.text = text;

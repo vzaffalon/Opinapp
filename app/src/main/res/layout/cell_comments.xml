@@ -7,8 +7,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -43,7 +45,7 @@
                 android:textColor="#3E3E3E"
                 />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/cell_notification_time"
 
                 android:layout_width="match_parent"
@@ -51,7 +53,7 @@
                 android:textSize="16sp"
                 android:text="2min"
                 android:textColor="#C4C4C4"
-                />
+                />-->
 
 
         </LinearLayout>
