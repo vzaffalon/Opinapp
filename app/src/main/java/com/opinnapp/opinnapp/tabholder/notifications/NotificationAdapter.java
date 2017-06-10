@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.tabholder.explore.tabs.Perfil;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

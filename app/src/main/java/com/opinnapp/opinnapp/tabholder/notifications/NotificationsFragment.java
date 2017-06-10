@@ -13,9 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.opinnapp.opinnapp.R;
-import com.opinnapp.opinnapp.tabholder.explore.tabs.Perfil;
-import com.opinnapp.opinnapp.tabholder.explore.tabs.PerfilAdapter;
-import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,6 @@ public class NotificationsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_menu, menu);
     }
 
     // Inflate the view for the fragment based on layout XML

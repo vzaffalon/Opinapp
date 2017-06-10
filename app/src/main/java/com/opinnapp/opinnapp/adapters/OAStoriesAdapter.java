@@ -16,8 +16,6 @@ import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.opinnapp.opinnapp.tabholder.comments.CommentsActivity;
-import com.opinnapp.opinnapp.tabholder.explore.tabs.Perfil;
-import com.opinnapp.opinnapp.tabholder.explore.tabs.PerfilAdapter;
 import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 

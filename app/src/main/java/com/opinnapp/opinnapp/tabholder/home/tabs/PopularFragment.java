@@ -20,6 +20,7 @@ import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAStory;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -84,6 +85,7 @@ public class PopularFragment extends Fragment {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
+                        Collections.reverse(stories);
                         mountRecycler();
                     }
                 }, 1000);

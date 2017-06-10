@@ -12,7 +12,15 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OAFirebaseCallback;
+import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
 import com.opinnapp.opinnapp.tabholder.home.tabs.PopularFragment;
 import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
@@ -29,7 +37,7 @@ public class PerfilsFragment extends Fragment {
     private RecyclerView recyclerView;
     private Context context;
     private View view;
-    private List<Perfil> perfils;
+    private List<OAUser> perfils;
 
     // newInstance constructor for creating fragment with arguments
     public static PerfilsFragment newInstance() {
@@ -49,8 +57,9 @@ public class PerfilsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_perfils, container, false);
         context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_perfils_recycler);
-        generatePerfils();
+        perfils = new ArrayList<>();
         mountRecycler();
+        getUsers();
         return view;
     }
 
@@ -60,7 +69,7 @@ public class PerfilsFragment extends Fragment {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(new PerfilAdapter(perfils, context,new PerfilAdapter.OnItemClickListener() {
-                @Override public void onItemClick(Perfil item) {
+                @Override public void onItemClick(OAUser item) {
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, PerfilFragment.newInstance());
                     transaction.commit();
@@ -69,12 +78,51 @@ public class PerfilsFragment extends Fragment {
         }
     }
 
-    private void generatePerfils(){
-        perfils = new ArrayList<>();
-        perfils.add(new Perfil("Murilo","https://scontent-gru.xx.fbcdn.net/v/t1.0-9/602740_2839717690184_951506583_n.jpg?oh=9e9cdc3af65826e2db5a4384993a0f60&oe=599FA490"));
-        perfils.add(new Perfil("Cayke","https://scontent-gru.xx.fbcdn.net/v/t1.0-9/17308748_1279495765466119_5902661537556998459_n.jpg?oh=91cd66e6173a2312be22ac33d3ed4445&oe=59A3777D"));
-        perfils.add(new Perfil("Victor","https://scontent-gru.xx.fbcdn.net/v/t1.0-9/1907867_967496356601123_5817813594957135474_n.jpg?oh=cecab31754466c2419254d03b1933dac&oe=59A63C29"));
+    private void getUsers(){
+        getUsersFromFirebase(new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                perfils.add((OAUser) object);
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
 
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getUsersFromFirebase(final OAFirebaseCallback callback) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("user");
+
+        usersRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                OAUser user = dataSnapshot.getValue(OAUser.class);
+                callback.onSuccess(user);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
     }
 
 }

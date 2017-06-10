@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OAUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.ViewHolder> {
-    private List<Perfil> perfils;
+    private List<OAUser> perfils;
     private Context context;
     private final OnItemClickListener clickListener;
 
@@ -37,7 +38,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.ViewHolder
             perfilPicture = (CircleImageView) itemView.findViewById(R.id.cell_perfil_picture);
         }
 
-        public void bind(final Perfil item, final OnItemClickListener listener) {
+        public void bind(final OAUser item, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(item);
@@ -47,7 +48,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.ViewHolder
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public PerfilAdapter(List<Perfil> mPerfils, Context mContext, OnItemClickListener listener) {
+    public PerfilAdapter(List<OAUser> mPerfils, Context mContext, OnItemClickListener listener) {
         perfils = mPerfils;
         this.context = mContext;
         this.clickListener = listener;
@@ -72,7 +73,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.ViewHolder
         // - replace the contents of the view with that element
         holder.bind(perfils.get(position),clickListener);
         holder.perfilName.setText(perfils.get(position).getName());
-        Picasso.with(context).load(perfils.get(position).getFacebookImage()).into(holder.perfilPicture);
+        Picasso.with(context).load(perfils.get(position).getImagePath()).into(holder.perfilPicture);
 
     }
 
@@ -83,7 +84,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.ViewHolder
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Perfil item);
+        void onItemClick(OAUser item);
     }
 
 }
