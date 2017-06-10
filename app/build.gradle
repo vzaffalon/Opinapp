@@ -64,6 +64,9 @@ dependencies {
 
     //image picker from cellphone
     compile 'com.github.nguyenhoanglam:ImagePicker:1.1.3'
+
+    //cards swipe
+    compile 'link.fls:swipestack:0.3.0'
 }
 apply plugin: 'realm-android'
 apply plugin: 'com.google.gms.google-services'

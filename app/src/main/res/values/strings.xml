@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">opinnapp</string>
-    <string name="llorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquam elit a placerat dictum. Pellentesque bibendum, nulla sit amet pharetra gravida, diam ipsum vestibulum dolor, et semper ante massa at tortor.</string>
+    <string name="llorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquam elit a placerat dictum. Pellentesque bibendum</string>
     <string name="facebook_app_id">1920119201601750</string>
     <string name="fb_login_protocol_scheme">fb1920119201601750</string>
 </resources>

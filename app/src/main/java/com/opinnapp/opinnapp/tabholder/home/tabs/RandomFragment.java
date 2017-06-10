@@ -17,6 +17,8 @@ import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import java.util.ArrayList;
 import java.util.List;
 
+import link.fls.swipestack.SwipeStack;
+
 /**
  * Created by vzaffalon on 08/05/17.
  */
@@ -43,24 +45,26 @@ public class RandomFragment extends Fragment {
     // Inflate the view for the fragment based on layout XML
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_popular, container, false);
+        view = inflater.inflate(R.layout.fragment_random, container, false);
         context = view.getContext();
-        recyclerView = (RecyclerView) view.findViewById(R.id.fragment_home_recycler);
 
         generateStories();
-        mountRecycler();
+        mountSwipeView();
 
         return view;
     }
 
-    private void mountRecycler() {
-        if (stories != null) {
-            recyclerView.setHasFixedSize(true);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            recyclerView.setLayoutManager(layoutManager);
-            //recyclerView.setAdapter(new OAStoriesAdapter(stories, context));
-        }
+    private void mountSwipeView(){
+        List<String> mData = new ArrayList<>();
+        mData.add("BIRL");
+        mData.add("BIRL");
+        mData.add("BIRL");
+        mData.add("BIRL");
+        mData.add("BIRL");
+        SwipeStack swipeStack = (SwipeStack) view.findViewById(R.id.swipeStack);
+        swipeStack.setAdapter(new SwipeCardsAdapter(mData,getContext()));
     }
+
 
     private void generateStories () {
         stories = new ArrayList<>();
