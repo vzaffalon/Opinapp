@@ -133,9 +133,27 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                if (tabId == R.id.tab_home) {
+
+                    transaction.replace(R.id.fragment_container, HomeFragment.newInstance());
+                    transaction.commit();
+                }
+                if(tabId == R.id.tab_explore){
+                    transaction.replace(R.id.fragment_container, ExploreFragment.newInstance());
+                    transaction.commit();
+                }
                 if(tabId == R.id.tab_add_question){
                     Intent intent = new Intent(getApplicationContext(), NewQuestionActivity.class);
                     startActivity(intent);
+                }
+                if(tabId == R.id.tab_notifications){
+                    transaction.replace(R.id.fragment_container, NotificationsFragment.newInstance());
+                    transaction.commit();
+                }
+                if(tabId == R.id.tab_perfil){
+                    transaction.replace(R.id.fragment_container, PerfilFragment.newInstance());
+                    transaction.commit();
                 }
             }
         });
