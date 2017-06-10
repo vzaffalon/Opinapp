@@ -15,11 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.adapters.OAStoriesAdapter;
+import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
+import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
 import com.opinnapp.opinnapp.tabholder.home.tabs.PopularFragment;
 
@@ -36,6 +43,8 @@ public class TagsFragment extends Fragment {
     private Context context;
     private View view;
     private List<Tag> tags;
+    private int ranking = 1;
+    private int numberOfPosts = 12;
 
     // newInstance constructor for creating fragment with arguments
     public static TagsFragment newInstance() {
@@ -57,6 +66,7 @@ public class TagsFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_tags_recycler);
         generateTags();
         mountRecycler();
+        getStorysFromFirebase();
         return view;
     }
 
@@ -77,14 +87,75 @@ public class TagsFragment extends Fragment {
 
     private void generateTags () {
         tags = new ArrayList<>();
-        tags.add(new Tag("#política","3500","1"));
-        tags.add(new Tag("#presentes","500","2"));
-        tags.add(new Tag("#roupas","200","3"));
-        tags.add(new Tag("#memes","50","4"));
-        tags.add(new Tag("#filmes","35","5"));
-        tags.add(new Tag("#conselhos","30","6"));
-        tags.add(new Tag("#comidas","20","7"));
-        tags.add(new Tag("#passatempo","5","8"));
+    }
+
+
+    private void getStorysFromFirebase(){
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("story");
+
+            usersRef.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    OAStory story = dataSnapshot.getValue(OAStory.class);
+                    getTagsFromStory(story.getId());
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+
+    private void getTagsFromStory(String storyId){
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("story/" + storyId + "/tags");
+
+        usersRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String tagAux = dataSnapshot.getValue().toString();
+                Tag tagObject = new Tag(tagAux,Integer.toString(numberOfPosts),Integer.toString(ranking));
+                tags.add(tagObject);
+                recyclerView.getAdapter().notifyDataSetChanged();
+                ranking = ranking + 1;
+                if(numberOfPosts > 1) {
+                    numberOfPosts = numberOfPosts - 1;
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
 
