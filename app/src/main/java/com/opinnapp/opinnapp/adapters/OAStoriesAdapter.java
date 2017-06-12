@@ -2,6 +2,7 @@ package com.opinnapp.opinnapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,9 +65,11 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+
         if (holder instanceof OAImageAdapter) {
             ((OAImageAdapter) holder).bindStory((OAStoryMultiChoiceImages) stories.get(position));
+
             ((OAImageAdapter) holder).ivComments.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -76,9 +79,46 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                     context.startActivity(intent);
                 }
             });
+            ((OAImageAdapter) holder).ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
+                    ((OAImageAdapter) holder).ivLike.setImageDrawable(myDrawable);
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
+                    ((OAImageAdapter) holder).ivDislike.setImageDrawable(myDrawable);
+                    ((OAImageAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    ((OAImageAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
+                }
+            });
+            ((OAImageAdapter) holder).ivDislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_fil);
+                    ((OAImageAdapter) holder).ivDislike.setImageDrawable(myDrawable);
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
+                    ((OAImageAdapter) holder).ivLike.setImageDrawable(myDrawable);
+                    ((OAImageAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    ((OAImageAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
+                }
+            });
+
+            ((OAImageAdapter) holder).ivBookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark_filled);
+                    if (((OAImageAdapter) holder).ivBookmark.getDrawable() == myDrawable) {
+                        myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark);
+                    }else{
+                        myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark_filled);
+                    }
+                    ((OAImageAdapter) holder).ivBookmark.setImageDrawable(myDrawable);
+                }
+            });
+
         }
         else{
             ((OATextAdapter) holder).bindStory((OAStoryTextOnly) stories.get(position));
+
             ((OATextAdapter) holder).ivComments.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -86,6 +126,37 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                     intent.putExtra("storyId",stories.get(position).getId());
                     intent.putExtra("userId",stories.get(position).getOwnerID());
                     context.startActivity(intent);
+                }
+            });
+            ((OATextAdapter) holder).ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
+                    ((OATextAdapter) holder).ivLike.setImageDrawable(myDrawable);
+                    ((OATextAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    ((OATextAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
+
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
+                    ((OATextAdapter) holder).ivDislike.setImageDrawable(myDrawable);
+                }
+            });
+            ((OATextAdapter) holder).ivDislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_fil);
+                    ((OATextAdapter) holder).ivDislike.setImageDrawable(myDrawable);
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
+                    ((OATextAdapter) holder).ivLike.setImageDrawable(myDrawable);
+                    ((OATextAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    ((OATextAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
+                }
+            });
+
+            ((OATextAdapter) holder).ivBookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark_filled);
+                    ((OATextAdapter) holder).ivBookmark.setImageDrawable(myDrawable);
                 }
             });
         }
@@ -100,7 +171,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     private class OAImageAdapter extends RecyclerView.ViewHolder {
         Context context;
         CircleImageView ivUserPhoto;
-        TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags;
+        TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
         LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
         ImageView ivLike, ivDislike, ivComments, ivBookmark;
 
@@ -127,6 +198,12 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivComments = (ImageView) itemView.findViewById(R.id.cell_story_iv_comments);
             ivBookmark = (ImageView) itemView.findViewById(R.id.cell_story_iv_bookmark);
 
+
+            tvNumberOfLikes = (TextView) itemView.findViewById(R.id.cell_number_of_likes);
+            tvNumberofDislikes = (TextView) itemView.findViewById(R.id.cell_number_of_dislikes);
+            tvNumberofDislikes.setVisibility(View.GONE);
+            tvNumberOfLikes.setVisibility(View.GONE);
+
             viewPager = (ViewPager) itemView.findViewById(R.id.cell_story_view_pager);
             indicatorView = (PageIndicatorView) itemView.findViewById(R.id.cell_story_page_indicator);
 
@@ -144,7 +221,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     private class OATextAdapter extends RecyclerView.ViewHolder {
         Context context;
         CircleImageView ivUserPhoto;
-        TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags;
+        TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
         LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
         ImageView ivLike, ivDislike, ivComments, ivBookmark;
 
@@ -167,6 +244,11 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivDislike = (ImageView) itemView.findViewById(R.id.cell_story_iv_dislike);
             ivComments = (ImageView) itemView.findViewById(R.id.cell_story_iv_comments);
             ivBookmark = (ImageView) itemView.findViewById(R.id.cell_story_iv_bookmark);
+
+            tvNumberOfLikes = (TextView) itemView.findViewById(R.id.cell_number_of_likes);
+            tvNumberofDislikes = (TextView) itemView.findViewById(R.id.cell_number_of_dislikes);
+            tvNumberofDislikes.setVisibility(View.GONE);
+            tvNumberOfLikes.setVisibility(View.GONE);
 
             //todo onclicklisteners nos buttons
 

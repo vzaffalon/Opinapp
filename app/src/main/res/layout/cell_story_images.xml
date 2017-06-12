@@ -236,6 +236,16 @@
                 android:src="@drawable/ic_thumbs_up"
 
                 />
+
+            <TextView
+                android:id="@+id/cell_number_of_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#5D5D5D"
+                android:text="9"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -255,6 +265,16 @@
                 android:src="@drawable/ic_thumbs_down"
 
                 />
+
+            <TextView
+                android:id="@+id/cell_number_of_dislikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#5D5D5D"
+                android:text="9"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout

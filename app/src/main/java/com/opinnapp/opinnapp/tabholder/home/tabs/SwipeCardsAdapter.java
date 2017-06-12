@@ -2,6 +2,7 @@ package com.opinnapp.opinnapp.tabholder.home.tabs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class SwipeCardsAdapter extends BaseAdapter {
     private Context context;
 
     private CircleImageView ivUserPhoto;
-    private TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags;
+    private TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
     private LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
     private ImageView ivLike, ivDislike, ivComments, ivBookmark;
 
@@ -78,6 +79,11 @@ public class SwipeCardsAdapter extends BaseAdapter {
         ivComments = (ImageView) convertView.findViewById(R.id.cell_story_iv_comments);
         ivBookmark = (ImageView) convertView.findViewById(R.id.cell_story_iv_bookmark);
 
+        tvNumberOfLikes = (TextView) convertView.findViewById(R.id.cell_number_of_likes);
+        tvNumberofDislikes = (TextView) convertView.findViewById(R.id.cell_number_of_dislikes);
+        tvNumberofDislikes.setVisibility(View.GONE);
+        tvNumberOfLikes.setVisibility(View.GONE);
+
 
         bindStory((OAStoryTextOnly) stories.get(position));
         ivComments.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +93,38 @@ public class SwipeCardsAdapter extends BaseAdapter {
                 intent.putExtra("storyId",stories.get(position).getId());
                 intent.putExtra("userId",stories.get(position).getOwnerID());
                 context.startActivity(intent);
+            }
+        });
+
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
+                ivLike.setImageDrawable(myDrawable);
+                tvNumberOfLikes.setVisibility(View.VISIBLE);
+                tvNumberofDislikes.setVisibility(View.VISIBLE);
+
+                myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
+                ivDislike.setImageDrawable(myDrawable);
+            }
+        });
+        ivDislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_fil);
+                ivDislike.setImageDrawable(myDrawable);
+                myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
+                ivLike.setImageDrawable(myDrawable);
+                tvNumberOfLikes.setVisibility(View.VISIBLE);
+                tvNumberofDislikes.setVisibility(View.VISIBLE);
+            }
+        });
+
+        ivBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark_filled);
+                ivBookmark.setImageDrawable(myDrawable);
             }
         });
 
