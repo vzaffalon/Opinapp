@@ -84,7 +84,8 @@ public class OADatabase {
 
         if (story instanceof OAStoryMultiChoiceImages) {
             OAStoryMultiChoiceImages storyMultiChoiceImages = (OAStoryMultiChoiceImages) story;
-            uploadImage(storyMultiChoiceImages.getImages().get(0), storyMultiChoiceImages, 0);
+            for (int i = 0; i < storyMultiChoiceImages.getImages().size(); i++)
+                uploadImage(storyMultiChoiceImages.getImages().get(i), storyMultiChoiceImages, i);
         }
         return true;
     }
@@ -169,6 +170,24 @@ public class OADatabase {
     //endregion
 
     //region ImageOption
+    public static void getImageOptionWithID(String id, final OAFirebaseCallback callback) {
+        DatabaseReference imagesRef = FirebaseDatabase.getInstance().getReference("imageOption/" + id);
+
+        imagesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                OAImageOption image =  dataSnapshot.getValue(OAImageOption.class);
+                callback.onSuccess(image);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
+    }
+
+
     private static void addImageOptionToStory(String imagePath, OAStoryMultiChoiceImages story) {
         String imageOptionID = createImageOption(imagePath, story.getId());
 

@@ -1,5 +1,8 @@
 package com.opinnapp.opinnapp.models;
 
+import com.google.firebase.database.DatabaseError;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +35,23 @@ public class OAStoryMultiChoiceImages extends OAStory {
     public void setObjectsValuesWithFirebaseIds() {
         super.setObjectsValuesWithFirebaseIds();
 
-        //todo images;
+        for (final String imageID : imagesIds) {
+            OADatabase.getImageOptionWithID(imageID, new OAFirebaseCallback() {
+                @Override
+                public void onSuccess(Object object) {
+                    if (images == null) {
+                        images = new ArrayList<OAImageOption>();
+                    }
+
+                    images.add((OAImageOption) object);
+                }
+
+                @Override
+                public void onFailure(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+        }
     }
 
     public OAStoryMultiChoiceImages () {

@@ -212,9 +212,27 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
         void bindStory(OAStoryMultiChoiceImages story) {
             viewPager.setAdapter(new OAStoryImagesAdapter(story.getImages(), context));
             indicatorView.setViewPager(viewPager);
+            viewPager.setCurrentItem(0);
 
 
-            //todo dar bind das coisas
+            //todo dar bind nas coisas
+            if (story.getOwner() != null) {
+                Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
+                tvUserName.setText(story.getOwner().getName());
+                tvUserUrl.setText("@" + story.getOwner().getUrl());
+            }
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+            tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
+
+            //todo arrumar gambiarra
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+            tvExpirationTime.setText(dateFormat2.format(story.getExpirationDate()));
+
+            tvDescription.setText(story.getDescription());
+
+            if (story.getTagsString() != null)
+                tvTags.setText(story.getTagsString());
         }
     }
 

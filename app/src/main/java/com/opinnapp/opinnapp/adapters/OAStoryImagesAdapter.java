@@ -47,10 +47,7 @@ public class OAStoryImagesAdapter extends PagerAdapter {
         LinearLayout btnLike = (LinearLayout) view.findViewById(R.id.cell_image_and_like_btn_like);
         ImageView like = (ImageView) view.findViewById(R.id.cell_image_and_like_iv_like);
 
-        if (position % 2 == 0)
-            Picasso.with(context).load(R.drawable.shoes1).into(photo);
-        else
-            Picasso.with(context).load(R.drawable.shoes2).into(photo);
+        Picasso.with(context).load(images.get(position).getImagePath()).into(photo);
 
         //todo bind values
 
