@@ -17,6 +17,7 @@ import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OADatabase;
+import com.opinnapp.opinnapp.models.OAImageOption;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
@@ -208,24 +209,46 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     //TODO: METODO GET USER GERAL PARA TODAS AS FUNCOES DE RECEBER USUARIO LOGADO"
     //TODO: SALVAR OS TIPOS COM IMAGEM
     private void saveStoryObjectOnFirebase(){
-        if(!optionsMode){
-            List<String> tagsArray;
-            if(tags !=  null) {
-                tagsArray = Arrays.asList(tags);
-            }else{
-                tagsArray = new ArrayList<>();
+        List<OAImageOption> images = null;
+        if(optionsMode) {
+            images = new ArrayList<>();
+
+            if (option1 != null) {
+                OAImageOption imageOption = new OAImageOption();
+                imageOption.setImagePath(option1);
+                images.add(imageOption);
             }
-            OAUser oaUser = new OAUser();
-            //TODO: CHANGE THIS FIXED ID
-            oaUser.setId("-KmC_itqAwB7qfIT8Tep");
-            createStory(question,tagsArray,oaUser,getExpirationDate(),null);
-            Toast.makeText(getApplicationContext(),"Pergunta Salva",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getApplicationContext(),"Pergunta não salva",Toast.LENGTH_SHORT).show();
+            if (option2 != null) {
+                OAImageOption imageOption = new OAImageOption();
+                imageOption.setImagePath(option2);
+                images.add(imageOption);
+            }
+            if (option3 != null) {
+                OAImageOption imageOption = new OAImageOption();
+                imageOption.setImagePath(option3);
+                images.add(imageOption);
+            }
+            if (option4 != null) {
+                OAImageOption imageOption = new OAImageOption();
+                imageOption.setImagePath(option4);
+                images.add(imageOption);
+            }
         }
+
+        List<String> tagsArray;
+        if(tags !=  null) {
+            tagsArray = Arrays.asList(tags);
+        }else{
+            tagsArray = new ArrayList<>();
+        }
+        OAUser oaUser = new OAUser();
+        //TODO: CHANGE THIS FIXED ID
+        oaUser.setId("-KmC_itqAwB7qfIT8Tep");
+        createStory(question,tagsArray,oaUser,getExpirationDate(),images);
+        Toast.makeText(getApplicationContext(),"Pergunta Salva",Toast.LENGTH_SHORT).show();
     }
 
-    private OAStory createStory(String description, List<String>tags, OAUser owner, Date expirationDate, List<android.media.Image> images){
+    private OAStory createStory(String description, List<String>tags, OAUser owner, Date expirationDate, List<OAImageOption> images){
         if (images != null) {
             OAStoryMultiChoiceImages storyMultiChoiceImages = new OAStoryMultiChoiceImages();
             storyMultiChoiceImages.setDescription(description);
@@ -234,8 +257,7 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             storyMultiChoiceImages.setExpirationDate(expirationDate);
             storyMultiChoiceImages.setCreationDate(new Date());
 
-            //todo como vai enviar as imagens?
-            //storyMultiChoiceImages.setImages(images);
+            storyMultiChoiceImages.setImages(images);
             if (OADatabase.createStory(storyMultiChoiceImages))
                 return storyMultiChoiceImages;
             else

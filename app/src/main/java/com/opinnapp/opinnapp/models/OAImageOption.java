@@ -38,7 +38,15 @@ public class OAImageOption implements OAFirebaseModel{
         return storyID;
     }
 
+    public void setStoryID(String storyID) {
+        this.storyID = storyID;
+    }
+
     public List<String> getUsersIdThatLiked() {
         return usersIdThatLiked;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

@@ -81,6 +81,11 @@ public class OADatabase {
 
         story.setId(newStoryRef.getKey());
         newStoryRef.setValue(story.firebaseRepresentation());
+
+        if (story instanceof OAStoryMultiChoiceImages) {
+            OAStoryMultiChoiceImages storyMultiChoiceImages = (OAStoryMultiChoiceImages) story;
+            uploadImage(storyMultiChoiceImages.getImages().get(0), storyMultiChoiceImages, 0);
+        }
         return true;
     }
 
@@ -120,6 +125,11 @@ public class OADatabase {
             }
         });
     }
+
+    private static void updateStory(OAStory story) {
+        DatabaseReference storyRef = FirebaseDatabase.getInstance().getReference("story/" + story.getId());
+        storyRef.setValue(story.firebaseRepresentation());
+    }
     //endregion
 
 
@@ -158,12 +168,40 @@ public class OADatabase {
     }
     //endregion
 
-    //region Images
-    public static void uploadImage(File image) {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://opinapp-c6381.appspot.com");
-        StorageReference imagesRef = storageRef.child("images/test.jpg");
+    //region ImageOption
+    private static void addImageOptionToStory(String imagePath, OAStoryMultiChoiceImages story) {
+        String imageOptionID = createImageOption(imagePath, story.getId());
 
-        Uri uri = Uri.fromFile(image);
+        if (story.getImagesIds() == null)
+            story.setImagesIds(new ArrayList<String>());
+
+        story.getImagesIds().add(imageOptionID);
+
+        updateStory(story);
+    }
+
+    private static String createImageOption(String imagePath, String storyID) {
+        OAImageOption imageOption = new OAImageOption();
+        imageOption.setImagePath(imagePath);
+        imageOption.setStoryID(storyID);
+
+        DatabaseReference imageOptionRef = FirebaseDatabase.getInstance().getReference("imageOption");
+        DatabaseReference newImageOptionRef = imageOptionRef.push();
+
+        imageOption.setId(newImageOptionRef.getKey());
+        newImageOptionRef.setValue(imageOption.firebaseRepresentation());
+
+        return imageOption.getId();
+    }
+
+    //endregion
+
+    //region Images
+    public static void uploadImage(OAImageOption imageOption, final OAStoryMultiChoiceImages story, int index) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://opinapp-c6381.appspot.com");
+        StorageReference imagesRef = storageRef.child("OAImageOption/" + story.getId() + "/" + index);
+
+        Uri uri = Uri.fromFile(new File(imageOption.getImagePath()));
         UploadTask uploadTask = imagesRef.putFile(uri);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -177,6 +215,7 @@ public class OADatabase {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                addImageOptionToStory(downloadUrl.toString(), story);
             }
         });
     }

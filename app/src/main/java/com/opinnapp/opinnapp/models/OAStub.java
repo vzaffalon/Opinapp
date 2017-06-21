@@ -4,7 +4,6 @@ import android.media.Image;
 
 import com.google.firebase.database.DatabaseError;
 
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -110,8 +109,4 @@ public class OAStub {
             return null;
     }
 
-    //UPLOAD DE IMAGENS
-    public static void uploadImage(File file) {
-        OADatabase.uploadImage(file);
-    }
 }

@@ -1,6 +1,5 @@
 package com.opinnapp.opinnapp.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,12 +37,6 @@ public class OAStoryMultiChoiceImages extends OAStory {
 
     public OAStoryMultiChoiceImages () {
         this.type = "OAStoryMultiChoiceImages";
-
-        images = new ArrayList<>();
-        images.add(new OAImageOption());
-        images.add(new OAImageOption());
-        images.add(new OAImageOption());
-        images.add(new OAImageOption());
     }
 
     public List<String> getImagesIds() {
@@ -52,5 +45,13 @@ public class OAStoryMultiChoiceImages extends OAStory {
 
     public List<OAImageOption> getImages() {
         return images;
+    }
+
+    public void setImages(List<OAImageOption> images) {
+        this.images = images;
+    }
+
+    public void setImagesIds(List<String> imagesIds) {
+        this.imagesIds = imagesIds;
     }
 }
