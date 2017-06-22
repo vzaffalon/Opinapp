@@ -5,7 +5,6 @@
     <tab
         id="@+id/tab_home"
         android:icon="@drawable/ic_home"
-        android:title="Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <tab
@@ -16,7 +15,6 @@
     <tab
         id="@+id/tab_add_question"
         android:icon="@drawable/ic_add"
-        android:title="Add"
         inActiveColor="#F55E8E"
         activeColor="#F55E8E"
         android:layout_width="wrap_content"
@@ -25,13 +23,11 @@
     <tab
         id="@+id/tab_notifications"
         android:icon="@drawable/ic_bell"
-        android:title="Questions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <tab
         id="@+id/tab_perfil"
         android:icon="@drawable/ic_perfil"
-        android:title="Perfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </tabs>

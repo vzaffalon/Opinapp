@@ -100,7 +100,9 @@ public class SwipeCardsAdapter extends BaseAdapter {
                 Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
                 ivLike.setImageDrawable(myDrawable);
                 tvNumberOfLikes.setVisibility(View.VISIBLE);
+                tvNumberOfLikes.setText("1");
                 tvNumberofDislikes.setVisibility(View.VISIBLE);
+                tvNumberofDislikes.setText("0");
 
                 myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
                 ivDislike.setImageDrawable(myDrawable);
@@ -109,12 +111,14 @@ public class SwipeCardsAdapter extends BaseAdapter {
         ivDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_fil);
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
                 ivDislike.setImageDrawable(myDrawable);
                 myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                 ivLike.setImageDrawable(myDrawable);
                 tvNumberOfLikes.setVisibility(View.VISIBLE);
+                tvNumberOfLikes.setText("0");
                 tvNumberofDislikes.setVisibility(View.VISIBLE);
+                tvNumberofDislikes.setText("1");
             }
         });
 

@@ -102,7 +102,7 @@ public class NewQuestionActivity extends SwipeBackActivity {
     }
 
     private void setUpConfirmButton(){
-        TextView cell_confirm_button  = (TextView) findViewById(R.id.cell_confirm_button);
+        ImageButton cell_confirm_button  = (ImageButton) findViewById(R.id.cell_confirm_button);
         cell_confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

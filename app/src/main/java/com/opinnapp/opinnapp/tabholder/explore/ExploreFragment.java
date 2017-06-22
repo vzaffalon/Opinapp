@@ -68,5 +68,7 @@ public class ExploreFragment extends Fragment {
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_tags));
+        tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_perfis));
     }
 }

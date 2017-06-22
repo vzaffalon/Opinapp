@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setUpLayout(){
-        TextView button_guest_login = (TextView) findViewById(R.id.button_guest_login);
+        ImageButton button_guest_login = (ImageButton) findViewById(R.id.button_guest_login);
         button_guest_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +122,9 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton button_facebook_login = (LoginButton) findViewById(R.id.button_facebook_login);
+        button_facebook_login.setBackgroundResource(R.drawable.facebook_button);
+        button_facebook_login.setText("");
+        button_facebook_login.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         button_facebook_login.setReadPermissions("email", "public_profile");
         button_facebook_login.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override

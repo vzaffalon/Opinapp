@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUpBottomBar(){
         setFragmentContainer();
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        final BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         //SET ICONS SIZE
         bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
@@ -108,10 +108,22 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 if (tabId == R.id.tab_home) {
 
+                    bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_home_filled);
+                    bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_explore);
+                    bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_bell);
+                    bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_perfil);
+
                     transaction.replace(R.id.fragment_container, HomeFragment.newInstance());
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_explore){
+
+
+                    bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_home);
+                    bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_explore_filled);
+                    bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_bell);
+                    bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_perfil);
+
                     transaction.replace(R.id.fragment_container, ExploreFragment.newInstance());
                     transaction.commit();
                 }
@@ -120,10 +132,22 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if(tabId == R.id.tab_notifications){
+
+                    bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_home);
+                    bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_explore);
+                    bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_bell_filled);
+                    bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_perfil);
+
                     transaction.replace(R.id.fragment_container, NotificationsFragment.newInstance());
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_perfil){
+
+                    bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_home);
+                    bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_explore);
+                    bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_bell);
+                    bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setBackgroundResource(R.drawable.ic_perfil_filled);
+
                     transaction.replace(R.id.fragment_container, PerfilFragment.newInstance());
                     transaction.commit();
                 }

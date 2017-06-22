@@ -93,7 +93,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ((OAImageAdapter) holder).ivDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_fil);
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
                     ((OAImageAdapter) holder).ivDislike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                     ((OAImageAdapter) holder).ivLike.setImageDrawable(myDrawable);
@@ -143,7 +143,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ((OATextAdapter) holder).ivDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_fil);
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
                     ((OATextAdapter) holder).ivDislike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                     ((OATextAdapter) holder).ivLike.setImageDrawable(myDrawable);

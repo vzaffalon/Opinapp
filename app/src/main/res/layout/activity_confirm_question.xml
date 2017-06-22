@@ -24,8 +24,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/cell_perfil_picture"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_marginLeft="25dp"
                     android:src="@drawable/ic_user" />
 
@@ -33,27 +33,18 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_green_background"
                     android:orientation="horizontal"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
-                    android:padding="7dp">
+                    android:padding="3dp">
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_eye"
+                        android:layout_width="95dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_privacy"
+                        android:scaleType="fitXY"
                         android:background="@color/transparent"
                         android:layout_gravity="center_vertical" />
 
-                    <TextView
-                        android:id="@+id/cell_question_mode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:text="Público"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -102,7 +93,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@color/transparent"
-                    android:src="@drawable/ic_list"
+                    android:src="@drawable/ic_camera"
                     android:layout_gravity="center_vertical"/>
 
                 <RelativeLayout
@@ -204,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:textColor="@color/oa_light_gray_text"
+                    android:textColor="#262626"
                     android:text="Tempo para expirar:"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
@@ -259,20 +250,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp">
-                <TextView
+                <ImageButton
                     android:id="@+id/cell_confirm_button"
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:padding="7dp"
-
-                    android:text="Perguntar"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-
-                    android:background="@drawable/rounded_button"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ask_button"
+                    android:scaleType="fitXY"
+                    android:background="@color/transparent"
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
 
