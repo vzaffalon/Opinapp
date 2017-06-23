@@ -20,6 +20,7 @@
         android:layout_height="44dp"
 
         android:gravity="center"
+        android:orientation="horizontal"
         >
 
         <ImageView
@@ -30,6 +31,16 @@
             android:src="@drawable/ic_thumbs_up_view_pager"
 
             />
+
+        <TextView
+            android:id="@+id/cell_image_number_of_likes_on_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="1"
+            android:textSize="18sp"
+            android:textColor="@color/oa_black"
+            android:layout_marginLeft="5dp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -18,6 +18,9 @@ import com.rd.PageIndicatorView;
 
 public class TutorialActivity extends AppCompatActivity {
 
+    private TutorialPageAdapter adapterViewPager;
+    private ViewPager vpPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +31,14 @@ public class TutorialActivity extends AppCompatActivity {
 
     private void setUpViewPager(){
         PageIndicatorView cell_page_indicator = (PageIndicatorView) findViewById(R.id.cell_page_indicator);
-        ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
-        TutorialPageAdapter adapterViewPager = new TutorialPageAdapter(getSupportFragmentManager());
+        vpPager = (ViewPager) findViewById(R.id.vpPager);
+        adapterViewPager = new TutorialPageAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
         cell_page_indicator.setViewPager(vpPager);
     }
 
     private void setUpButtons(){
-        TextView skipButton = (TextView) findViewById(R.id.skip_button);
+        final TextView skipButton = (TextView) findViewById(R.id.skip_button);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,11 +47,17 @@ public class TutorialActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton nextButton = (ImageButton) findViewById(R.id.next_button);
+        final ImageButton nextButton = (ImageButton) findViewById(R.id.next_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(vpPager.getCurrentItem()<2) {
+                    vpPager.setCurrentItem(vpPager.getCurrentItem() + 1);
+                }else{
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

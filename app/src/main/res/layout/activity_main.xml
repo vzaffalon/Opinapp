@@ -13,12 +13,12 @@
         android:theme="@style/AppTheme"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <ImageView
-        android:layout_width="95dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:src="@drawable/logo"
-        android:scaleType="fitXY"/>
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            android:scaleType="fitXY"/>
 
     </android.support.v7.widget.Toolbar>
 

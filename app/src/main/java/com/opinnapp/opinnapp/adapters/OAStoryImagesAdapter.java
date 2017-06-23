@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OAImageOption;
@@ -45,11 +46,21 @@ public class OAStoryImagesAdapter extends PagerAdapter {
 
         ImageView photo = (ImageView) view.findViewById(R.id.cell_image_and_like_iv_photo);
         LinearLayout btnLike = (LinearLayout) view.findViewById(R.id.cell_image_and_like_btn_like);
-        ImageView like = (ImageView) view.findViewById(R.id.cell_image_and_like_iv_like);
+        final ImageView like = (ImageView) view.findViewById(R.id.cell_image_and_like_iv_like);
+        final TextView numberOfLikes = (TextView) view.findViewById(R.id.cell_image_number_of_likes_on_image);
 
         Picasso.with(context).load(images.get(position).getImagePath()).into(photo);
 
         //todo bind values
+
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                like.setImageResource(R.drawable.ic_thumbs_up_filled);
+                numberOfLikes.setVisibility(View.VISIBLE);
+                numberOfLikes.setText("1");
+            }
+        });
 
         container.addView(view);
         return view;

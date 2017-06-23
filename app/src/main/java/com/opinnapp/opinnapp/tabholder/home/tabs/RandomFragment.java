@@ -77,7 +77,9 @@ public class RandomFragment extends Fragment {
 
                 List<OAStory> storiesAux = (List<OAStory>) object;
                 for (int i=0;i<storiesAux.size();i++){
-                    stories.add(storiesAux.get(i));
+                    if (storiesAux.get(i) instanceof OAStoryTextOnly) {
+                        stories.add(storiesAux.get(i));
+                    }
                 }
 
                 //gambiarra pra setar os users e comments
@@ -87,7 +89,7 @@ public class RandomFragment extends Fragment {
                         Collections.reverse(stories);
                         baseAdapter.notifyDataSetChanged();
                     }
-                }, 1000);
+                }, 1500);
             }
 
             @Override

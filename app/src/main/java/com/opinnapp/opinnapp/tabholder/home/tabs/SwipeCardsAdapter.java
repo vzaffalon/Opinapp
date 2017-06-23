@@ -3,6 +3,7 @@ package com.opinnapp.opinnapp.tabholder.home.tabs;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.adapters.OAStoryImagesAdapter;
 import com.opinnapp.opinnapp.models.OAStory;
+import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.opinnapp.opinnapp.tabholder.comments.CommentsActivity;
+import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -35,6 +39,8 @@ public class SwipeCardsAdapter extends BaseAdapter {
     private TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
     private LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
     private ImageView ivLike, ivDislike, ivComments, ivBookmark;
+    ViewPager viewPager;
+    PageIndicatorView indicatorView;
 
     public SwipeCardsAdapter(List<OAStory> stories,Context context) {
         this.stories = stories;
@@ -58,7 +64,13 @@ public class SwipeCardsAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(context).inflate(R.layout.cell_story_text_only, parent, false);
+
+        if (stories.get(position) instanceof OAStoryMultiChoiceImages) {
+            //convertView = LayoutInflater.from(context).inflate(R.layout.cell_story_images, parent, false);
+        }
+        if (stories.get(position) instanceof  OAStoryTextOnly) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.cell_story_text_only, parent, false);
+        }
         context = convertView.getContext();
         ivUserPhoto = (CircleImageView) convertView.findViewById(R.id.cell_story_iv_user_photo);
         tvUserName = (TextView) convertView.findViewById(R.id.cell_story_tv_user_name);
@@ -76,13 +88,20 @@ public class SwipeCardsAdapter extends BaseAdapter {
         ivComments = (ImageView) convertView.findViewById(R.id.cell_story_iv_comments);
         ivBookmark = (ImageView) convertView.findViewById(R.id.cell_story_iv_bookmark);
 
+        viewPager = (ViewPager) convertView.findViewById(R.id.cell_story_view_pager);
+        indicatorView = (PageIndicatorView) convertView.findViewById(R.id.cell_story_page_indicator);
+
         tvNumberOfLikes = (TextView) convertView.findViewById(R.id.cell_number_of_likes);
         tvNumberofDislikes = (TextView) convertView.findViewById(R.id.cell_number_of_dislikes);
         tvNumberofDislikes.setVisibility(View.GONE);
         tvNumberOfLikes.setVisibility(View.GONE);
 
-        if (stories.get(position) instanceof  OAStoryTextOnly)
+        if (stories.get(position) instanceof  OAStoryTextOnly) {
             bindStory((OAStoryTextOnly) stories.get(position));
+        }
+        if (stories.get(position) instanceof OAStoryMultiChoiceImages) {
+            //bindStoryWithImage((OAStoryMultiChoiceImages) stories.get(position));
+        }
 
         ivComments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,8 +164,44 @@ public class SwipeCardsAdapter extends BaseAdapter {
         tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
 
         //todo arrumar gambiarra
-        SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
-        tvExpirationTime.setText(dateFormat2.format(story.getExpirationDate()));
+        //SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+        //dateFormat2.format(story.getExpirationDate())
+        int hours = story.getExpirationDate().getHours();
+        int minutes = story.getExpirationDate().getMinutes();
+        int totalMinutes = (hours * 60) + minutes;
+        tvExpirationTime.setText(Integer.toString(totalMinutes) + " min");
+
+        tvDescription.setText(story.getDescription());
+
+        if (story.getTagsString() != null)
+            tvTags.setText(story.getTagsString());
+    }
+
+    void bindStoryWithImage(OAStoryMultiChoiceImages story) {
+        viewPager.setAdapter(new OAStoryImagesAdapter(story.getImages(), context));
+        indicatorView.setViewPager(viewPager);
+        viewPager.setCurrentItem(0);
+
+
+        //todo dar bind nas coisas
+        if (story.getOwner() != null) {
+            Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
+            tvUserName.setText(story.getOwner().getName());
+            tvUserUrl.setText("@" + story.getOwner().getUrl());
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+        tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
+
+        //todo arrumar gambiarra
+        //SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+        //dateFormat2.format(story.getExpirationDate())
+        int hours = story.getExpirationDate().getHours();
+        int minutes = story.getExpirationDate().getMinutes();
+        int totalMinutes = (hours * 60) + minutes;
+        tvExpirationTime.setText(Integer.toString(totalMinutes) + " min");
+
+
 
         tvDescription.setText(story.getDescription());
 

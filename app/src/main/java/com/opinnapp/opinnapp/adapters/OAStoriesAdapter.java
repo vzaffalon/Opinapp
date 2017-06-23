@@ -86,6 +86,8 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                     ((OAImageAdapter) holder).ivLike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
                     ((OAImageAdapter) holder).ivDislike.setImageDrawable(myDrawable);
+                    ((OAImageAdapter) holder).tvNumberOfLikes.setText("1");
+                    ((OAImageAdapter) holder).tvNumberofDislikes.setText("0");
                     ((OAImageAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
                     ((OAImageAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
                 }
@@ -97,6 +99,8 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                     ((OAImageAdapter) holder).ivDislike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                     ((OAImageAdapter) holder).ivLike.setImageDrawable(myDrawable);
+                    ((OAImageAdapter) holder).tvNumberOfLikes.setText("0");
+                    ((OAImageAdapter) holder).tvNumberofDislikes.setText("1");
                     ((OAImageAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
                     ((OAImageAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
                 }
@@ -136,6 +140,9 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                     ((OATextAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
                     ((OATextAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
 
+                    ((OATextAdapter) holder).tvNumberOfLikes.setText("1");
+                    ((OATextAdapter) holder).tvNumberofDislikes.setText("0");
+
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
                     ((OATextAdapter) holder).ivDislike.setImageDrawable(myDrawable);
                 }
@@ -147,6 +154,10 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                     ((OATextAdapter) holder).ivDislike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                     ((OATextAdapter) holder).ivLike.setImageDrawable(myDrawable);
+
+                    ((OATextAdapter) holder).tvNumberOfLikes.setText("0");
+                    ((OATextAdapter) holder).tvNumberofDislikes.setText("1");
+
                     ((OATextAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
                     ((OATextAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
                 }
