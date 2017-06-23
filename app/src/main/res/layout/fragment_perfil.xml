@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/blue_gradient"
+        android:background="@drawable/blue_gradient_tab"
         android:gravity="center"
         android:layout_gravity="center">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:id="@+id/cell_perfil_picture"
 
             android:layout_width="110dp"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginRight="5dp">
+                android:layout_marginRight="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,12 +70,14 @@
                     android:text="56"
                     android:layout_gravity="center_horizontal"
                     android:textStyle="bold"
+                    android:textSize="17sp"
                     android:textColor="@color/white"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="perguntas"
+                    android:textSize="17sp"
                     android:textColor="@color/white"/>
 
             </LinearLayout>
@@ -84,13 +86,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="120"
+                    android:textSize="17sp"
                     android:layout_gravity="center_horizontal"
                     android:textStyle="bold"
                     android:textColor="@color/white"/>
@@ -98,6 +101,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="17sp"
                     android:text="seguidores"
                     android:textColor="@color/white"/>
 
@@ -107,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="5dp">
+                android:layout_marginLeft="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,12 +119,14 @@
                     android:text="89"
                     android:layout_gravity="center_horizontal"
                     android:textStyle="bold"
+                    android:textSize="17sp"
                     android:textColor="@color/white"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="seguindo"
+                    android:textSize="17sp"
                     android:textColor="@color/white"/>
 
             </LinearLayout>
@@ -133,20 +139,20 @@
             android:layout_height="wrap_content"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/white"
-            app:tabBackground="@drawable/blue_gradient_tab"
+            app:tabBackground="@color/transparent"
             app:tabTextColor="@color/white"
             app:tabMode="fixed" />
 
 
-        <android.support.v4.view.ViewPager
-            android:background="@color/white"
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
 
     </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:background="@color/white"
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 
 </LinearLayout>

@@ -58,6 +58,6 @@ public class PerfilFragment extends Fragment {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_list_white));
-        tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_bookmark));
+        tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_bookmark_white));
     }
 }
