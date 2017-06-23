@@ -11,7 +11,16 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/blue_gradient"
         android:theme="@style/AppTheme"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <ImageView
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:scaleType="fitXY"/>
+
+    </android.support.v7.widget.Toolbar>
 
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,6 +41,7 @@
         app:bb_tabXmlResource="@layout/bottombar_tabs" />
 
     <ImageButton
+        android:id="@+id/new_story_button"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:background="@color/transparent"

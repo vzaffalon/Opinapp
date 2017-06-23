@@ -226,8 +226,14 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
 
             //todo arrumar gambiarra
-            SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
-            tvExpirationTime.setText(dateFormat2.format(story.getExpirationDate()));
+            //SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+            //dateFormat2.format(story.getExpirationDate())
+            int hours = story.getExpirationDate().getHours();
+            int minutes = story.getExpirationDate().getMinutes();
+            int totalMinutes = (hours * 60) + minutes;
+            tvExpirationTime.setText(Integer.toString(totalMinutes) + " min");
+
+
 
             tvDescription.setText(story.getDescription());
 
@@ -283,9 +289,12 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
             tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
 
-            //todo arrumar gambiarra
-            SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
-            tvExpirationTime.setText(dateFormat2.format(story.getExpirationDate()));
+            //SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+            //dateFormat2.format(story.getExpirationDate())
+            int hours = story.getExpirationDate().getHours();
+            int minutes = story.getExpirationDate().getMinutes();
+            int totalMinutes = (hours * 60) + minutes;
+            tvExpirationTime.setText(Integer.toString(totalMinutes) + " min");
 
             tvDescription.setText(story.getDescription());
 

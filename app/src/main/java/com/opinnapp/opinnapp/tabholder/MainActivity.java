@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -38,9 +40,21 @@ public class MainActivity extends AppCompatActivity {
         setUpToolBar();
         setUpBottomBar();
         handleIntent(getIntent());
+        setAddStoryButton();
 
         //todo apagar
         new OATest().initTests();
+    }
+
+    private void setAddStoryButton(){
+        ImageButton  new_story_button = (ImageButton) findViewById(R.id.new_story_button);
+        new_story_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),NewQuestionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -128,8 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_add_question){
-                    Intent intent = new Intent(getApplicationContext(), NewQuestionActivity.class);
-                    startActivity(intent);
+                    //do nothing this is implemented as a button
                 }
                 if(tabId == R.id.tab_notifications){
 
@@ -168,8 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commit();
                 }
                 if(tabId == R.id.tab_add_question){
-                    Intent intent = new Intent(getApplicationContext(), NewQuestionActivity.class);
-                    startActivity(intent);
+                   //do nothing implemented as button
                 }
                 if(tabId == R.id.tab_notifications){
                     transaction.replace(R.id.fragment_container, NotificationsFragment.newInstance());
@@ -185,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpToolBar(){
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setTitle("Opinow!");
+        myToolbar.setTitle("");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(myToolbar);
     }
