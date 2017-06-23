@@ -21,6 +21,7 @@
         android:layout_below="@+id/my_toolbar"
         android:layout_above="@+id/bottomBar"/>
 
+
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
@@ -29,5 +30,16 @@
         app:bb_inActiveTabColor="#9999a4"
         app:bb_activeTabColor="#5ed5df"
         app:bb_tabXmlResource="@layout/bottombar_tabs" />
+
+    <ImageButton
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_add_pink"
+        android:scaleType="fitXY"
+        android:translationZ="30dp"
+        android:layout_marginBottom="5dp"/>
 
 </RelativeLayout>

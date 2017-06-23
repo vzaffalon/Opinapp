@@ -36,7 +36,9 @@
         </activity>
 
         <activity android:name=".tabholder.MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -45,18 +47,28 @@
         </activity>
 
         <activity android:name=".tabholder.newquestion.NewQuestionActivity"
-            android:theme="@style/Theme.Swipe.Back">
+            android:theme="@style/Theme.Swipe.Back"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".tabholder.comments.CommentsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back">
         </activity>
 
         <activity android:name=".tabholder.newquestion.ConfirmQuestionActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back">
         </activity>
 
-        <activity android:name=".login.LoginActivity">
+
+        <activity android:name=".tutorial.TutorialActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back">
+        </activity>
+
+        <activity android:name=".login.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

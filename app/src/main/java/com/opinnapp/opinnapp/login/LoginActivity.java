@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
+import com.opinnapp.opinnapp.tutorial.TutorialActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void changeActivity(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
         startActivity(intent);
         finish();
     }

@@ -86,20 +86,20 @@ public class MainActivity extends AppCompatActivity {
         final BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         //SET ICONS SIZE
-        bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
-        bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+        bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.85f);
+        bottomBar.getTabWithId(R.id.tab_home).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.85f);
 
-        bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
-        bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+        bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.85f);
+        bottomBar.getTabWithId(R.id.tab_explore).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.85f);
 
         bottomBar.getTabWithId(R.id.tab_add_question).findViewById(R.id.bb_bottom_bar_icon).setScaleX(1.0f);
         bottomBar.getTabWithId(R.id.tab_add_question).findViewById(R.id.bb_bottom_bar_icon).setScaleY(1.0f);
 
-        bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
-        bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+        bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.85f);
+        bottomBar.getTabWithId(R.id.tab_notifications).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.85f);
 
-        bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.65f);
-        bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.65f);
+        bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setScaleX(0.85f);
+        bottomBar.getTabWithId(R.id.tab_perfil).findViewById(R.id.bb_bottom_bar_icon).setScaleY(0.85f);
 
         //SET TAB FUNCTIONALITIES
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {

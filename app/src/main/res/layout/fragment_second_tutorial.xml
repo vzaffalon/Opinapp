@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/tutorial2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pergunte!"
+        android:layout_gravity="center_horizontal"
+        android:textSize="24sp"
+        android:layout_marginTop="12dp"
+        android:textColor="#393939"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecione o botão “+” no centro do menu e faça uma pergunta simples ou uma enquete. Você pode até colocar fotos :D"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="#B7B7B7"/>
+
+</LinearLayout>

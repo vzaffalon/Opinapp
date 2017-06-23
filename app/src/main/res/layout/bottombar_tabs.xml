@@ -4,30 +4,23 @@
     android:layout_height="wrap_content">
     <tab
         id="@+id/tab_home"
-        android:icon="@drawable/ic_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <tab
         id="@+id/tab_explore"
-        android:icon="@drawable/ic_explore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <tab
         id="@+id/tab_add_question"
-        android:icon="@drawable/ic_add"
-        inActiveColor="#F55E8E"
-        activeColor="#F55E8E"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <tab
         id="@+id/tab_notifications"
-        android:icon="@drawable/ic_bell"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <tab
         id="@+id/tab_perfil"
-        android:icon="@drawable/ic_perfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </tabs>
