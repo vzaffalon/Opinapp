@@ -51,8 +51,6 @@ public class OAStoryImagesAdapter extends PagerAdapter {
 
         Picasso.with(context).load(images.get(position).getImagePath()).into(photo);
 
-        //todo bind values
-
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

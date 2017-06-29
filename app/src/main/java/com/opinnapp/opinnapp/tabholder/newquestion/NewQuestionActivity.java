@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
@@ -17,7 +16,9 @@ import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
 import com.nguyenhoanglam.imagepicker.model.Image;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 import com.shawnlin.numberpicker.NumberPicker;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -68,6 +69,9 @@ public class NewQuestionActivity extends SwipeBackActivity {
         setUpConfirmButton();
         setUpCancelButton();
         setUpUploadButtons();
+
+        ImageView imageView = (ImageView) findViewById(R.id.cell_perfil_picture);
+        Picasso.with(this).load(OAApplication.getUser().getImagePath()).into(imageView);
     }
 
     private void setUpNumberPickers(){

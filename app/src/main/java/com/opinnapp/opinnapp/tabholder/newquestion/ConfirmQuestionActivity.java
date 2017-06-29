@@ -24,6 +24,7 @@ import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
 import com.opinnapp.opinnapp.tabholder.OAApplication;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,6 +73,9 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
         setUpInformation();
         setUpCancelButton();
         setUpConfirmButton();
+
+        ImageView imageView = (ImageView) findViewById(R.id.cell_perfil_picture);
+        Picasso.with(this).load(OAApplication.getUser().getImagePath()).into(imageView);
     }
 
     private void getInformationFromIntent(){

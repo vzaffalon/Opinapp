@@ -4,12 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
@@ -18,7 +15,6 @@ import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAStory;
-import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 
 import java.util.ArrayList;
@@ -89,7 +85,7 @@ public class RandomFragment extends Fragment {
                         Collections.reverse(stories);
                         baseAdapter.notifyDataSetChanged();
                     }
-                }, 1500);
+                }, 3000);
             }
 
             @Override

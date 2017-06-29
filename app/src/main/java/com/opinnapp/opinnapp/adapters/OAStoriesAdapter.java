@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OADatabase;
+import com.opinnapp.opinnapp.models.OADateUtil;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
@@ -23,6 +24,7 @@ import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -86,7 +88,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     private class OAImageAdapter extends RecyclerView.ViewHolder {
         Context context;
         CircleImageView ivUserPhoto;
-        TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
+        TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime, tvExpirationText, tvTags,tvNumberOfLikes,tvNumberofDislikes;
         LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
         ImageView ivLike, ivDislike, ivComments, ivBookmark;
 
@@ -105,6 +107,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
+            tvExpirationText = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_text);
             tvTags = (TextView) itemView.findViewById(R.id.cell_story_tv_tags);
             btnLike = (LinearLayout) itemView.findViewById(R.id.cell_story_btn_like);
             btnBookmark = (LinearLayout) itemView.findViewById(R.id.cell_story_btn_bookmark);
@@ -186,7 +189,6 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             indicatorView.setViewPager(viewPager);
             viewPager.setCurrentItem(0);
 
-            //todo dar bind nas coisas
             if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
                 tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
@@ -196,15 +198,15 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
             tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
 
-            //todo arrumar gambiarra
-            //SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
-            //dateFormat2.format(story.getExpirationDate())
-            int hours = story.getExpirationDate().getHours();
-            int minutes = story.getExpirationDate().getMinutes();
-            int totalMinutes = (hours * 60) + minutes;
-            tvExpirationTime.setText(Integer.toString(totalMinutes) + " min");
-
-
+            Date now = new Date();
+            if (story.getExpirationDate().getTime() > now.getTime()) {
+                tvExpirationTime.setText(OADateUtil.exparationString(story.getExpirationDate()));
+                tvExpirationText.setText("para expirar");
+            }
+            else {
+                tvExpirationTime.setText("");
+                tvExpirationText.setText("Já expirado");
+            }
 
             tvDescription.setText(story.getDescription());
 
@@ -223,7 +225,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     private class OATextAdapter extends RecyclerView.ViewHolder {
         Context context;
         CircleImageView ivUserPhoto;
-        TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
+        TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime,tvExpirationText, tvTags,tvNumberOfLikes,tvNumberofDislikes;
         LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
         ImageView ivLike, ivDislike, ivComments, ivBookmark;
 
@@ -239,6 +241,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
+            tvExpirationText = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_text);
             tvTags = (TextView) itemView.findViewById(R.id.cell_story_tv_tags);
             btnLike = (LinearLayout) itemView.findViewById(R.id.cell_story_btn_like);
             btnBookmark = (LinearLayout) itemView.findViewById(R.id.cell_story_btn_bookmark);
@@ -312,7 +315,6 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
         void bindStory(OAStoryTextOnly story) {
             this.story = story;
 
-            //todo dar bind nas coisas
             if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
                 tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
@@ -322,12 +324,15 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
             tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
 
-            //SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
-            //dateFormat2.format(story.getExpirationDate())
-            int hours = story.getExpirationDate().getHours();
-            int minutes = story.getExpirationDate().getMinutes();
-            int totalMinutes = (hours * 60) + minutes;
-            tvExpirationTime.setText(Integer.toString(totalMinutes) + " min");
+            Date now = new Date();
+            if (story.getExpirationDate().getTime() > now.getTime()) {
+                tvExpirationTime.setText(OADateUtil.exparationString(story.getExpirationDate()));
+                tvExpirationText.setText("para expirar");
+            }
+            else {
+                tvExpirationTime.setText("");
+                tvExpirationText.setText("Já expirado");
+            }
 
             tvDescription.setText(story.getDescription());
 

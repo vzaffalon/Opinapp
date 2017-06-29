@@ -176,6 +176,8 @@
             />
 
         <TextView
+            android:id="@+id/cell_story_tv_expiration_text"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
