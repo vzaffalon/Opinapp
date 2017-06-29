@@ -102,10 +102,10 @@ public class OAStory implements OAFirebaseModel {
     }
 
     public String getTagsString() {
-        String string = null;
+        String string = "";
         if (tags != null) {
             for (String tag : tags) {
-                if (string == null)
+                if (string.equals(""))
                     string = "#" + tag;
                 else
                     string = string + " #" + tag;

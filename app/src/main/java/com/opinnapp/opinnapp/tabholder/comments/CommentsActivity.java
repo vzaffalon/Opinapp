@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Transaction;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.opinnapp.opinnapp.R;
@@ -21,8 +20,8 @@ import com.opinnapp.opinnapp.models.OAComment;
 import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAUser;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,8 +33,6 @@ public class CommentsActivity extends SwipeBackActivity {
     private RecyclerView recyclerView;
     private List<OAComment> comments;
     private String storyId;
-    private String userId;
-    private OAUser oaUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +43,6 @@ public class CommentsActivity extends SwipeBackActivity {
         setUpToolBar();
         setUpButton();
         storyId = getIntent().getStringExtra("storyId");
-        userId = getIntent().getStringExtra("userId");
         getCommentsFromFirebase(storyId);
     }
 
@@ -64,19 +60,8 @@ public class CommentsActivity extends SwipeBackActivity {
 
 
                     if (!message.isEmpty()) {
-                        OADatabase.getUserWithID(userId, new OAFirebaseCallback() {
-                            @Override
-                            public void onSuccess(Object object) {
-                                oaUser = (OAUser) object;
-                                comments.add(createComment(message, storyId, oaUser));
-                                recyclerView.getAdapter().notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onFailure(DatabaseError databaseError) {
-                                Toast.makeText(getApplicationContext(), "Erro ao carregar comentarios", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        comments.add(createComment(message, storyId, OAApplication.getUser()));
+                        recyclerView.getAdapter().notifyDataSetChanged();
                     }
                 }
             }

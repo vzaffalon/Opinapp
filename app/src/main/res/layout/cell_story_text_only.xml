@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/oa_main_color"
                     android:text="Kenan Thm"
                     />
@@ -112,9 +112,10 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
 
-        android:textSize="18dp"
+        android:textSize="21sp"
         android:text="@string/llorem"
         android:textColor="@color/oa_black"
+        android:textAlignment="center"
         />
 
     <!-- timer and tags layout-->
