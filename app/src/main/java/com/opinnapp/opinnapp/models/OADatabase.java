@@ -210,6 +210,37 @@ public class OADatabase {
         });
     }
 
+    private static void getStoryWithID(String id, final OAFirebaseCallback callback) {
+        DatabaseReference storyRef = FirebaseDatabase.getInstance().getReference("story/" + id);
+        storyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String type = (String) dataSnapshot.child("type").getValue();
+
+                if (type != null && type.equals("OAStoryMultiChoiceImages")) {
+                    OAStoryMultiChoiceImages story = dataSnapshot.getValue(OAStoryMultiChoiceImages.class);
+                    story.setObjectsValuesWithFirebaseIds();
+                    callback.onSuccess(story);
+                }
+                else if (type != null && type.equals("OAStoryTextOnly")) {
+                    OAStoryTextOnly story = dataSnapshot.getValue(OAStoryTextOnly.class);
+                    story.setObjectsValuesWithFirebaseIds();
+                    callback.onSuccess(story);
+                }
+                else {
+                    OAStory story = dataSnapshot.getValue(OAStory.class);
+                    story.setObjectsValuesWithFirebaseIds();
+                    callback.onSuccess(story);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+callback.onFailure(databaseError);
+            }
+        });
+    }
+
     private static void updateStory(OAStory story) {
         DatabaseReference storyRef = FirebaseDatabase.getInstance().getReference("story/" + story.getId());
         storyRef.setValue(story.firebaseRepresentation());
@@ -324,5 +355,84 @@ public class OADatabase {
 
 
     //endregion
+
+    //region Bookmarks
+    public static void favoriteStory(boolean favorite, OAStory story, OAUser user) {
+        if (favorite)
+            addStoryToBookmark(story, user);
+        else
+            removeStoryFromBookmark(story, user);
+    }
+
+    private static void removeStoryFromBookmark(OAStory story, OAUser user) {
+        DatabaseReference bookmarkRef = FirebaseDatabase.getInstance().getReference("bookmark/" + user.getId());
+        bookmarkRef.child(story.getId()).removeValue();
+        story.isBookmarked = false;
+    }
+
+    private static void addStoryToBookmark(OAStory story, OAUser user) {
+        DatabaseReference bookmarkRef = FirebaseDatabase.getInstance().getReference("bookmark/" + user.getId());
+        bookmarkRef.child(story.getId()).setValue(true);
+        story.isBookmarked = true;
+    }
+
+    public static void getIfStoryIsBookmarked(final OAStory story, OAUser user) {
+        DatabaseReference bookmarkRef = FirebaseDatabase.getInstance().getReference("bookmark/" + user.getId());
+        DatabaseReference specificBookmarkRef = bookmarkRef.child(story.getId());
+        specificBookmarkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                story.isBookmarked = dataSnapshot.exists();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                story.isBookmarked = false;
+            }
+        });
+    }
+
+    public static void getBookmarksFromUser(OAUser user, final OAFirebaseCallback callback) {
+        DatabaseReference bookmarkRef = FirebaseDatabase.getInstance().getReference("bookmark/" + user.getId());
+        bookmarkRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    String storyID = dataSnapshot.getKey();
+                    getStoryWithID(storyID, new OAFirebaseCallback() {
+                        @Override
+                        public void onSuccess(Object object) {
+                            callback.onSuccess(object);
+                        }
+
+                        @Override
+                        public void onFailure(DatabaseError databaseError) {
+                            callback.onFailure(databaseError);
+                        }
+                    });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
+    }
+
+    //endRegion
 
 }

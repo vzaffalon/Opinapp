@@ -19,8 +19,9 @@ import com.opinnapp.opinnapp.adapters.OAStoriesAdapter;
 import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAStory;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +29,6 @@ import java.util.List;
  */
 
 public class SavedFragment extends Fragment {
-
-
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView recyclerView;
     private Context context;
@@ -48,7 +47,7 @@ public class SavedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        stories = new ArrayList<>();
         getStories();
     }
 
@@ -75,19 +74,19 @@ public class SavedFragment extends Fragment {
     private void getStories() {
         isLoading = true;
 
-        OADatabase.getAllStories(new OAFirebaseCallback() {
+        OADatabase.getBookmarksFromUser(OAApplication.getUser(), new OAFirebaseCallback() {
             @Override
             public void onSuccess(Object object) {
                 isLoading = false;
                 swipeContainer.setRefreshing(false);
 
-                stories = (List<OAStory>) object;
+                OAStory story = (OAStory) object;
+                stories.add(story);
 
                 //gambiarra pra setar os users e comments
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        Collections.reverse(stories);
                         mountRecycler();
                     }
                 }, 1000);
@@ -121,6 +120,4 @@ public class SavedFragment extends Fragment {
             //mostrar recycler vazia
         }
     }
-
-
 }

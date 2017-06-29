@@ -93,7 +93,7 @@ public class QuestionsFragment extends Fragment {
                         mountRecycler();
                         updateStoriesCount();
                     }
-                }, 1500);
+                }, 1000);
             }
 
             @Override

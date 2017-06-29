@@ -1,6 +1,7 @@
 package com.opinnapp.opinnapp.models;
 
 import com.google.firebase.database.DatabaseError;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ public class OAStory implements OAFirebaseModel {
     protected List<OAComment> comments;
     protected Date creationDate;
     protected Date expirationDate;
+    protected boolean isBookmarked;
 
     @Override
     public Object firebaseRepresentation() {
@@ -69,6 +71,8 @@ public class OAStory implements OAFirebaseModel {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
+        OADatabase.getIfStoryIsBookmarked(this, OAApplication.getUser());
     }
 
     public OAStory() {}
@@ -157,5 +161,13 @@ public class OAStory implements OAFirebaseModel {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
         this.expirate_at = expirationDate.getTime();
+    }
+
+    public boolean isBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        isBookmarked = bookmarked;
     }
 }

@@ -13,9 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 import com.opinnapp.opinnapp.tabholder.comments.CommentsActivity;
 import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
@@ -69,107 +71,9 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
         if (holder instanceof OAImageAdapter) {
             ((OAImageAdapter) holder).bindStory((OAStoryMultiChoiceImages) stories.get(position));
-
-            ((OAImageAdapter) holder).ivComments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, CommentsActivity.class);
-                    intent.putExtra("storyId",stories.get(position).getId());
-                    intent.putExtra("userId",stories.get(position).getOwnerID());
-                    context.startActivity(intent);
-                }
-            });
-            ((OAImageAdapter) holder).ivLike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
-                    ((OAImageAdapter) holder).ivLike.setImageDrawable(myDrawable);
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
-                    ((OAImageAdapter) holder).ivDislike.setImageDrawable(myDrawable);
-                    ((OAImageAdapter) holder).tvNumberOfLikes.setText("1");
-                    ((OAImageAdapter) holder).tvNumberofDislikes.setText("0");
-                    ((OAImageAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    ((OAImageAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
-                }
-            });
-            ((OAImageAdapter) holder).ivDislike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
-                    ((OAImageAdapter) holder).ivDislike.setImageDrawable(myDrawable);
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
-                    ((OAImageAdapter) holder).ivLike.setImageDrawable(myDrawable);
-                    ((OAImageAdapter) holder).tvNumberOfLikes.setText("0");
-                    ((OAImageAdapter) holder).tvNumberofDislikes.setText("1");
-                    ((OAImageAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    ((OAImageAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
-                }
-            });
-
-            ((OAImageAdapter) holder).ivBookmark.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark_filled);
-                    if (((OAImageAdapter) holder).ivBookmark.getDrawable() == myDrawable) {
-                        myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark);
-                    }else{
-                        myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark_filled);
-                    }
-                    ((OAImageAdapter) holder).ivBookmark.setImageDrawable(myDrawable);
-                }
-            });
-
         }
         else{
             ((OATextAdapter) holder).bindStory((OAStoryTextOnly) stories.get(position));
-
-            ((OATextAdapter) holder).ivComments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, CommentsActivity.class);
-                    intent.putExtra("storyId",stories.get(position).getId());
-                    intent.putExtra("userId",stories.get(position).getOwnerID());
-                    context.startActivity(intent);
-                }
-            });
-            ((OATextAdapter) holder).ivLike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
-                    ((OATextAdapter) holder).ivLike.setImageDrawable(myDrawable);
-                    ((OATextAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    ((OATextAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
-
-                    ((OATextAdapter) holder).tvNumberOfLikes.setText("1");
-                    ((OATextAdapter) holder).tvNumberofDislikes.setText("0");
-
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
-                    ((OATextAdapter) holder).ivDislike.setImageDrawable(myDrawable);
-                }
-            });
-            ((OATextAdapter) holder).ivDislike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
-                    ((OATextAdapter) holder).ivDislike.setImageDrawable(myDrawable);
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
-                    ((OATextAdapter) holder).ivLike.setImageDrawable(myDrawable);
-
-                    ((OATextAdapter) holder).tvNumberOfLikes.setText("0");
-                    ((OATextAdapter) holder).tvNumberofDislikes.setText("1");
-
-                    ((OATextAdapter) holder).tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    ((OATextAdapter) holder).tvNumberofDislikes.setVisibility(View.VISIBLE);
-                }
-            });
-
-            ((OATextAdapter) holder).ivBookmark.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_bookmark_filled);
-                    ((OATextAdapter) holder).ivBookmark.setImageDrawable(myDrawable);
-                }
-            });
         }
     }
 
@@ -188,6 +92,8 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
         ViewPager viewPager;
         PageIndicatorView indicatorView;
+
+        OAStoryMultiChoiceImages story;
 
         OAImageAdapter(View itemView) {
             super(itemView);
@@ -218,16 +124,70 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             viewPager = (ViewPager) itemView.findViewById(R.id.cell_story_view_pager);
             indicatorView = (PageIndicatorView) itemView.findViewById(R.id.cell_story_page_indicator);
 
+            setListeners();
+        }
+
+        void setListeners() {
+            ivComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CommentsActivity.class);
+                    intent.putExtra("storyId",story.getId());
+                    intent.putExtra("userId",story.getOwnerID());
+                    context.startActivity(intent);
+                }
+            });
+            ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
+                    ivLike.setImageDrawable(myDrawable);
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
+                    ivDislike.setImageDrawable(myDrawable);
+                    tvNumberOfLikes.setText("1");
+                    tvNumberofDislikes.setText("0");
+                    tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+                }
+            });
+            ivDislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
+                    ivDislike.setImageDrawable(myDrawable);
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
+                    ivLike.setImageDrawable(myDrawable);
+                    tvNumberOfLikes.setText("0");
+                    tvNumberofDislikes.setText("1");
+                    tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+                }
+            });
+
+            ivBookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (story.isBookmarked()) {
+                        ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
+                        OADatabase.favoriteStory(false, story, OAApplication.getUser());
+                    }
+                    else {
+                        ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_filled));
+                        OADatabase.favoriteStory(true, story, OAApplication.getUser());
+                    }
+                }
+            });
         }
 
         void bindStory(OAStoryMultiChoiceImages story) {
+            this.story = story;
+
             viewPager.setAdapter(new OAStoryImagesAdapter(story.getImages(), context));
             indicatorView.setViewPager(viewPager);
             viewPager.setCurrentItem(0);
 
-
-                //todo dar bind nas coisas
-                if (story.getOwner() != null) {
+            //todo dar bind nas coisas
+            if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
                 tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
                 //tvUserUrl.setText("@" + story.getOwner().getUrl());
@@ -250,6 +210,13 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
             if (story.getTagsString() != null)
                 tvTags.setText(story.getTagsString());
+
+            if (!story.isBookmarked()) {
+                ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
+            }
+            else {
+                ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_filled));
+            }
         }
     }
 
@@ -259,6 +226,8 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
         TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
         LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
         ImageView ivLike, ivDislike, ivComments, ivBookmark;
+
+        OAStoryTextOnly story;
 
         OATextAdapter(View itemView) {
             super(itemView);
@@ -285,11 +254,64 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             tvNumberofDislikes.setVisibility(View.GONE);
             tvNumberOfLikes.setVisibility(View.GONE);
 
-            //todo onclicklisteners nos buttons
+            setListeners();
+        }
 
+        void setListeners() {
+            ivComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CommentsActivity.class);
+                    intent.putExtra("storyId",story.getId());
+                    intent.putExtra("userId",story.getOwnerID());
+                    context.startActivity(intent);
+                }
+            });
+            ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
+                    ivLike.setImageDrawable(myDrawable);
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
+                    ivDislike.setImageDrawable(myDrawable);
+                    tvNumberOfLikes.setText("1");
+                    tvNumberofDislikes.setText("0");
+                    tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+                }
+            });
+            ivDislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
+                    ivDislike.setImageDrawable(myDrawable);
+                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
+                    ivLike.setImageDrawable(myDrawable);
+                    tvNumberOfLikes.setText("0");
+                    tvNumberofDislikes.setText("1");
+                    tvNumberOfLikes.setVisibility(View.VISIBLE);
+                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+                }
+            });
+
+            ivBookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (story.isBookmarked()) {
+                        ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
+                        OADatabase.favoriteStory(false, story, OAApplication.getUser());
+                    }
+                    else {
+                        ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_filled));
+                        OADatabase.favoriteStory(true, story, OAApplication.getUser());
+                    }
+                }
+            });
         }
 
         void bindStory(OAStoryTextOnly story) {
+            this.story = story;
+
             //todo dar bind nas coisas
             if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
@@ -311,6 +333,13 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
             if (story.getTagsString() != null)
                 tvTags.setText(story.getTagsString());
+
+            if (!story.isBookmarked()) {
+                ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
+            }
+            else {
+                ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_filled));
+            }
         }
     }
 }
