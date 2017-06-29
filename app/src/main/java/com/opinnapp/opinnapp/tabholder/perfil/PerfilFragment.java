@@ -25,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PerfilFragment extends Fragment {
 
     private CircleImageView perfil_image;
-    private TextView perfil_nickname,perfil_name;
+    private TextView perfil_nickname,perfil_name, questions_count;
     private View view;
 
     // newInstance constructor for creating fragment with arguments
@@ -72,6 +72,7 @@ public class PerfilFragment extends Fragment {
         perfil_image = (CircleImageView) view.findViewById(R.id.cell_perfil_picture);
         perfil_nickname = (TextView) view.findViewById(R.id.cell_perfil_nickname);
         perfil_name = (TextView) view.findViewById(R.id.cell_perfil_name);
+        questions_count = (TextView) view.findViewById(R.id.fragment_perfil_questions_count);
     }
 
     private void setUpTabBar(){
@@ -83,5 +84,9 @@ public class PerfilFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_list_white));
         tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_bookmark_white));
+    }
+
+    public void updateQuestionsCount(int count) {
+        questions_count.setText(String.valueOf(count));
     }
 }

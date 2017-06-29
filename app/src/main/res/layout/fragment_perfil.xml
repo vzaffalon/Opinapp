@@ -65,6 +65,7 @@
                 android:layout_marginRight="7dp">
 
                 <TextView
+                    android:id="@+id/fragment_perfil_questions_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"

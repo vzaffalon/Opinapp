@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +19,10 @@ import com.opinnapp.opinnapp.adapters.OAStoriesAdapter;
 import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAStory;
-import com.opinnapp.opinnapp.tabholder.home.tabs.PopularFragment;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
+import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -77,31 +76,22 @@ public class QuestionsFragment extends Fragment {
     private void getStories() {
         isLoading = true;
 
-        OADatabase.getAllStories(new OAFirebaseCallback() {
+        OADatabase.getStoriesFromUser(OAApplication.getUser(), new OAFirebaseCallback() {
             @Override
             public void onSuccess(Object object) {
                 isLoading = false;
                 swipeContainer.setRefreshing(false);
 
-                final List<OAStory> storiesAux = (List<OAStory>) object;
+                OAStory story = (OAStory) object;
+                stories.add(story);
 
-                //gambiarra pra setar os users e comments
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-
-
-                        //TODO: GAMBIARRA INVEZ DE FAZER QUERY TO FILTRANDO NO APP E FALTA USAR ID REAL
-                        int size = storiesAux.size();
-                        for (int i=0;i<size;i++){
-                            Log.i("testetestou",storiesAux.get(i).getOwner().getId());
-                            if (storiesAux.get(i).getOwner().getId().equals("-Km-7lXAsUf_M7neaD_2")){
-                                stories.add(storiesAux.get(i));
-                            }
-                        }
-
-                        Collections.reverse(stories);
+//                        List temp = stories;
+//                        Collections.reverse(temp);
                         mountRecycler();
+                        updateStoriesCount();
                     }
                 }, 1500);
             }
@@ -132,6 +122,12 @@ public class QuestionsFragment extends Fragment {
         }
         else {
             //mostrar recycler vazia
+        }
+    }
+
+    private void updateStoriesCount() {
+        if (getParentFragment() instanceof PerfilFragment) {
+            ((PerfilFragment) getParentFragment()).updateQuestionsCount(stories.size());
         }
     }
 

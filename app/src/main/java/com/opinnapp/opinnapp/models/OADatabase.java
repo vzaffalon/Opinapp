@@ -162,6 +162,54 @@ public class OADatabase {
         });
     }
 
+    public static void getStoriesFromUser(OAUser user, final OAFirebaseCallback callback) {
+        DatabaseReference storyRef = FirebaseDatabase.getInstance().getReference("story");
+        Query queryRef = storyRef.orderByChild("ownerID").equalTo(user.getId());
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String type = (String) dataSnapshot.child("type").getValue();
+
+                if (type != null && type.equals("OAStoryMultiChoiceImages")) {
+                    OAStoryMultiChoiceImages story = dataSnapshot.getValue(OAStoryMultiChoiceImages.class);
+                    story.setObjectsValuesWithFirebaseIds();
+                    callback.onSuccess(story);
+                }
+                else if (type != null && type.equals("OAStoryTextOnly")) {
+                    OAStoryTextOnly story = dataSnapshot.getValue(OAStoryTextOnly.class);
+                    story.setObjectsValuesWithFirebaseIds();
+                    callback.onSuccess(story);
+                }
+                else {
+                    OAStory story = dataSnapshot.getValue(OAStory.class);
+                    story.setObjectsValuesWithFirebaseIds();
+                    callback.onSuccess(story);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
+    }
+
     private static void updateStory(OAStory story) {
         DatabaseReference storyRef = FirebaseDatabase.getInstance().getReference("story/" + story.getId());
         storyRef.setValue(story.firebaseRepresentation());
