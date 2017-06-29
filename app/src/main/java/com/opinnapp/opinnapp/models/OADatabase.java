@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,6 +66,38 @@ public class OADatabase {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 OAUser user = dataSnapshot.getValue(OAUser.class);
                 callback.onSuccess(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
+    }
+
+    public static void getAllUsers(final OAFirebaseCallback callback) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("user");
+
+        usersRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                OAUser user = dataSnapshot.getValue(OAUser.class);
+                callback.onSuccess(user);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
