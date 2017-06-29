@@ -19,11 +19,10 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.login.LoginActivity;
-import com.opinnapp.opinnapp.models.OATest;
 import com.opinnapp.opinnapp.tabholder.explore.ExploreFragment;
 import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
-import com.opinnapp.opinnapp.tabholder.notifications.NotificationsFragment;
 import com.opinnapp.opinnapp.tabholder.newquestion.NewQuestionActivity;
+import com.opinnapp.opinnapp.tabholder.notifications.NotificationsFragment;
 import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -41,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setUpBottomBar();
         handleIntent(getIntent());
         setAddStoryButton();
-
-        //todo apagar
-        new OATest().initTests();
     }
 
     private void setAddStoryButton(){

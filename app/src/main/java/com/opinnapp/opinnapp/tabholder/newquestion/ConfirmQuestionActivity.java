@@ -23,6 +23,7 @@ import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -206,8 +207,6 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
         return date;
     }
 
-    //TODO: METODO GET USER GERAL PARA TODAS AS FUNCOES DE RECEBER USUARIO LOGADO"
-    //TODO: SALVAR OS TIPOS COM IMAGEM
     private void saveStoryObjectOnFirebase(){
         List<OAImageOption> images = null;
         if(optionsMode) {
@@ -241,9 +240,8 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
         }else{
             tagsArray = new ArrayList<>();
         }
-        OAUser oaUser = new OAUser();
-        //TODO: CHANGE THIS FIXED ID
-        oaUser.setId("-KmC_itqAwB7qfIT8Tep");
+
+        OAUser oaUser = OAApplication.getUser();
         createStory(question,tagsArray,oaUser,getExpirationDate(),images);
         Toast.makeText(getApplicationContext(),"Pergunta Salva",Toast.LENGTH_SHORT).show();
     }

@@ -88,7 +88,7 @@ public class PopularFragment extends Fragment {
                         Collections.reverse(stories);
                         mountRecycler();
                     }
-                }, 1500);
+                }, 3000);
             }
 
             @Override

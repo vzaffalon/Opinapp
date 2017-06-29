@@ -72,7 +72,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.ViewHolder
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.bind(perfils.get(position),clickListener);
-        holder.perfilName.setText(perfils.get(position).getName());
+        holder.perfilName.setText(perfils.get(position).getfName() + " " + perfils.get(position).getlName());
         Picasso.with(context).load(perfils.get(position).getImagePath()).into(holder.perfilPicture);
 
     }

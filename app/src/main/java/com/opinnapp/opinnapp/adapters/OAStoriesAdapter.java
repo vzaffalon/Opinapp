@@ -182,7 +182,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     private class OAImageAdapter extends RecyclerView.ViewHolder {
         Context context;
         CircleImageView ivUserPhoto;
-        TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
+        TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
         LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
         ImageView ivLike, ivDislike, ivComments, ivBookmark;
 
@@ -195,7 +195,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             context = itemView.getContext();
             ivUserPhoto = (CircleImageView) itemView.findViewById(R.id.cell_story_iv_user_photo);
             tvUserName = (TextView) itemView.findViewById(R.id.cell_story_tv_user_name);
-            tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
+            //tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
@@ -226,11 +226,11 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             viewPager.setCurrentItem(0);
 
 
-            //todo dar bind nas coisas
-            if (story.getOwner() != null) {
+                //todo dar bind nas coisas
+                if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
-                tvUserName.setText(story.getOwner().getName());
-                tvUserUrl.setText("@" + story.getOwner().getUrl());
+                tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
+                //tvUserUrl.setText("@" + story.getOwner().getUrl());
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
@@ -256,7 +256,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
     private class OATextAdapter extends RecyclerView.ViewHolder {
         Context context;
         CircleImageView ivUserPhoto;
-        TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
+        TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
         LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
         ImageView ivLike, ivDislike, ivComments, ivBookmark;
 
@@ -266,7 +266,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             context = itemView.getContext();
             ivUserPhoto = (CircleImageView) itemView.findViewById(R.id.cell_story_iv_user_photo);
             tvUserName = (TextView) itemView.findViewById(R.id.cell_story_tv_user_name);
-            tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
+            //tvUserUrl = (TextView) itemView.findViewById(R.id.cell_story_tv_user_url);
             tvStoryTime = (TextView) itemView.findViewById(R.id.cell_story_tv_story_time);
             tvDescription = (TextView) itemView.findViewById(R.id.cell_story_tv_description);
             tvExpirationTime = (TextView) itemView.findViewById(R.id.cell_story_tv_expiration_time);
@@ -293,8 +293,8 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             //todo dar bind nas coisas
             if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
-                tvUserName.setText(story.getOwner().getName());
-                tvUserUrl.setText("@" + story.getOwner().getUrl());
+                tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
+                //tvUserUrl.setText("@" + story.getOwner().getUrl());
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");

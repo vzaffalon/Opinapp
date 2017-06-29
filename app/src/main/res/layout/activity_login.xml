@@ -48,6 +48,7 @@
         android:layout_marginTop="35dp"
        />
 
+    <!--
     <ImageButton
         android:id="@+id/button_twitter_login"
         android:layout_width="match_parent"
@@ -62,6 +63,7 @@
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
         android:layout_height="wrap_content" />
+        -->
 
     <ImageButton
         android:id="@+id/button_guest_login"

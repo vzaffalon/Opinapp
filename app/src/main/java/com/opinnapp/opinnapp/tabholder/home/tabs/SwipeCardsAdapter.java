@@ -36,7 +36,7 @@ public class SwipeCardsAdapter extends BaseAdapter {
     private Context context;
 
     private CircleImageView ivUserPhoto;
-    private TextView tvUserName, tvUserUrl, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
+    private TextView tvUserName, tvStoryTime, tvDescription, tvExpirationTime, tvTags,tvNumberOfLikes,tvNumberofDislikes;
     private LinearLayout btnLike, btnDislike, btnComments, btnBookmark;
     private ImageView ivLike, ivDislike, ivComments, ivBookmark;
     ViewPager viewPager;
@@ -74,7 +74,7 @@ public class SwipeCardsAdapter extends BaseAdapter {
         context = convertView.getContext();
         ivUserPhoto = (CircleImageView) convertView.findViewById(R.id.cell_story_iv_user_photo);
         tvUserName = (TextView) convertView.findViewById(R.id.cell_story_tv_user_name);
-        tvUserUrl = (TextView) convertView.findViewById(R.id.cell_story_tv_user_url);
+        //tvUserUrl = (TextView) convertView.findViewById(R.id.cell_story_tv_user_url);
         tvStoryTime = (TextView) convertView.findViewById(R.id.cell_story_tv_story_time);
         tvDescription = (TextView) convertView.findViewById(R.id.cell_story_tv_description);
         tvExpirationTime = (TextView) convertView.findViewById(R.id.cell_story_tv_expiration_time);
@@ -156,8 +156,8 @@ public class SwipeCardsAdapter extends BaseAdapter {
         //todo dar bind nas coisas
         if (story.getOwner() != null) {
             Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
-            tvUserName.setText(story.getOwner().getName());
-            tvUserUrl.setText("@" + story.getOwner().getUrl());
+            tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
+            //tvUserUrl.setText("@" + story.getOwner().getUrl());
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
@@ -186,8 +186,8 @@ public class SwipeCardsAdapter extends BaseAdapter {
         //todo dar bind nas coisas
         if (story.getOwner() != null) {
             Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
-            tvUserName.setText(story.getOwner().getName());
-            tvUserUrl.setText("@" + story.getOwner().getUrl());
+            tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
+            //tvUserUrl.setText("@" + story.getOwner().getUrl());
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");

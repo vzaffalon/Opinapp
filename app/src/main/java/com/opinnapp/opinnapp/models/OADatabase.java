@@ -42,10 +42,12 @@ public class OADatabase {
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                OAUser user = null;
                 for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
-                    OAUser user = userSnap.getValue(OAUser.class);
+                    user = userSnap.getValue(OAUser.class);
                     callback.onSuccess(user);
                 }
+                callback.onSuccess(user);
             }
 
             @Override

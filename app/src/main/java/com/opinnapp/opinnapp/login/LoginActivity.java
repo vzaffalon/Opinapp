@@ -3,33 +3,29 @@ package com.opinnapp.opinnapp.login;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OADatabase;
+import com.opinnapp.opinnapp.models.OAFirebaseCallback;
+import com.opinnapp.opinnapp.models.OAUser;
 import com.opinnapp.opinnapp.tabholder.MainActivity;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 import com.opinnapp.opinnapp.tutorial.TutorialActivity;
+
+import org.json.JSONObject;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -39,12 +35,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class LoginActivity extends AppCompatActivity {
-
-    private static String TAG = "LoginActivity";
-    private static int TIME_OUT = 3000;
     private SweetAlertDialog pDialog;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager mCallbackManager;
 
     @Override
@@ -52,37 +43,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
-        setUpFirebaseAuthListener();
-
-        setUpLayout();
-        setUpFacebookLogin();
-
+        if (OAApplication.getUser() == null) {
+            setUpLayout();
+            setUpFacebookLogin();
+        }
+        else {
+            goToMainApp();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void setUpFirebaseAuthListener(){
-        // ...
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    changeActivity();
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
     }
 
     @Override
@@ -96,27 +69,21 @@ public class LoginActivity extends AppCompatActivity {
         button_guest_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeActivityLoading();
+                goToTutorial();
             }
         });
     }
 
-    private void changeActivity(){
+    private void goToTutorial(){
         Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void changeActivityLoading(){
-        setLoadingDialog();
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                changeActivity();
-                pDialog.cancel();
-            }
-        }, TIME_OUT);
+    private void goToMainApp() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void setUpFacebookLogin(){
@@ -130,49 +97,46 @@ public class LoginActivity extends AppCompatActivity {
         button_facebook_login.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-                Log.d(TAG, "facebook:onSuccess:" + loginResult.getAccessToken().toString());
+                setLoadingDialog();
 
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                OAUser user = new OAUser();
+                                String fbID = null;
+                                try {
+                                    fbID = object.getString("id");
+                                    user.setEmail(object.getString("email"));
+                                    user.setfName(object.getString("first_name"));
+                                    user.setlName(object.getString("last_name"));
+                                    user.setImagePath(object.getJSONObject("picture").getJSONObject("data").getString("url"));
+                                    user.setFacebookID(fbID);
+
+                                    logUser(user);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    showLoginError();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,email,first_name,last_name,picture.type(large)");
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                // ...
+                showLoginError();
             }
 
             @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                // ...
+            public void onError(FacebookException exception) {
+                showLoginError();
             }
         });
-    }
-
-
-    private void handleFacebookAccessToken(AccessToken token){
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
     }
 
     private void setLoadingDialog(){
@@ -183,18 +147,46 @@ public class LoginActivity extends AppCompatActivity {
         pDialog.show();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+    private void showLoginError() {
+        if (pDialog != null)
+            pDialog.dismiss();
+        Toast.makeText(this, "Erro ao fazer login, tente novamente mais tarde.", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+    private void logUser(final OAUser user) {
+        LoginManager.getInstance().logOut();
+
+        OADatabase.getUserWithFacebookID(user.getFacebookID(), new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                if (object != null) {
+                    OAUser user = (OAUser) object;
+                    OAApplication.setUser(user);
+                    user.saveUser();
+
+                    goToMainApp();
+                }
+                else {
+                    registerUser(user);
+                }
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+                registerUser(user);
+            }
+        });
+    }
+
+    private void registerUser(final OAUser user) {
+        if(OADatabase.createUser(user)) {
+            OAApplication.setUser(user);
+            user.saveUser();
+
+            goToTutorial();
+        }
+        else {
+            showLoginError();
         }
     }
 }
-

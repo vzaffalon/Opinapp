@@ -62,7 +62,7 @@
                     android:textColor="@color/oa_main_color"
                     android:text="Kenan Thm"
                     />
-
+                <!--
                 <TextView
                     android:id="@+id/cell_story_tv_user_url"
 
@@ -75,6 +75,7 @@
                     android:text="\@kenanThm"
 
                     />
+                -->
 
             </LinearLayout>
 
