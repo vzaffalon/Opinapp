@@ -73,14 +73,13 @@ public class SavedFragment extends Fragment {
 
     private void getStories() {
         isLoading = true;
+        stories.clear();
 
         OADatabase.getBookmarksFromUser(OAApplication.getUser(), new OAFirebaseCallback() {
             @Override
             public void onSuccess(Object object) {
                 isLoading = false;
                 swipeContainer.setRefreshing(false);
-
-                stories.clear();
 
                 OAStory story = (OAStory) object;
                 stories.add(story);
