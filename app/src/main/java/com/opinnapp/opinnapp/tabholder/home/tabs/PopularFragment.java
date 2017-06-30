@@ -76,15 +76,15 @@ public class PopularFragment extends Fragment {
         OADatabase.getAllStories(new OAFirebaseCallback() {
             @Override
             public void onSuccess(Object object) {
-                isLoading = false;
-                swipeContainer.setRefreshing(false);
-
                 stories = (List<OAStory>) object;
 
                 //gambiarra pra setar os users e comments
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
+                        isLoading = false;
+                        swipeContainer.setRefreshing(false);
+
                         Collections.reverse(stories);
                         mountRecycler();
                     }

@@ -185,6 +185,7 @@ public class NewQuestionActivity extends SwipeBackActivity {
 
 
         startActivity(intent);
+        finish();
     }
 
     private void setUpCancelButton(){

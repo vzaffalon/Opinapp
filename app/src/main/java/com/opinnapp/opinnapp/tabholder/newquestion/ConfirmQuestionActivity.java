@@ -1,7 +1,6 @@
 package com.opinnapp.opinnapp.tabholder.newquestion;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -25,7 +24,6 @@ import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
 import com.opinnapp.opinnapp.models.OAUser;
-import com.opinnapp.opinnapp.tabholder.MainActivity;
 import com.opinnapp.opinnapp.tabholder.OAApplication;
 import com.squareup.picasso.Picasso;
 
@@ -152,9 +150,7 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             @Override
             public void onClick(View view) {
                 saveStoryObjectOnFirebase();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                finish();
             }
         });
     }
