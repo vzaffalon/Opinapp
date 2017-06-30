@@ -48,10 +48,46 @@ public class LoginActivity extends AppCompatActivity {
         if (OAApplication.getUser() == null) {
             setUpLayout();
             setUpFacebookLogin();
+            setUpAnonimusLogin();
         }
         else {
             goToMainApp();
         }
+    }
+
+    private void setUpAnonimusLogin(){
+       ImageButton button_guest_login = (ImageButton) findViewById(R.id.button_guest_login);
+        button_guest_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setLoadingDialog();
+                LoginManager.getInstance().logOut();
+
+                OADatabase.getUserWithFacebookID("-Guest", new OAFirebaseCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        pDialog.dismiss();
+                        if (object != null) {
+                            OAUser user = (OAUser) object;
+                            user.setlName("");
+                            OAApplication.setUser(user);
+                            user.saveUser();
+
+                            goToTutorial();
+                            //goToMainApp();
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Falha no login como anônimo",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(DatabaseError databaseError) {
+                        pDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Falha no login como anônimo",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override

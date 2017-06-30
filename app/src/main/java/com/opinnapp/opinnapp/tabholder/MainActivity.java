@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         setUpToolBar();
         setUpBottomBar();
-        handleIntent(getIntent());
         setAddStoryButton();
     }
 
@@ -76,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
                 // Red item was selected
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
+                OAApplication.setUser(null);
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -205,23 +206,5 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.setTitle("");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(myToolbar);
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent) {
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            //use the query to search your data somehow
-
-            //handle query and pass data to fragment
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, ExploreFragment.newInstance());
-            transaction.commit();
-        }
     }
 }

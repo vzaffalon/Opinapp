@@ -192,7 +192,8 @@
         <TextView
             android:id="@+id/cell_story_tv_tags"
 
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

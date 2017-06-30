@@ -32,11 +32,6 @@ public class OAApplication extends Application {
                 .build());
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
     public static Context getContext() {
         return context;
     }

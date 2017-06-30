@@ -79,6 +79,7 @@ public class QuestionsFragment extends Fragment {
         OADatabase.getStoriesFromUser(OAApplication.getUser(), new OAFirebaseCallback() {
             @Override
             public void onSuccess(Object object) {
+                stories.clear();
                 isLoading = false;
                 swipeContainer.setRefreshing(false);
 

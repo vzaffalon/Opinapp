@@ -80,6 +80,8 @@ public class SavedFragment extends Fragment {
                 isLoading = false;
                 swipeContainer.setRefreshing(false);
 
+                stories.clear();
+
                 OAStory story = (OAStory) object;
                 stories.add(story);
 

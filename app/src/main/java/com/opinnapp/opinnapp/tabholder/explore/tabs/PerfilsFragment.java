@@ -1,20 +1,28 @@
 package com.opinnapp.opinnapp.tabholder.explore.tabs;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.database.DatabaseError;
 import com.opinnapp.opinnapp.R;
 import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAFirebaseCallback;
 import com.opinnapp.opinnapp.models.OAUser;
+import com.opinnapp.opinnapp.tabholder.home.HomeFragment;
 import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 
 import java.util.ArrayList;
@@ -44,6 +52,71 @@ public class PerfilsFragment extends Fragment {
 
         perfils = new ArrayList<>();
         getUsers();
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.search_menu, menu);
+        setUpSearchMenu(menu);
+
+        MenuItem menuItem = menu.findItem(R.id.menu_search);
+
+        MenuItemCompat.setOnActionExpandListener(menuItem,
+                new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem menuItem) {
+                        // Return true to allow the action view to expand
+                        final ImageView toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
+                        toolbar_logo.setVisibility(View.GONE);
+                        return true;
+                    }
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+                        // When the action view is collapsed, reset the query
+                        final ImageView toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
+                        toolbar_logo.setVisibility(View.VISIBLE);
+                        // Return true to allow the action view to collapse
+                        return true;
+                    }
+                });
+    }
+    private void setUpSearchMenu(Menu menu) {
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                List<OAUser> perfilsAux = new ArrayList<OAUser>();
+
+                for (int i=0;i<perfils.size();i++){
+                    if(perfils.get(i).getfName().contains(query) || perfils.get(i).getlName().contains(query)){
+                        perfilsAux.add(perfils.get(i));
+                    }
+                }
+
+                recyclerView.setAdapter(new PerfilAdapter(perfilsAux, context,new PerfilAdapter.OnItemClickListener() {
+                    @Override public void onItemClick(OAUser item) {
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, PerfilFragment.newInstance());
+                        transaction.commit();
+                    }
+                }));
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     // Inflate the view for the fragment based on layout XML

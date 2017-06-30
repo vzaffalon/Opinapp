@@ -344,7 +344,7 @@ public class NewQuestionActivity extends SwipeBackActivity {
 
     private Drawable resize(Drawable image) {
         Bitmap b = ((BitmapDrawable)image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 800, 800, false);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 100, 100, false);
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 
