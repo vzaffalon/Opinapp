@@ -1,6 +1,7 @@
 package com.opinnapp.opinnapp.tabholder;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -27,6 +28,8 @@ import com.opinnapp.opinnapp.tabholder.perfil.PerfilFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -189,6 +192,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //for aplying font
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private void setUpToolBar(){

@@ -24,6 +24,8 @@ import com.opinnapp.opinnapp.tabholder.OAApplication;
 
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 /**
  * Created by vzaffalon on 09/06/17.
  */
@@ -76,6 +78,12 @@ public class CommentsActivity extends SwipeBackActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
+    }
+
+    //for aplying font
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public static OAComment createComment(String text, String storyID, OAUser owner) {

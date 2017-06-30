@@ -15,21 +15,22 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vpPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="18dp">
     </android.support.v4.view.ViewPager>
 
-    <com.rd.PageIndicatorView
-        xmlns:attrs="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cell_page_indicator"
+        <com.rd.PageIndicatorView
+            xmlns:attrs="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cell_page_indicator"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        attrs:piv_selectedColor="@color/oa_main_color"
-        attrs:piv_unselectedColor="@color/oa_light_gray_text"
-        />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            attrs:piv_selectedColor="@color/oa_main_color"
+            attrs:piv_unselectedColor="@color/oa_light_gray_text"
+            />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pular tutorial"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="70dp"
         android:layout_alignParentEnd="true"

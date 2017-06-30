@@ -1,30 +1,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_weight="1">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:src="@drawable/tutorial3"/>
+        android:layout_height="match_parent"
+        android:src="@drawable/tutorial3"
+        android:layout_weight="1"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dê opinião e receba feedback"
-        android:layout_gravity="center_horizontal"
-        android:textSize="24sp"
-        android:layout_marginTop="12dp"
-        android:textColor="#393939"
-        android:textStyle="bold"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
         android:layout_height="wrap_content"
-        android:text="Vote nos botões de “joinha” nos cards. Acompanhe as votações da sua rede em tempo real e obtenha os feedbacks que precisa."
-        android:textSize="22sp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:textColor="#B7B7B7"/>
+        android:layout_width="match_parent"
+        android:layout_weight="0"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/opiniao_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dê opinião e receba feedback"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:layout_marginTop="12dp"
+            android:textColor="#393939"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_below="@+id/opiniao_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vote nos botões de “joinha” nos cards. Acompanhe as votações da sua rede em tempo real e obtenha os feedbacks que precisa."
+            android:textSize="22sp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="#B7B7B7"/>
+    </RelativeLayout>
 
 </LinearLayout>

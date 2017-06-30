@@ -1,5 +1,6 @@
 package com.opinnapp.opinnapp.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.opinnapp.opinnapp.tutorial.TutorialActivity;
 import org.json.JSONObject;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by vzaffalon on 11/05/17.
@@ -164,7 +166,8 @@ public class LoginActivity extends AppCompatActivity {
                     OAApplication.setUser(user);
                     user.saveUser();
 
-                    goToMainApp();
+                    goToTutorial();
+                    //goToMainApp();
                 }
                 else {
                     registerUser(user);
@@ -176,6 +179,12 @@ public class LoginActivity extends AppCompatActivity {
                 registerUser(user);
             }
         });
+    }
+
+    //for aplying font
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private void registerUser(final OAUser user) {

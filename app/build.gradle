@@ -67,6 +67,9 @@ dependencies {
 
     //cards swipe
     compile 'link.fls:swipestack:0.3.0'
+
+    //aplying fonts
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
 }
 apply plugin: 'realm-android'
 apply plugin: 'com.google.gms.google-services'

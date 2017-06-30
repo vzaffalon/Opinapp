@@ -3,12 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_gradient"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+
 
     <ImageView
         android:id="@+id/logo"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
         android:layout_marginTop="120dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/transparent"
@@ -35,13 +40,13 @@
         android:id="@+id/button_facebook_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
         android:scaleType="centerInside"
-        android:paddingTop="33dp"
-        android:paddingBottom="33dp"
+        android:paddingTop="27dp"
+        android:paddingBottom="27dp"
         facebook:com_facebook_login_text=""
         android:layout_gravity="center_horizontal"
         android:background="@color/transparent"
@@ -68,17 +73,17 @@
     <ImageButton
         android:id="@+id/button_guest_login"
         android:layout_width="match_parent"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
         android:background="@color/transparent"
         android:src="@drawable/anonymus_login_button"
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
-        android:layout_height="wrap_content" />
+        android:layout_height="75dp" />
 
 
 

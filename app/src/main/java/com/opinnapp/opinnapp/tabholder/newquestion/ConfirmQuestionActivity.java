@@ -1,6 +1,9 @@
 package com.opinnapp.opinnapp.tabholder.newquestion;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +34,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by vzaffalon on 03/06/17.
@@ -170,35 +175,37 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
 
         if(option1 != null) {
             ImageView image_1 = (ImageView) findViewById(R.id.image_1);
-            image_1.setImageDrawable(Drawable.createFromPath(option1));
+            image_1.setImageDrawable(resize(Drawable.createFromPath(option1)));
         }else{
             uploaded_image_1.setVisibility(View.GONE);
         }
 
         if(option2 != null) {
             ImageView image_2 = (ImageView) findViewById(R.id.image_2);
-            image_2.setImageDrawable(Drawable.createFromPath(option2));
+            image_2.setImageDrawable(resize(Drawable.createFromPath(option2)));
         }else{
             uploaded_image_2.setVisibility(View.GONE);
         }
 
         if(option3 != null) {
             ImageView image_3 = (ImageView) findViewById(R.id.image_3);
-            image_3.setImageDrawable(Drawable.createFromPath(option3));
+            image_3.setImageDrawable(resize(Drawable.createFromPath(option3)));
         }else{
             uploaded_image_3.setVisibility(View.GONE);
         }
 
         if(option4 != null) {
             ImageView image_4 = (ImageView) findViewById(R.id.image_4);
-            image_4.setImageDrawable(Drawable.createFromPath(option4));
+            image_4.setImageDrawable(resize(Drawable.createFromPath(option4)));
         }else{
             uploaded_image_4.setVisibility(View.GONE);
         }
     }
 
-    private void uploadImagesToFirebase(){
-
+    //for aplying font
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private Date getExpirationDate(){
@@ -278,5 +285,11 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
             else
                 return null;
         }
+    }
+
+    private Drawable resize(Drawable image) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 800, 800, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
     }
 }

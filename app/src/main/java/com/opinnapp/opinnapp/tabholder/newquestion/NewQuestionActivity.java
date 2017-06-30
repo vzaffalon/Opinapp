@@ -1,6 +1,9 @@
 package com.opinnapp.opinnapp.tabholder.newquestion;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +24,8 @@ import com.shawnlin.numberpicker.NumberPicker;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by vzaffalon on 03/06/17.
@@ -81,10 +86,6 @@ public class NewQuestionActivity extends SwipeBackActivity {
 
     private void setUpEditTexts(){
         cell_question_input = (EditText) findViewById(R.id.cell_question_input);
-        /*editText_option_1 = (EditText) findViewById(R.id.editText_option_1);
-        editText_option_2 = (EditText) findViewById(R.id.editText_option_2);
-        editText_option_3 = (EditText) findViewById(R.id.editText_option_3);
-        editText_option_4 = (EditText) findViewById(R.id.editText_option_4);*/
         editText_tags = (EditText) findViewById(R.id.editText_tags);
     }
 
@@ -217,10 +218,6 @@ public class NewQuestionActivity extends SwipeBackActivity {
                     optionsMode = true;
                 }else{
                     optionsMode = false;
-                    /*editText_option_1.getText().clear();
-                    editText_option_2.getText().clear();
-                    editText_option_3.getText().clear();
-                    editText_option_4.getText().clear();*/
                     alternative_option.setVisibility(View.GONE);
                 }
             }
@@ -319,30 +316,42 @@ public class NewQuestionActivity extends SwipeBackActivity {
                 case 1:
                     Image image = images.get(0);
                     ImageView image_1 = (ImageView) findViewById(R.id.image_1);
-                    image_1.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    image_1.setImageDrawable(resize(Drawable.createFromPath(image.getPath())));
                     option1 = image.getPath();
                     break;
                 case 2:
                     image = images.get(0);
                     ImageView image_2 = (ImageView) findViewById(R.id.image_2);
-                    image_2.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    image_2.setImageDrawable(resize(Drawable.createFromPath(image.getPath())));
                     option2 = image.getPath();
                     break;
                 case 3:
                     image = images.get(0);
                     ImageView image_3 = (ImageView) findViewById(R.id.image_3);
-                    image_3.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    image_3.setImageDrawable(resize(Drawable.createFromPath(image.getPath())));
                     option3 = image.getPath();
                     break;
                 case 4:
                     image = images.get(0);
                     ImageView image_4 = (ImageView) findViewById(R.id.image_4);
-                    image_4.setImageDrawable(Drawable.createFromPath(image.getPath()));
+                    image_4.setImageDrawable(resize(Drawable.createFromPath(image.getPath())));
                     option4 = image.getPath();
                     break;
 
             }
         }
+    }
+
+    private Drawable resize(Drawable image) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 800, 800, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
+    //for aplying font
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }
