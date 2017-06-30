@@ -2,9 +2,11 @@ package com.opinnapp.opinnapp.tabholder.newquestion;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.login.LoginActivity;
 import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAImageOption;
 import com.opinnapp.opinnapp.models.OAStory;
@@ -33,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -64,6 +68,8 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
     RelativeLayout uploaded_image_2;
     RelativeLayout uploaded_image_3;
     RelativeLayout uploaded_image_4;
+
+    private SweetAlertDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,10 +155,25 @@ public class ConfirmQuestionActivity extends SwipeBackActivity {
         cell_confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setLoadingDialog();
                 saveStoryObjectOnFirebase();
-                finish();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        finish();
+                        pDialog.dismiss();
+                    }
+                }, 4000);
             }
         });
+    }
+
+    private void setLoadingDialog(){
+        pDialog = new SweetAlertDialog(ConfirmQuestionActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Enviando Pegunta");
+        pDialog.setCancelable(false);
+        pDialog.show();
     }
 
     private void generateTagList(){
