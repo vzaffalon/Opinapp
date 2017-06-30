@@ -23,7 +23,6 @@ import com.opinnapp.opinnapp.tabholder.comments.CommentsActivity;
 import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -143,34 +142,40 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (story.isDisliked)
+                        OADatabase.dislikeStory(false, story, OAApplication.getUser());
+
+                    OADatabase.likeStory(true, story, OAApplication.getUser());
+
                     Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
                     ivLike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
                     ivDislike.setImageDrawable(myDrawable);
-                    tvNumberOfLikes.setText("1");
-                    tvNumberofDislikes.setText("0");
-                    tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+
+                    updateLikesAndDislikes();
                 }
             });
             ivDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (story.isLiked)
+                        OADatabase.likeStory(false, story, OAApplication.getUser());
+
+                    OADatabase.dislikeStory(true, story, OAApplication.getUser());
+
                     Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
                     ivDislike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                     ivLike.setImageDrawable(myDrawable);
-                    tvNumberOfLikes.setText("0");
-                    tvNumberofDislikes.setText("1");
-                    tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+
+                    updateLikesAndDislikes();
                 }
             });
 
             ivBookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (story.isBookmarked()) {
+                    if (story.isBookmarked) {
                         ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
                         OADatabase.favoriteStory(false, story, OAApplication.getUser());
                     }
@@ -180,6 +185,21 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
+        }
+
+        private void updateLikesAndDislikes() {
+            if (story.isLiked)
+                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size() + 1));
+            else
+                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size()));
+
+            if (story.isDisliked)
+                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size() + 1));
+            else
+                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size()));
+
+            tvNumberOfLikes.setVisibility(View.VISIBLE);
+            tvNumberofDislikes.setVisibility(View.VISIBLE);
         }
 
         void bindStory(OAStoryMultiChoiceImages story) {
@@ -192,11 +212,9 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
                 tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
-                //tvUserUrl.setText("@" + story.getOwner().getUrl());
             }
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
-            tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
+            tvStoryTime.setText(OADateUtil.getTimeAgo(story.getCreationDate().getTime()));
 
             Date now = new Date();
             if (story.getExpirationDate().getTime() > now.getTime()) {
@@ -213,7 +231,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             if (story.getTagsString() != null)
                 tvTags.setText(story.getTagsString());
 
-            if (!story.isBookmarked()) {
+            if (!story.isBookmarked) {
                 ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
             }
             else {
@@ -273,34 +291,40 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (story.isDisliked)
+                        OADatabase.dislikeStory(false, story, OAApplication.getUser());
+
+                    OADatabase.likeStory(true, story, OAApplication.getUser());
+
                     Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
                     ivLike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
                     ivDislike.setImageDrawable(myDrawable);
-                    tvNumberOfLikes.setText("1");
-                    tvNumberofDislikes.setText("0");
-                    tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+
+                    updateLikesAndDislikes();
                 }
             });
             ivDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (story.isLiked)
+                        OADatabase.likeStory(false, story, OAApplication.getUser());
+
+                    OADatabase.dislikeStory(true, story, OAApplication.getUser());
+
                     Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
                     ivDislike.setImageDrawable(myDrawable);
                     myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                     ivLike.setImageDrawable(myDrawable);
-                    tvNumberOfLikes.setText("0");
-                    tvNumberofDislikes.setText("1");
-                    tvNumberOfLikes.setVisibility(View.VISIBLE);
-                    tvNumberofDislikes.setVisibility(View.VISIBLE);
+
+                    updateLikesAndDislikes();
                 }
             });
 
             ivBookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (story.isBookmarked()) {
+                    if (story.isBookmarked) {
                         ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
                         OADatabase.favoriteStory(false, story, OAApplication.getUser());
                     }
@@ -312,17 +336,30 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             });
         }
 
+        private void updateLikesAndDislikes() {
+            if (story.isLiked)
+                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size() + 1));
+            else
+                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size()));
+
+            if (story.isDisliked)
+                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size() + 1));
+            else
+                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size()));
+
+            tvNumberOfLikes.setVisibility(View.VISIBLE);
+            tvNumberofDislikes.setVisibility(View.VISIBLE);
+        }
+
         void bindStory(OAStoryTextOnly story) {
             this.story = story;
 
             if (story.getOwner() != null) {
                 Picasso.with(context).load(story.getOwner().getImagePath()).resize(100, 100).into(ivUserPhoto);
                 tvUserName.setText(story.getOwner().getfName() + " " + story.getOwner().getlName());
-                //tvUserUrl.setText("@" + story.getOwner().getUrl());
             }
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
-            tvStoryTime.setText(dateFormat.format(story.getCreationDate()));
+            tvStoryTime.setText(OADateUtil.getTimeAgo(story.getCreationDate().getTime()));
 
             Date now = new Date();
             if (story.getExpirationDate().getTime() > now.getTime()) {
@@ -339,7 +376,7 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             if (story.getTagsString() != null)
                 tvTags.setText(story.getTagsString());
 
-            if (!story.isBookmarked()) {
+            if (!story.isBookmarked) {
                 ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark));
             }
             else {

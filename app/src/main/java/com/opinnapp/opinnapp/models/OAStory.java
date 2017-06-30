@@ -3,6 +3,7 @@ package com.opinnapp.opinnapp.models;
 import com.google.firebase.database.DatabaseError;
 import com.opinnapp.opinnapp.tabholder.OAApplication;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,20 +14,27 @@ import java.util.List;
 //Classe que representa a "duvida" / "pergunta"
 public class OAStory implements OAFirebaseModel {
     //firebase attributes
-    protected String type;
+    String type;
     protected String id;
-    protected String ownerID;
-    protected Long created_at;
-    protected Long expirate_at;
-    protected String description;
+    String ownerID;
+    Long created_at;
+    Long expirate_at;
+    String description;
     protected List<String> tags;
 
     //needs relationship
-    protected OAUser owner;
+    private OAUser owner;
     protected List<OAComment> comments;
-    protected Date creationDate;
-    protected Date expirationDate;
-    protected boolean isBookmarked;
+    Date creationDate;
+    Date expirationDate;
+
+    private List<String> usersIdThatLiked;
+    private List<String> usersIdThatDisliked;
+
+    //from current user
+    public boolean isBookmarked;
+    public boolean isLiked;
+    public boolean isDisliked;
 
     @Override
     public Object firebaseRepresentation() {
@@ -73,6 +81,30 @@ public class OAStory implements OAFirebaseModel {
         });
 
         OADatabase.getIfStoryIsBookmarked(this, OAApplication.getUser());
+
+        OADatabase.getLikesForStory(this, new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                usersIdThatLiked = (List<String>) object;
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+                usersIdThatLiked = new ArrayList<>();
+            }
+        });
+
+        OADatabase.getDislikesForStory(this, new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                usersIdThatDisliked = (List<String>) object;
+            }
+
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+                usersIdThatDisliked = new ArrayList<>();
+            }
+        });
     }
 
     public OAStory() {}
@@ -135,6 +167,14 @@ public class OAStory implements OAFirebaseModel {
         return expirationDate;
     }
 
+    public List<String> getUsersIdThatLiked() {
+        return usersIdThatLiked;
+    }
+
+    public List<String> getUsersIdThatDisliked() {
+        return usersIdThatDisliked;
+    }
+
     public String getType() {
         return type;
     }
@@ -161,13 +201,5 @@ public class OAStory implements OAFirebaseModel {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
         this.expirate_at = expirationDate.getTime();
-    }
-
-    public boolean isBookmarked() {
-        return isBookmarked;
-    }
-
-    public void setBookmarked(boolean bookmarked) {
-        isBookmarked = bookmarked;
     }
 }

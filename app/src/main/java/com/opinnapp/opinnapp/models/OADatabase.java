@@ -108,7 +108,6 @@ public class OADatabase {
     }
     //endregion
 
-
     //region Story
     public static boolean createStory(OAStory story) {
         DatabaseReference storyRef = FirebaseDatabase.getInstance().getReference("story");
@@ -236,7 +235,7 @@ public class OADatabase {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-callback.onFailure(databaseError);
+                callback.onFailure(databaseError);
             }
         });
     }
@@ -246,7 +245,6 @@ callback.onFailure(databaseError);
         storyRef.setValue(story.firebaseRepresentation());
     }
     //endregion
-
 
     //region Comment
     public static boolean createComment(OAComment comment) {
@@ -397,18 +395,18 @@ callback.onFailure(databaseError);
         bookmarkRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    String storyID = dataSnapshot.getKey();
-                    getStoryWithID(storyID, new OAFirebaseCallback() {
-                        @Override
-                        public void onSuccess(Object object) {
-                            callback.onSuccess(object);
-                        }
+                String storyID = dataSnapshot.getKey();
+                getStoryWithID(storyID, new OAFirebaseCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        callback.onSuccess(object);
+                    }
 
-                        @Override
-                        public void onFailure(DatabaseError databaseError) {
-                            callback.onFailure(databaseError);
-                        }
-                    });
+                    @Override
+                    public void onFailure(DatabaseError databaseError) {
+                        callback.onFailure(databaseError);
+                    }
+                });
             }
 
             @Override
@@ -433,6 +431,88 @@ callback.onFailure(databaseError);
         });
     }
 
-    //endRegion
+    //endregion
+
+    //region Likes
+    public static void likeStory(boolean like, OAStory story, OAUser user) {
+        if (like)
+            addLike(story, user);
+        else
+            removeLike(story, user);
+    }
+
+    private static void removeLike(OAStory story, OAUser user) {
+        DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("like/" + story.getId());
+        likeRef.child(user.getId()).removeValue();
+        story.isLiked = false;
+    }
+
+    private static void addLike(OAStory story, OAUser user) {
+        DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("like/" + story.getId());
+        likeRef.child(user.getId()).setValue(true);
+        story.isLiked = true;
+    }
+
+    public static void getLikesForStory(OAStory story, final OAFirebaseCallback callback) {
+        final DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("like/" + story.getId());
+        likeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> likes = new ArrayList<String>();
+                for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
+                    likes.add(userSnap.getKey());
+                }
+                callback.onSuccess(likes);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
+    }
+
+    //endregion
+
+    //region Dislikes
+    public static void dislikeStory(boolean like, OAStory story, OAUser user) {
+        if (like)
+            addDisLike(story, user);
+        else
+            removeDisLike(story, user);
+    }
+
+    private static void removeDisLike(OAStory story, OAUser user) {
+        DatabaseReference dislikeRef = FirebaseDatabase.getInstance().getReference("dislike/" + story.getId());
+        dislikeRef.child(user.getId()).removeValue();
+        story.isDisliked = false;
+    }
+
+    private static void addDisLike(OAStory story, OAUser user) {
+        DatabaseReference dislikeRef = FirebaseDatabase.getInstance().getReference("dislike/" + story.getId());
+        dislikeRef.child(user.getId()).setValue(true);
+        story.isDisliked = true;
+    }
+
+    public static void getDislikesForStory(OAStory story, final OAFirebaseCallback callback) {
+        final DatabaseReference dislikeRef = FirebaseDatabase.getInstance().getReference("dislike/" + story.getId());
+        dislikeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> likes = new ArrayList<String>();
+                for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
+                    likes.add(userSnap.getKey());
+                }
+                callback.onSuccess(likes);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
+    }
+
+    //endregion
 
 }
