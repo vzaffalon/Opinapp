@@ -86,6 +86,8 @@ public class OAStory implements OAFirebaseModel {
             @Override
             public void onSuccess(Object object) {
                 usersIdThatLiked = (List<String>) object;
+                if (OAUtil.contains(usersIdThatLiked, OAApplication.getUser().getId()))
+                    isLiked = true;
             }
 
             @Override
@@ -98,6 +100,8 @@ public class OAStory implements OAFirebaseModel {
             @Override
             public void onSuccess(Object object) {
                 usersIdThatDisliked = (List<String>) object;
+                if (OAUtil.contains(usersIdThatDisliked, OAApplication.getUser().getId()))
+                    isDisliked = true;
             }
 
             @Override

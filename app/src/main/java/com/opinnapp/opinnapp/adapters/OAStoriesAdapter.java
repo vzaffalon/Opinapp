@@ -18,6 +18,7 @@ import com.opinnapp.opinnapp.models.OADateUtil;
 import com.opinnapp.opinnapp.models.OAStory;
 import com.opinnapp.opinnapp.models.OAStoryMultiChoiceImages;
 import com.opinnapp.opinnapp.models.OAStoryTextOnly;
+import com.opinnapp.opinnapp.models.OAUtil;
 import com.opinnapp.opinnapp.tabholder.OAApplication;
 import com.opinnapp.opinnapp.tabholder.comments.CommentsActivity;
 import com.rd.PageIndicatorView;
@@ -147,11 +148,6 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
                     OADatabase.likeStory(true, story, OAApplication.getUser());
 
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
-                    ivLike.setImageDrawable(myDrawable);
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
-                    ivDislike.setImageDrawable(myDrawable);
-
                     updateLikesAndDislikes();
                 }
             });
@@ -162,11 +158,6 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
                         OADatabase.likeStory(false, story, OAApplication.getUser());
 
                     OADatabase.dislikeStory(true, story, OAApplication.getUser());
-
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
-                    ivDislike.setImageDrawable(myDrawable);
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
-                    ivLike.setImageDrawable(myDrawable);
 
                     updateLikesAndDislikes();
                 }
@@ -188,15 +179,26 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
         }
 
         private void updateLikesAndDislikes() {
-            if (story.isLiked)
+            if (story.isLiked) {
                 tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size() + 1));
-            else
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
+                ivLike.setImageDrawable(myDrawable);
+            }
+            else {
                 tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size()));
-
-            if (story.isDisliked)
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
+                ivLike.setImageDrawable(myDrawable);
+            }
+            if (story.isDisliked) {
                 tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size() + 1));
-            else
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
+                ivDislike.setImageDrawable(myDrawable);
+            }
+            else {
                 tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size()));
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
+                ivDislike.setImageDrawable(myDrawable);
+            }
 
             tvNumberOfLikes.setVisibility(View.VISIBLE);
             tvNumberofDislikes.setVisibility(View.VISIBLE);
@@ -237,6 +239,9 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             else {
                 ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_filled));
             }
+
+            if (story.isDisliked || story.isLiked)
+                updateLikesAndDislikes();
         }
     }
 
@@ -291,15 +296,13 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    OAUtil.remove(story.getUsersIdThatDisliked(), OAApplication.getUser().getId());
+                    OAUtil.add(story.getUsersIdThatLiked(), OAApplication.getUser().getId());
+
                     if (story.isDisliked)
                         OADatabase.dislikeStory(false, story, OAApplication.getUser());
 
                     OADatabase.likeStory(true, story, OAApplication.getUser());
-
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
-                    ivLike.setImageDrawable(myDrawable);
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
-                    ivDislike.setImageDrawable(myDrawable);
 
                     updateLikesAndDislikes();
                 }
@@ -307,15 +310,13 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    OAUtil.add(story.getUsersIdThatDisliked(), OAApplication.getUser().getId());
+                    OAUtil.remove(story.getUsersIdThatLiked(), OAApplication.getUser().getId());
+
                     if (story.isLiked)
                         OADatabase.likeStory(false, story, OAApplication.getUser());
 
                     OADatabase.dislikeStory(true, story, OAApplication.getUser());
-
-                    Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
-                    ivDislike.setImageDrawable(myDrawable);
-                    myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
-                    ivLike.setImageDrawable(myDrawable);
 
                     updateLikesAndDislikes();
                 }
@@ -337,18 +338,27 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
         }
 
         private void updateLikesAndDislikes() {
-            if (story.isLiked)
-                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size() + 1));
-            else
-                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size()));
-
-            if (story.isDisliked)
-                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size() + 1));
-            else
-                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size()));
+            if (story.isLiked) {
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
+                ivLike.setImageDrawable(myDrawable);
+            }
+            else {
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
+                ivLike.setImageDrawable(myDrawable);
+            }
+            if (story.isDisliked) {
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
+                ivDislike.setImageDrawable(myDrawable);
+            }
+            else {
+                Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
+                ivDislike.setImageDrawable(myDrawable);
+            }
 
             tvNumberOfLikes.setVisibility(View.VISIBLE);
+            tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size()));
             tvNumberofDislikes.setVisibility(View.VISIBLE);
+            tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size()));
         }
 
         void bindStory(OAStoryTextOnly story) {
@@ -382,6 +392,9 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             else {
                 ivBookmark.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_bookmark_filled));
             }
+
+            if (story.isDisliked || story.isLiked)
+                updateLikesAndDislikes();
         }
     }
 }

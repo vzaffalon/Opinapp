@@ -289,6 +289,7 @@ public class OADatabase {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 OAImageOption image =  dataSnapshot.getValue(OAImageOption.class);
+                image.setObjectsValuesWithFirebaseIds();
                 callback.onSuccess(image);
             }
 
@@ -323,6 +324,44 @@ public class OADatabase {
         newImageOptionRef.setValue(imageOption.firebaseRepresentation());
 
         return imageOption.getId();
+    }
+
+    public static void likeOption(boolean like, OAImageOption imageOption, OAUser user) {
+        if (like)
+            addLike(imageOption, user);
+        else
+            removeLike(imageOption, user);
+    }
+
+    private static void removeLike(OAImageOption imageOption, OAUser user) {
+        DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("likeImage/" + imageOption.getId());
+        likeRef.child(user.getId()).removeValue();
+        imageOption.isLiked = false;
+    }
+
+    private static void addLike(OAImageOption imageOption, OAUser user) {
+        DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("likeImage/" + imageOption.getId());
+        likeRef.child(user.getId()).setValue(true);
+        imageOption.isLiked = true;
+    }
+
+    public static void getLikesForImageOption(OAImageOption imageOption, final OAFirebaseCallback callback) {
+        final DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("likeImage/" + imageOption.getId());
+        likeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> likes = new ArrayList<String>();
+                for (DataSnapshot userSnap : dataSnapshot.getChildren()) {
+                    likes.add(userSnap.getKey());
+                }
+                callback.onSuccess(likes);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onFailure(databaseError);
+            }
+        });
     }
 
     //endregion

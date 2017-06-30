@@ -1,5 +1,9 @@
 package com.opinnapp.opinnapp.models;
 
+import com.google.firebase.database.DatabaseError;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +16,9 @@ public class OAImageOption implements OAFirebaseModel{
     private String storyID;
     private List<String> usersIdThatLiked;
 
+    //from current user
+    public boolean isLiked;
+
     @Override
     public Object firebaseRepresentation() {
         return this;
@@ -19,7 +26,19 @@ public class OAImageOption implements OAFirebaseModel{
 
     @Override
     public void setObjectsValuesWithFirebaseIds() {
+        OADatabase.getLikesForImageOption(this, new OAFirebaseCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                usersIdThatLiked = (List<String>) object;
+                if (OAUtil.contains(usersIdThatLiked, OAApplication.getUser().getId()))
+                    isLiked = true;
+            }
 
+            @Override
+            public void onFailure(DatabaseError databaseError) {
+                usersIdThatLiked = new ArrayList<>();
+            }
+        });
     }
 
     public String getId() {

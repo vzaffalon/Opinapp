@@ -10,7 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opinnapp.opinnapp.R;
+import com.opinnapp.opinnapp.models.OADatabase;
 import com.opinnapp.opinnapp.models.OAImageOption;
+import com.opinnapp.opinnapp.models.OAUtil;
+import com.opinnapp.opinnapp.tabholder.OAApplication;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,10 +25,12 @@ import java.util.List;
 public class OAStoryImagesAdapter extends PagerAdapter {
     private Context context;
     private List<OAImageOption> images;
+    private boolean shouldShowQtds = false;
 
     public OAStoryImagesAdapter(List<OAImageOption> images, Context context) {
         this.images = images;
         this.context = context;
+        checkIfShouldShowQtds();
     }
 
     @Override
@@ -39,7 +44,7 @@ public class OAStoryImagesAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = layoutInflater.inflate(R.layout.cell_image_and_like, container, false);
@@ -54,14 +59,44 @@ public class OAStoryImagesAdapter extends PagerAdapter {
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                like.setImageResource(R.drawable.ic_thumbs_up_filled);
+                shouldShowQtds = true;
+
+                if (images.get(position).isLiked) {
+                    OADatabase.likeOption(false, images.get(position), OAApplication.getUser());
+                    like.setImageResource(R.drawable.ic_thumbs_up);
+                    OAUtil.remove(images.get(position).getUsersIdThatLiked(), OAApplication.getUser().getId());
+                }
+                else {
+                    OADatabase.likeOption(true, images.get(position), OAApplication.getUser());
+                    like.setImageResource(R.drawable.ic_thumbs_up_filled);
+                    OAUtil.add(images.get(position).getUsersIdThatLiked(), OAApplication.getUser().getId());
+                }
+
                 numberOfLikes.setVisibility(View.VISIBLE);
-                numberOfLikes.setText("1");
+                numberOfLikes.setText(String.valueOf(images.get(position).getUsersIdThatLiked().size()));
             }
         });
 
+        if (shouldShowQtds) {
+            numberOfLikes.setVisibility(View.VISIBLE);
+            numberOfLikes.setText(String.valueOf(images.get(position).getUsersIdThatLiked().size()));
+        }
+
+        if (images.get(position).isLiked)
+            like.setImageResource(R.drawable.ic_thumbs_up_filled);
+        else
+            like.setImageResource(R.drawable.ic_thumbs_up);
+
+
         container.addView(view);
         return view;
+    }
+
+    private void checkIfShouldShowQtds() {
+        for (OAImageOption imageOption : images) {
+            if (imageOption.isLiked)
+                shouldShowQtds = true;
+        }
     }
 
     @Override
