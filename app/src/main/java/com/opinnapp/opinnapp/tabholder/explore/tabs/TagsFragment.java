@@ -49,6 +49,7 @@ public class TagsFragment extends Fragment {
     private List<Tag> tags;
     private int ranking = 1;
     private int numberOfPosts = 12;
+    private ImageView toolbar_logo;
 
     // newInstance constructor for creating fragment with arguments
     public static TagsFragment newInstance() {
@@ -66,6 +67,7 @@ public class TagsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.search_menu, menu);
+        toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
         setUpSearchMenu(menu);
 
         MenuItem menuItem = menu.findItem(R.id.menu_search);
@@ -75,14 +77,12 @@ public class TagsFragment extends Fragment {
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem menuItem) {
                         // Return true to allow the action view to expand
-                        final ImageView toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
-                        toolbar_logo.setVisibility(View.GONE);
+                        toolbar_logo.setVisibility(View.INVISIBLE);
                         return true;
                     }
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                         // When the action view is collapsed, reset the query
-                        final ImageView toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
                         toolbar_logo.setVisibility(View.VISIBLE);
                         // Return true to allow the action view to collapse
                         return true;
@@ -93,7 +93,7 @@ public class TagsFragment extends Fragment {
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
+        final SearchView searchView =
                 (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -104,7 +104,7 @@ public class TagsFragment extends Fragment {
                 List<Tag> tagsAux = new ArrayList<Tag>();
 
                 for (int i=0;i<tags.size();i++){
-                    if(tags.get(i).getTagName().contains(query)){
+                    if(tags.get(i).getTagName().toLowerCase().contains(query.toLowerCase())){
                         tagsAux.add(tags.get(i));
                     }
                 }
@@ -116,6 +116,8 @@ public class TagsFragment extends Fragment {
                         transaction.commit();
                     }
                 }));
+                toolbar_logo.setVisibility(View.VISIBLE);
+                searchView.clearFocus();
                 return false;
             }
 

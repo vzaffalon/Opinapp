@@ -94,7 +94,7 @@ public class QuestionsFragment extends Fragment {
                         mountRecycler();
                         updateStoriesCount();
                     }
-                }, 1000);
+                }, 2000);
             }
 
             @Override

@@ -91,7 +91,7 @@ public class SavedFragment extends Fragment {
                     public void run() {
                         mountRecycler();
                     }
-                }, 1000);
+                }, 2000);
             }
 
             @Override

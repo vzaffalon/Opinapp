@@ -38,6 +38,7 @@ public class PerfilsFragment extends Fragment {
     private Context context;
     private View view;
     private List<OAUser> perfils;
+    private ImageView toolbar_logo;
 
     // newInstance constructor for creating fragment with arguments
     public static PerfilsFragment newInstance() {
@@ -59,6 +60,7 @@ public class PerfilsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.search_menu, menu);
+        toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
         setUpSearchMenu(menu);
 
         MenuItem menuItem = menu.findItem(R.id.menu_search);
@@ -68,14 +70,12 @@ public class PerfilsFragment extends Fragment {
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem menuItem) {
                         // Return true to allow the action view to expand
-                        final ImageView toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
-                        toolbar_logo.setVisibility(View.GONE);
+                        toolbar_logo.setVisibility(View.INVISIBLE);
                         return true;
                     }
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                         // When the action view is collapsed, reset the query
-                        final ImageView toolbar_logo = (ImageView) getActivity().findViewById(R.id.toolbar_logo);
                         toolbar_logo.setVisibility(View.VISIBLE);
                         // Return true to allow the action view to collapse
                         return true;
@@ -86,7 +86,7 @@ public class PerfilsFragment extends Fragment {
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
+        final SearchView searchView =
                 (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -97,7 +97,7 @@ public class PerfilsFragment extends Fragment {
                 List<OAUser> perfilsAux = new ArrayList<OAUser>();
 
                 for (int i=0;i<perfils.size();i++){
-                    if(perfils.get(i).getfName().contains(query) || perfils.get(i).getlName().contains(query)){
+                    if(perfils.get(i).getfName().toLowerCase().contains(query.toLowerCase()) || perfils.get(i).getlName().toLowerCase().contains(query.toLowerCase())){
                         perfilsAux.add(perfils.get(i));
                     }
                 }
@@ -109,6 +109,8 @@ public class PerfilsFragment extends Fragment {
                         transaction.commit();
                     }
                 }));
+                toolbar_logo.setVisibility(View.VISIBLE);
+                searchView.clearFocus();
                 return false;
             }
 
