@@ -143,6 +143,9 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    OAUtil.remove(story.getUsersIdThatDisliked(), OAApplication.getUser().getId());
+                    OAUtil.add(story.getUsersIdThatLiked(), OAApplication.getUser().getId());
+
                     if (story.isDisliked)
                         OADatabase.dislikeStory(false, story, OAApplication.getUser());
 
@@ -154,6 +157,9 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
             ivDislike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    OAUtil.add(story.getUsersIdThatDisliked(), OAApplication.getUser().getId());
+                    OAUtil.remove(story.getUsersIdThatLiked(), OAApplication.getUser().getId());
+
                     if (story.isLiked)
                         OADatabase.likeStory(false, story, OAApplication.getUser());
 
@@ -180,28 +186,26 @@ public class OAStoriesAdapter extends RecyclerView.Adapter {
 
         private void updateLikesAndDislikes() {
             if (story.isLiked) {
-                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size() + 1));
                 Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up_filled);
                 ivLike.setImageDrawable(myDrawable);
             }
             else {
-                tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size()));
                 Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_up);
                 ivLike.setImageDrawable(myDrawable);
             }
             if (story.isDisliked) {
-                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size() + 1));
                 Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down_filled);
                 ivDislike.setImageDrawable(myDrawable);
             }
             else {
-                tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size()));
                 Drawable myDrawable = context.getResources().getDrawable(R.drawable.ic_thumbs_down);
                 ivDislike.setImageDrawable(myDrawable);
             }
 
             tvNumberOfLikes.setVisibility(View.VISIBLE);
+            tvNumberOfLikes.setText(String.valueOf(story.getUsersIdThatLiked().size()));
             tvNumberofDislikes.setVisibility(View.VISIBLE);
+            tvNumberofDislikes.setText(String.valueOf(story.getUsersIdThatDisliked().size()));
         }
 
         void bindStory(OAStoryMultiChoiceImages story) {
